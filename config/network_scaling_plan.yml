@@ -1,0 +1,46 @@
+﻿schema_version: 1
+purpose: development_only_scaling_preparation
+execution:
+  training_enabled: false
+  model_inference_enabled: false
+  deployment_enabled: false
+  allowed_years: [2024, 2025]
+  prohibited_role: reused_holdout
+resources:
+  container_memory_gib: 2
+  extra_swap_gib: 0
+  cpu_threads: 2
+  parquet_batch_rows: 4096
+  raw_history_carry_rows: 168
+  maximum_open_writers: 8
+  preparation_memory_stop_fraction: 0.85
+  host_disk_reserve_gib: 10
+  simultaneous_ml_jobs: 1
+future_stages_require_separate_authorization:
+  - stations: 96
+  - stations: 192
+  - stations: 384
+  - stations: all_development_eligible
+training_design:
+  repeated_station_batch_fit_allowed: false
+  reason: LightGBM is not an online partial-fit learner; repeated fit/init_model changes the learning procedure
+  primary_candidate: disk_backed_global_training_dataset_with_train_only_bins
+  bounded_alternative: training_only_stratified_row_sample_covering_all_eligible_stations
+  alternative_row_budget: 1000000
+  native_memory_feasibility_verified: false
+retention:
+  full_training_predictions: required
+  full_validation_predictions: required
+  features: full_disk_backed_matrix_and_row_key_hashes
+  model_and_policy_hashes: required
+  source_and_code_provenance: required
+  station_week_and_season_guard_diagnostics: required
+validation_gates:
+  calendar_roles: 2024_fit_2025_select
+  frozen_station_and_season_guards: unchanged
+  fallback_membership_source: 2025_only
+  aggregate_fallback_cost_increase_allowed: false
+  silent_station_or_row_removal_allowed: false
+  unresolved_failures: stop_and_report
+  unknown_station_code_extrapolation_allowed: false
+  global_training_claim_requires_native_capacity_measurement: true

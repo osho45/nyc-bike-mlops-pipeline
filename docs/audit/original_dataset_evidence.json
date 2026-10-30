@@ -1,0 +1,333 @@
+{
+  "baseline_commit": "26bf620cf223b2eb795face326a7301e98443d62",
+  "conclusion": "Active code uses NYC TLC Yellow Taxi; no Citi Bike ingestion or station schema existed. No local data/models/tests were present at audit start.",
+  "files": {
+    "jobs\\bronze_ingest.py": [
+      {
+        "line": 9,
+        "excerpt": "\"VendorID\": \"int\", \"tpep_pickup_datetime\": \"timestamp\", \"tpep_dropoff_datetime\": \"timestamp\","
+      },
+      {
+        "line": 11,
+        "excerpt": "\"store_and_fwd_flag\": \"string\", \"PULocationID\": \"int\", \"DOLocationID\": \"int\","
+      },
+      {
+        "line": 12,
+        "excerpt": "\"payment_type\": \"int\", \"fare_amount\": \"double\", \"extra\": \"double\", \"mta_tax\": \"double\","
+      },
+      {
+        "line": 59,
+        "excerpt": "bronze_table = f\"{catalog}.bronze.yellow_taxi_raw\""
+      },
+      {
+        "line": 64,
+        "excerpt": "VendorID INT, tpep_pickup_datetime TIMESTAMP, tpep_dropoff_datetime TIMESTAMP,"
+      },
+      {
+        "line": 66,
+        "excerpt": "PULocationID INT, DOLocationID INT, payment_type INT, fare_amount DOUBLE, extra DOUBLE, mta_tax DOUBLE,"
+      },
+      {
+        "line": 93,
+        "excerpt": "col(\"tpep_pickup_datetime\").cast(\"timestamp\").alias(\"tpep_pickup_datetime\"),"
+      },
+      {
+        "line": 94,
+        "excerpt": "col(\"tpep_dropoff_datetime\").cast(\"timestamp\").alias(\"tpep_dropoff_datetime\"),"
+      },
+      {
+        "line": 99,
+        "excerpt": "col(\"PULocationID\").cast(\"int\").alias(\"PULocationID\"),"
+      },
+      {
+        "line": 100,
+        "excerpt": "col(\"DOLocationID\").cast(\"int\").alias(\"DOLocationID\"),"
+      },
+      {
+        "line": 102,
+        "excerpt": "col(\"fare_amount\").cast(\"double\").alias(\"fare_amount\"),"
+      }
+    ],
+    "jobs\\download_raw_data.py": [
+      {
+        "line": 10,
+        "excerpt": "filename = f\"yellow_tripdata_{year}-{formatted_month}.parquet\""
+      }
+    ],
+    "jobs\\gold_bi.py": [
+      {
+        "line": 41,
+        "excerpt": "silver_table = f\"{catalog}.silver.yellow_taxi_trips\""
+      }
+    ],
+    "jobs\\gold_ml.py": [
+      {
+        "line": 43,
+        "excerpt": "silver_table = f\"{catalog}.silver.yellow_taxi_trips\""
+      },
+      {
+        "line": 60,
+        "excerpt": "SELECT explode(sequence(2, 263)) AS pickup_location_id"
+      },
+      {
+        "line": 86,
+        "excerpt": "forbidden_leakage_fields = [\"dropoff_datetime\", \"tip_amount\", \"fare_amount\", \"passenger_count\", \"trip_distance\"]"
+      }
+    ],
+    "jobs\\silver_wap.py": [
+      {
+        "line": 50,
+        "excerpt": "bronze_table = f\"{catalog}.bronze.yellow_taxi_raw\""
+      },
+      {
+        "line": 51,
+        "excerpt": "silver_table = f\"{catalog}.silver.yellow_taxi_trips\""
+      },
+      {
+        "line": 53,
+        "excerpt": "quarantine_table = f\"{catalog}.quarantine.yellow_taxi_trips\""
+      },
+      {
+        "line": 59,
+        "excerpt": "trip_distance DOUBLE, fare_amount DOUBLE, tip_amount DOUBLE,"
+      },
+      {
+        "line": 69,
+        "excerpt": "VendorID INT, tpep_pickup_datetime TIMESTAMP, tpep_dropoff_datetime TIMESTAMP,"
+      },
+      {
+        "line": 71,
+        "excerpt": "PULocationID INT, DOLocationID INT, payment_type INT, fare_amount DOUBLE, extra DOUBLE, mta_tax DOUBLE,"
+      },
+      {
+        "line": 142,
+        "excerpt": "col(\"tpep_pickup_datetime\").isNotNull() & col(\"tpep_dropoff_datetime\").isNotNull() &"
+      },
+      {
+        "line": 143,
+        "excerpt": "col(\"PULocationID\").isNotNull() & col(\"DOLocationID\").isNotNull() &"
+      },
+      {
+        "line": 145,
+        "excerpt": "(col(\"tpep_dropoff_datetime\").cast(\"long\") > col(\"tpep_pickup_datetime\").cast(\"long\")) &"
+      },
+      {
+        "line": 148,
+        "excerpt": "(~col(\"PULocationID\").isin([1, 264, 265])) &"
+      },
+      {
+        "line": 149,
+        "excerpt": "(col(\"tpep_pickup_datetime\") >= start_date) & (col(\"tpep_pickup_datetime\") < end_date) &"
+      },
+      {
+        "line": 154,
+        "excerpt": "col(\"tpep_pickup_datetime\").alias(\"pickup_datetime\"), col(\"tpep_dropoff_datetime\").alias(\"dropoff_datetime\"),"
+      },
+      {
+        "line": 155,
+        "excerpt": "col(\"PULocationID\").cast(\"int\").alias(\"pickup_location_id\"), col(\"DOLocationID\").cast(\"int\").alias(\"dropoff_location_id\"),"
+      },
+      {
+        "line": 156,
+        "excerpt": "col(\"trip_distance\").cast(\"double\").alias(\"trip_distance\"), col(\"fare_amount\").cast(\"double\").alias(\"fare_amount\"),"
+      },
+      {
+        "line": 180,
+        "excerpt": "col(\"VendorID\").cast(\"int\").alias(\"VendorID\"), col(\"tpep_pickup_datetime\").cast(\"timestamp\").alias(\"tpep_pickup_datetime\"),"
+      },
+      {
+        "line": 181,
+        "excerpt": "col(\"tpep_dropoff_datetime\").cast(\"timestamp\").alias(\"tpep_dropoff_datetime\"), col(\"passenger_count\").cast(\"double\").alias(\"passenger_count\"),"
+      },
+      {
+        "line": 183,
+        "excerpt": "col(\"store_and_fwd_flag\").cast(\"string\").alias(\"store_and_fwd_flag\"), col(\"PULocationID\").cast(\"int\").alias(\"PULocationID\"),"
+      },
+      {
+        "line": 184,
+        "excerpt": "col(\"DOLocationID\").cast(\"int\").alias(\"DOLocationID\"), col(\"payment_type\").cast(\"int\").alias(\"payment_type\"),"
+      },
+      {
+        "line": 185,
+        "excerpt": "col(\"fare_amount\").cast(\"double\").alias(\"fare_amount\"), col(\"extra\").cast(\"double\").alias(\"extra\"),"
+      }
+    ],
+    "dags\\1_bronze_ingestion.py": [
+      {
+        "line": 11,
+        "excerpt": "uri=\"file:///opt/airflow/data/incoming/taxi_data_drop\","
+      },
+      {
+        "line": 14,
+        "excerpt": "name=\"warehouse/bronze/yellow_taxi_raw\","
+      },
+      {
+        "line": 15,
+        "excerpt": "uri=\"iceberg://bronze.yellow_taxi_raw\","
+      }
+    ],
+    "dags\\2_silver_wap_purification.py": [
+      {
+        "line": 10,
+        "excerpt": "name=\"warehouse/bronze/yellow_taxi_raw\","
+      },
+      {
+        "line": 11,
+        "excerpt": "uri=\"iceberg://bronze.yellow_taxi_raw\","
+      },
+      {
+        "line": 14,
+        "excerpt": "name=\"warehouse/silver/yellow_taxi_trips\","
+      },
+      {
+        "line": 15,
+        "excerpt": "uri=\"iceberg://silver.yellow_taxi_trips\","
+      }
+    ],
+    "dags\\3a_gold_bi_marts.py": [
+      {
+        "line": 8,
+        "excerpt": "name=\"warehouse/silver/yellow_taxi_trips\","
+      },
+      {
+        "line": 9,
+        "excerpt": "uri=\"iceberg://silver.yellow_taxi_trips\","
+      }
+    ],
+    "dags\\3b_gold_ml_observations.py": [
+      {
+        "line": 8,
+        "excerpt": "name=\"warehouse/silver/yellow_taxi_trips\","
+      },
+      {
+        "line": 9,
+        "excerpt": "uri=\"iceberg://silver.yellow_taxi_trips\","
+      }
+    ],
+    "config\\local.yml": [
+      {
+        "line": 14,
+        "excerpt": "incoming_taxi_data_uri: file:///opt/airflow/data/incoming/taxi_data_drop"
+      },
+      {
+        "line": 15,
+        "excerpt": "bronze_taxi_data_uri: iceberg://bronze.yellow_taxi_raw"
+      },
+      {
+        "line": 16,
+        "excerpt": "silver_taxi_data_uri: iceberg://silver.yellow_taxi_trips"
+      }
+    ],
+    "streamlit\\app.py": [
+      {
+        "line": 469,
+        "excerpt": "\"Pickup Location ID\","
+      }
+    ]
+  },
+  "notebooks": {
+    "2026_07_08.ipynb": {
+      "cells": 7,
+      "taxi_references": []
+    },
+    "checksum_test.ipynb": {
+      "cells": 3,
+      "taxi_references": [
+        {
+          "cell": 0,
+          "excerpt": "source_filepath = '../data/incoming/yellow_tripdata_2026-04.parquet'"
+        }
+      ]
+    },
+    "download_verification.ipynb": {
+      "cells": 18,
+      "taxi_references": [
+        {
+          "cell": 0,
+          "excerpt": "    filename = f\"yellow_tripdata_{year}-{formatted_month}.parquet\""
+        },
+        {
+          "cell": 6,
+          "excerpt": "    FROM nyc.bronze.yellow_taxi_raw"
+        },
+        {
+          "cell": 7,
+          "excerpt": "        'nyc.silver.yellow_taxi_trips' as table_name,"
+        },
+        {
+          "cell": 7,
+          "excerpt": "    FROM nyc.silver.yellow_taxi_trips"
+        },
+        {
+          "cell": 7,
+          "excerpt": "        'nyc.quarantine.yellow_taxi_trips' as table_name,"
+        },
+        {
+          "cell": 7,
+          "excerpt": "    FROM nyc.quarantine.yellow_taxi_trips"
+        },
+        {
+          "cell": 8,
+          "excerpt": "        'nyc.silver.yellow_taxi_trips' as table_name,"
+        },
+        {
+          "cell": 8,
+          "excerpt": "    FROM nyc.silver.yellow_taxi_trips"
+        },
+        {
+          "cell": 8,
+          "excerpt": "        'nyc.quarantine.yellow_taxi_trips' as table_name,"
+        },
+        {
+          "cell": 8,
+          "excerpt": "    FROM nyc.quarantine.yellow_taxi_trips"
+        },
+        {
+          "cell": 9,
+          "excerpt": "history_df = spark.sql(\"SELECT * FROM nyc.silver.yellow_taxi_trips.history\")"
+        },
+        {
+          "cell": 9,
+          "excerpt": "snapshots_df = spark.sql(\"SELECT snapshot_id, parent_id, operation, summary FROM nyc.silver.yellow_taxi_trips.snapshots\")"
+        }
+      ]
+    },
+    "eda_on_taxi_data.ipynb": {
+      "cells": 26,
+      "taxi_references": [
+        {
+          "cell": 0,
+          "excerpt": "    filename = f\"yellow_tripdata_{year}-{formatted_month}.parquet\""
+        },
+        {
+          "cell": 1,
+          "excerpt": "file_path = \"../data/raw/yellow_tripdata_2026-05.parquet\""
+        },
+        {
+          "cell": 4,
+          "excerpt": "df[df['tpep_pickup_datetime']>='2026-06-01']"
+        },
+        {
+          "cell": 5,
+          "excerpt": "df['duration'] = (df['tpep_dropoff_datetime'] - df['tpep_pickup_datetime']).dt.total_seconds() / 60"
+        },
+        {
+          "cell": 23,
+          "excerpt": "(df['tpep_pickup_datetime'] > df['tpep_dropoff_datetime']).sum()"
+        }
+      ]
+    },
+    "hive_iceberg_example.ipynb": {
+      "cells": 31,
+      "taxi_references": []
+    },
+    "notebook1.ipynb": {
+      "cells": 1,
+      "taxi_references": []
+    },
+    "Untitled.ipynb": {
+      "cells": 5,
+      "taxi_references": []
+    }
+  }
+}

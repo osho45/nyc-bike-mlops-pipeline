@@ -28,8 +28,8 @@ from jobs.ml_utils import (
     get_models_dir,
 )
 from jobs.ml_features import (
-    select_highest_volume_location,
-    load_location_history,
+    select_highest_volume_station,
+    load_station_history,
     prepare_model_frames,
 )
 from jobs.ml_experiments import (
@@ -41,7 +41,7 @@ from jobs.ml_experiments import (
 
 
 def run_training_pipeline(
-    config_path: str | None = None, optuna_trials: int = 20
+    config_path: str | None = None, optuna_trials: int = 2
 ) -> None:
     """Executes the complete production training lifecycle, optimizing for asymmetric business costs."""
     # 1. Initialize configurations and cluster sessions
@@ -50,24 +50,28 @@ def run_training_pipeline(
     )
     cfg = load_config(config_file)
 
+    if any((get_models_dir(cfg)/name).exists() for name in ['champion_model.pkl','champion_metadata.json']):raise FileExistsError('Choose a new models_dir; existing checkpoint preserved')
     spark = create_spark_session(cfg, app_name="MLOpsDemandTrainingPipeline")
     gold_table = get_gold_ml_table(cfg)
     logger.info(f"Targeting ML Feature Mart Observation Layer: {gold_table}")
 
     # 2. Load Observations and Isolate Core Hotspot
     gold_df = spark.table(gold_table)
-    pickup_location_id = select_highest_volume_location(gold_df)
-    logger.info(f"Isolated highest-volume zone candidate ID: {pickup_location_id}")
+    year_policy=cfg.get('ml',{}).get('split_policy')=='calendar_year'
+    station_id = select_highest_volume_station(gold_df,training_year=2024 if year_policy else None)
+    logger.info(f"Isolated highest-volume station candidate ID: {station_id}")
 
-    history_pdf = load_location_history(gold_df, pickup_location_id=pickup_location_id)
+    history_pdf = load_station_history(gold_df, station_id=station_id)
 
     # 3. Construct Leakage-Safe Time-Series Frames
     logger.info(
         "Initializing chronological structural window features and threshold splits..."
     )
-    train_df, val_df, test_df, thresholds, feature_columns = prepare_model_frames(
-        history_pdf
-    )
+    if year_policy:
+        from jobs.year_features import prepare_year_model_frames
+        train_df,val_df,test_df,thresholds,feature_columns=prepare_year_model_frames(history_pdf)
+    else:
+        train_df,val_df,test_df,thresholds,feature_columns=prepare_model_frames(history_pdf)
 
     logger.info(f"Loaded Contract Thresholds: {thresholds}")
     logger.info(
@@ -95,7 +99,7 @@ def run_training_pipeline(
         X_val=X_val,
         y_val=y_val,
         thresholds=thresholds,
-        pickup_location_id=pickup_location_id,
+        station_id=station_id,
         artifacts_dir=artifacts_dir,
         optuna_trials=optuna_trials,
     )
@@ -136,6 +140,7 @@ def run_training_pipeline(
         X_test=X_test,
         y_test=y_test,
         artifacts_dir=artifacts_dir,
+        refit_validation=not year_policy,
     )
 
     # 7. Export Validated Assets to Scoring Path Container
@@ -146,8 +151,11 @@ def run_training_pipeline(
         models_dir=models_dir,
         thresholds=thresholds,
         feature_columns=feature_columns,
-        pickup_location_id=pickup_location_id,
+        station_id=station_id,
         test_metrics=test_metrics,
+        training_cutoff_utc=str(val_df["station_hour_ts"].max()),
+        fit_cutoff_utc=str((train_df if year_policy else val_df)['station_hour_ts'].max()),
+        split_policy='calendar_year' if year_policy else 'fractional',
     )
     logger.info("🟢 Training pipeline successfully finished execution.")
 
@@ -164,7 +172,7 @@ def main() -> None:
     parser.add_argument(
         "--trials",
         type=int,
-        default=20,
+        default=2,
         help="Number of Optuna trials to allocate per tuned family.",
     )
     args = parser.parse_args()

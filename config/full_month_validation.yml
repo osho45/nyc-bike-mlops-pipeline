@@ -1,0 +1,25 @@
+# Isolated profile; full-month execution requires an explicit command.
+catalog:
+  spark_catalog_name: citibike_fullmonth
+  logical_name: citibike_fullmonth_validation
+  type: hadoop
+  warehouse_path: data/citibike/full_month_validation/warehouse
+storage:
+  incoming_directory: data/citibike/full_month_validation/incoming
+  warehouse_directory: data/citibike/full_month_validation/warehouse
+assets:
+  incoming_citibike_data_uri: validation://citibike/fullmonth/incoming
+  bronze_citibike_data_uri: validation://citibike/fullmonth/bronze
+  silver_citibike_data_uri: validation://citibike/fullmonth/silver
+ml:
+  models_dir: models/citibike_full_month_validation
+  predictions_dir: data/citibike/full_month_validation/predictions
+quality:
+  maximum_rejection_fraction: 0.35
+spark:
+  spark.master: local[1]
+  spark.driver.memory: 1g
+  spark.sql.shuffle.partitions: 8
+  spark.default.parallelism: 1
+  spark.sql.session.timeZone: UTC
+environment: local

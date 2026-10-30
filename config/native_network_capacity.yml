@@ -1,0 +1,49 @@
+﻿purpose: bounded_native_dataset_capacity_validation
+allowed_stages: [smoke, 96, 192, 384]
+larger_stages_enabled: false
+authorized_years: [2024, 2025]
+smoke:
+  stations: 4
+  boosting_rounds: 10
+capacity:
+  stations: 96
+  boosting_rounds: 100
+  requires_all_smoke_phases_complete: true
+resources:
+  memory_gib: 2
+  extra_swap_gib: 0
+  cpu_threads: 2
+  stop_fraction_charged_memory: 0.85
+  memory_sample_interval_seconds: 0.02
+  raw_batch_rows: 32768
+  feature_batch_rows: 4096
+  native_sequence_batch_rows: 4096
+  maximum_open_raw_writers: 8
+  maximum_station_raw_history_rows: 18000
+  feature_carry_hours: 168
+phase_containers: [prepare, construct, fit, export]
+training:
+  interface: native_LightGBM_Dataset_Sequence
+  storage: float32_memmap
+  sequence_sample_dtype: float64_single_row_conversion
+  validation_bins: training_reference_only
+  early_stopping: false
+  hyperparameter_search: false
+  checkpoints_every_rounds: 20
+policy_calibration_enabled: false
+frozen_policy_changes_allowed: false
+held_out_evaluation_enabled: false
+deployment_enabled: false
+
+capacity_192:
+  stations: 192
+  boosting_rounds: 100
+  requires_all_96_phases_complete: true
+  requires_all_smoke_phases_complete: true
+
+capacity_384:
+  stations: 384
+  boosting_rounds: 100
+  requires_all_192_phases_complete: true
+  requires_all_smoke_phases_complete: true
+full_network_training_enabled: false

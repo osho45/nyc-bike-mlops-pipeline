@@ -1,0 +1,195 @@
+{
+  "verified": true,
+  "dag_run": {
+    "dag_run_id": "bounded_coordinator_01",
+    "dag_id": "monthly_citibike_downloads",
+    "logical_date": null,
+    "queued_at": "2026-10-28T05:00:08.312439Z",
+    "start_date": "2026-10-28T05:01:55.854645Z",
+    "end_date": "2026-10-28T05:02:50.054439Z",
+    "duration": 54.199794,
+    "data_interval_start": null,
+    "data_interval_end": null,
+    "run_after": "2026-10-28T05:00:08.154538Z",
+    "last_scheduling_decision": "2026-10-28T05:02:50.047791Z",
+    "run_type": "manual",
+    "state": "success",
+    "triggered_by": "rest_api",
+    "triggering_user_name": "admin",
+    "conf": {
+      "dry_run": true,
+      "fail_once": true
+    },
+    "note": null,
+    "dag_versions": [
+      {
+        "id": "01a17fd8-5e95-7edb-b531-536cd98908e1",
+        "version_number": 1,
+        "dag_id": "monthly_citibike_downloads",
+        "bundle_name": "dags-folder",
+        "bundle_version": null,
+        "created_at": "2026-10-28T00:10:48.853315Z",
+        "dag_display_name": "monthly_citibike_downloads",
+        "bundle_url": null
+      }
+    ],
+    "bundle_version": null,
+    "dag_display_name": "monthly_citibike_downloads",
+    "partition_key": null
+  },
+  "tasks": [
+    {
+      "id": "01a180e2-fc67-7ccb-9776-ab5d55ce5c47",
+      "task_id": "discover_download_and_wait",
+      "dag_id": "monthly_citibike_downloads",
+      "dag_run_id": "bounded_coordinator_01",
+      "map_index": -1,
+      "logical_date": null,
+      "run_after": "2026-10-28T05:00:08.154538Z",
+      "start_date": "2026-10-28T05:02:47.052632Z",
+      "end_date": "2026-10-28T05:02:49.229666Z",
+      "duration": 2.177034,
+      "state": "success",
+      "try_number": 2,
+      "max_tries": 1,
+      "task_display_name": "discover_download_and_wait",
+      "dag_display_name": "monthly_citibike_downloads",
+      "hostname": "8bd6e7cf9d03",
+      "unixname": "airflow",
+      "pool": "default_pool",
+      "pool_slots": 1,
+      "queue": "default",
+      "priority_weight": 1,
+      "operator": "_PythonDecoratedOperator",
+      "operator_name": "@task",
+      "queued_when": "2026-10-28T05:02:46.830573Z",
+      "scheduled_when": "2026-10-28T05:02:46.817164Z",
+      "pid": 7121,
+      "executor": null,
+      "executor_config": "{}",
+      "note": null,
+      "rendered_map_index": null,
+      "rendered_fields": {},
+      "trigger": null,
+      "triggerer_job": null,
+      "dag_version": {
+        "id": "01a17fd8-5e95-7edb-b531-536cd98908e1",
+        "version_number": 1,
+        "dag_id": "monthly_citibike_downloads",
+        "bundle_name": "dags-folder",
+        "bundle_version": null,
+        "created_at": "2026-10-28T00:10:48.853315Z",
+        "dag_display_name": "monthly_citibike_downloads",
+        "bundle_url": null
+      }
+    }
+  ],
+  "bounded_simulation": {
+    "verified": true,
+    "simulation_only": true,
+    "restored_checkpoint_from_prior_task_attempt": true,
+    "real_downloads": 0,
+    "real_asset_events": 0,
+    "real_table_writes": 0,
+    "initial_interruption_trace": [
+      [
+        "skip",
+        2024,
+        1
+      ],
+      [
+        "skip",
+        2024,
+        2
+      ],
+      [
+        "execute",
+        2024,
+        3
+      ]
+    ],
+    "resume_trace": [
+      [
+        "skip",
+        2024,
+        1
+      ],
+      [
+        "skip",
+        2024,
+        2
+      ],
+      [
+        "execute",
+        2024,
+        3
+      ],
+      [
+        "execute",
+        2024,
+        4
+      ],
+      [
+        "execute",
+        2024,
+        5
+      ],
+      [
+        "execute",
+        2024,
+        6
+      ],
+      [
+        "execute",
+        2024,
+        7
+      ],
+      [
+        "execute",
+        2024,
+        8
+      ],
+      [
+        "execute",
+        2024,
+        9
+      ],
+      [
+        "execute",
+        2024,
+        10
+      ],
+      [
+        "execute",
+        2024,
+        11
+      ],
+      [
+        "execute",
+        2024,
+        12
+      ],
+      [
+        "year",
+        2024
+      ],
+      [
+        "execute",
+        2025,
+        1
+      ],
+      [
+        "execute",
+        2025,
+        2
+      ],
+      [
+        "year",
+        2025
+      ]
+    ],
+    "year_failure_blocks_next_year": true,
+    "resource_failure_prevents_execution": true,
+    "real_february_checkpoint_verified": true
+  }
+}

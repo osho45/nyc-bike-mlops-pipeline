@@ -1,0 +1,31 @@
+{
+  "training_enabled": true,
+  "authorization": "Explicit user instruction: full-network 1898-station execution on the current machine, bounded by actual resource admission",
+  "stations": 1898,
+  "allowed_years": [
+    2024,
+    2025
+  ],
+  "boosting_rounds": 100,
+  "validation_protocol": "fixed-budget training-only fit; all 100 validation curves recovered afterward",
+  "preparation_cap_mib": 768,
+  "native_cap_mib": 1536,
+  "stop_fraction": 0.85,
+  "cpu_threads": 2,
+  "extra_swap_bytes": 0,
+  "host_startup_reserve_gib_beyond_worker_cap": 1,
+  "host_runtime_reserve_gib": 1,
+  "guest_startup_reserve_mib_beyond_worker_cap": 512,
+  "guest_runtime_reserve_mib": 512,
+  "disk_startup_min_gib": 16,
+  "disk_runtime_reserve_gib": 10,
+  "automatic_resource_failure_retry": false,
+  "mid_fit_iteration_resume": false,
+  "completed_phase_resume": true,
+  "deployment_enabled": false,
+  "frozen_policy_changes": false,
+  "raw_extraction_cap_mib": 384,
+  "raw_host_startup_reserve_mib_beyond_worker_cap": 256,
+  "raw_host_runtime_reserve_mib": 256,
+  "raw_admission_status": "bounded trial based on measured 384-station raw extraction; full-cohort peak not yet verified"
+}

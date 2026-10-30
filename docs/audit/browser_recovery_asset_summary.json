@@ -1,0 +1,280 @@
+{
+  "date_local": "2026-10-27",
+  "status": "passed_bounded_browser_recovery_and_asset_validation",
+  "browser": {
+    "browser": "Chromium",
+    "complete": true,
+    "checks": [
+      "Live PostgreSQL-backed API prediction matches rendered prediction",
+      "All four lookback filters rerender both real Plotly charts",
+      "Unknown station warning and restoring sample station recover correctly",
+      "Desktop and mobile browser screenshots captured"
+    ],
+    "page_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "bad_responses": [],
+    "plots": [
+      {
+        "traces": 4,
+        "points": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "axis": {
+          "title": {
+            "text": "Prediction Hour"
+          },
+          "type": "date",
+          "range": [
+            "2024-01-13T22:30:00+00:00",
+            "2024-01-13T23:30:00+00:00"
+          ],
+          "tickmode": "array",
+          "tickvals": [
+            "2024-01-13T23:00:00+00:00"
+          ],
+          "ticktext": [
+            "Jan 13 23:00 UTC"
+          ]
+        },
+        "modes": [
+          null,
+          null,
+          "lines+markers",
+          "lines+markers"
+        ],
+        "barWidths": [
+          2700000,
+          2700000
+        ]
+      },
+      {
+        "traces": 2,
+        "points": [
+          1,
+          1
+        ],
+        "axis": {
+          "title": {
+            "text": "Prediction Hour"
+          },
+          "type": "date",
+          "range": [
+            "2024-01-13T22:30:00+00:00",
+            "2024-01-13T23:30:00+00:00"
+          ],
+          "tickmode": "array",
+          "tickvals": [
+            "2024-01-13T23:00:00+00:00"
+          ],
+          "ticktext": [
+            "Jan 13 23:00 UTC"
+          ]
+        },
+        "modes": [
+          "lines+markers",
+          "lines+markers"
+        ],
+        "barWidths": []
+      }
+    ]
+  },
+  "persistence_equal_before_after": true,
+  "database_restart_api_recovered_without_500": true,
+  "database_outage": {
+    "liveness_during_database_outage": 200,
+    "readiness_during_database_outage": 503
+  },
+  "asset_status": {
+    "dags": {
+      "bronze": [
+        {
+          "run_id": "asset_triggered__2026-10-27T21:07:40.934173+00:00_0zNO9pyR",
+          "state": "success",
+          "tasks": [
+            {
+              "task_id": "process_bronze",
+              "state": "success",
+              "try_number": 2
+            }
+          ]
+        },
+        {
+          "run_id": "asset_triggered__2026-10-27T21:11:23.076847+00:00_imzn0lir",
+          "state": "success",
+          "tasks": [
+            {
+              "task_id": "process_bronze",
+              "state": "success",
+              "try_number": 1
+            }
+          ]
+        }
+      ],
+      "silver": [
+        {
+          "run_id": "asset_triggered__2026-10-27T21:09:22.128989+00:00_A4sJU5g8",
+          "state": "success",
+          "tasks": [
+            {
+              "task_id": "process_silver",
+              "state": "success",
+              "try_number": 1
+            }
+          ]
+        },
+        {
+          "run_id": "asset_triggered__2026-10-27T21:11:53.796110+00:00_7IFeDC4K",
+          "state": "success",
+          "tasks": [
+            {
+              "task_id": "process_silver",
+              "state": "success",
+              "try_number": 1
+            }
+          ]
+        }
+      ],
+      "bi": [
+        {
+          "run_id": "asset_triggered__2026-10-27T21:09:49.986963+00:00_oFrZPXDS",
+          "state": "success",
+          "tasks": [
+            {
+              "task_id": "process_bi",
+              "state": "success",
+              "try_number": 1
+            }
+          ]
+        },
+        {
+          "run_id": "asset_triggered__2026-10-27T21:12:23.639210+00:00_iTae4Mzx",
+          "state": "success",
+          "tasks": [
+            {
+              "task_id": "process_bi",
+              "state": "success",
+              "try_number": 1
+            }
+          ]
+        }
+      ],
+      "ml": [
+        {
+          "run_id": "asset_triggered__2026-10-27T21:09:49.986971+00:00_E0esz2qf",
+          "state": "success",
+          "tasks": [
+            {
+              "task_id": "process_ml",
+              "state": "success",
+              "try_number": 1
+            }
+          ]
+        },
+        {
+          "run_id": "asset_triggered__2026-10-27T21:12:23.639205+00:00_0CSEiXNB",
+          "state": "success",
+          "tasks": [
+            {
+              "task_id": "process_ml",
+              "state": "success",
+              "try_number": 1
+            }
+          ]
+        }
+      ]
+    },
+    "events": {
+      "silver": 2,
+      "bi": 2,
+      "ml": 2,
+      "bronze": 2,
+      "incoming": 6
+    }
+  },
+  "asset_counts_unchanged_on_replay": {
+    "bronze/citibike_rides_raw": {
+      "rows": 20000,
+      "duplicate_ride_ids": 0,
+      "snapshot_ids": [
+        4204634119135554964
+      ]
+    },
+    "silver/citibike_rides": {
+      "rows": 19986,
+      "duplicate_ride_ids": 0
+    },
+    "quarantine/citibike_rides": {
+      "rows": 14,
+      "duplicate_ride_ids": 0,
+      "reasons": {
+        "outside_source_month": 9,
+        "missing_start_station": 4,
+        "invalid_duration": 1
+      }
+    },
+    "gold/station_hourly_utilization": {
+      "rows": 17794,
+      "ride_count_sum": 19986,
+      "duplicate_station_hours": 0
+    },
+    "gold/station_hourly_observations": {
+      "rows": 546481,
+      "ride_count_sum": 19986,
+      "duplicate_station_hours": 0
+    },
+    "audit/ingestion_ledger": {
+      "rows": 1
+    }
+  },
+  "intentional_retry_proof": {
+    "dags": {
+      "bronze": [
+        {
+          "run_id": "asset_triggered__2026-10-27T21:07:40.934173+00:00_0zNO9pyR",
+          "state": "running",
+          "tasks": [
+            {
+              "task_id": "process_bronze",
+              "state": "up_for_retry",
+              "try_number": 1
+            }
+          ]
+        }
+      ],
+      "silver": [],
+      "bi": [],
+      "ml": []
+    },
+    "events": {
+      "silver": 0,
+      "bi": 0,
+      "ml": 0,
+      "bronze": 0,
+      "incoming": 4
+    }
+  },
+  "registered_dags": 11,
+  "dag_import_errors": 0,
+  "production_dags_remained_paused": true,
+  "tests": {
+    "tests": 68,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 2,
+    "passed": 66
+  },
+  "full_month_ingested": false,
+  "committed_or_pushed": false,
+  "limitations": [
+    "One stored smoke prediction: filter interactions verified, not multiweek filter boundaries",
+    "Distinct-month event batching covered by unit tests; live asset tests use the same genuine January sample",
+    "Graceful service restarts and scheduler-stop queued events tested, not host power loss or deleted-volume restoration",
+    "Conflicting source versions within one batch fail safely; cross-run corrected-archive ordering still requires operator control",
+    "Watcher activation gate regression-tested; a complete-month watcher delivery was not run"
+  ],
+  "pipeline_models_trained_this_validation": 0
+}

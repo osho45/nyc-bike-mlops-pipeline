@@ -1,0 +1,47 @@
+name: citibike-native-4g-validation
+services:
+  trainer:
+    profiles: [native-4g]
+    image: citibike-airflow-spark-iceberg:3.2.2-python3.11
+    pull_policy: never
+    entrypoint: [python, -u, -m, tools.native_4g_worker]
+    command: [--task, status]
+    user: "${NATIVE_UID:-1000}:${NATIVE_GID:-0}"
+    working_dir: /opt/airflow
+    network_mode: none
+    mem_limit: 4g
+    memswap_limit: 4g
+    cpus: 2
+    restart: "no"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=67108864
+    labels:
+      com.citibike.native-training: 4g
+    environment:
+      PYTHONPATH: /opt/airflow
+      PYTHONDONTWRITEBYTECODE: "1"
+      OMP_NUM_THREADS: "2"
+      OPENBLAS_NUM_THREADS: "2"
+      MPLCONFIGDIR: /opt/airflow/artifacts/native-4g-validation-01/matplotlib-cache
+    volumes:
+      - type: bind
+        source: .
+        target: /opt/airflow
+        read_only: true
+      - type: bind
+        source: ./artifacts/native-4g-validation-01
+        target: /opt/airflow/artifacts/native-4g-validation-01
+
+  resource-probe:
+    profiles: [native-4g-probe]
+    image: citibike-airflow-spark-iceberg:3.2.2-python3.11
+    pull_policy: never
+    entrypoint: [python, -c]
+    command: ["import time; time.sleep(86400)"]
+    network_mode: none
+    mem_limit: 64m
+    memswap_limit: 64m
+    cpus: 0.25
+    restart: "no"
+    read_only: true

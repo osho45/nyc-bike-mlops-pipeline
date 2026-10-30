@@ -1,0 +1,44 @@
+{
+  "candidate_files": 252,
+  "blocked_paths": [],
+  "large_files_over_2_mib": [],
+  "credential_pattern_or_personal_path_findings": [],
+  "training_started": false,
+  "deployment": false,
+  "readme_images": [
+    {
+      "alt": "Implemented Citi Bike lakehouse, training and serving paths with an explicit model-promotion gate",
+      "loaded": true
+    },
+    {
+      "alt": "Verified 384-station training and validation count-error metrics",
+      "loaded": true
+    },
+    {
+      "alt": "Modeled 48-station operational penalty on the reused 2026 holdout",
+      "loaded": true
+    },
+    {
+      "alt": "Measured 384-station native construction and fitting memory optimization",
+      "loaded": true
+    },
+    {
+      "alt": "Actual Streamlit dashboard with January 2024 sample prediction, filters and charts",
+      "loaded": true
+    },
+    {
+      "alt": "Actual FastAPI Swagger execution returning the saved January 2024 sample prediction",
+      "loaded": true
+    }
+  ],
+  "svg_browser_rendered": true,
+  "browser_errors": [],
+  "pytest": {
+    "tests": 212,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "passed": 210
+  },
+  "scan_scope": "Current Git candidates; selected credential formats and personal paths only. Not a complete secret/history audit."
+}

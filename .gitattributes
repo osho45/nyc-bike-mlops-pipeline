@@ -1,0 +1,3 @@
+# Preserve verified report and visual bytes across Windows/Linux checkouts.
+docs/audit/*.json -text -whitespace
+docs/images/* -text -whitespace

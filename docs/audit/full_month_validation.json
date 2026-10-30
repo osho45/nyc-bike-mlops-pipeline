@@ -1,0 +1,1557 @@
+{
+  "source_sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+  "source_url": "https://s3.amazonaws.com/tripdata/202401-citibike-tripdata.zip",
+  "source_bytes": 369035302,
+  "year": 2024,
+  "month": 1,
+  "stages": {
+    "source_reference": {
+      "seconds": 19.622,
+      "status": "complete"
+    },
+    "bronze": {
+      "seconds": 70.56,
+      "status": "complete"
+    },
+    "silver": {
+      "seconds": 284.487,
+      "status": "complete"
+    },
+    "gold_bi": {
+      "seconds": 8.206,
+      "status": "complete"
+    },
+    "gold_ml": {
+      "seconds": 9.427,
+      "status": "complete"
+    },
+    "audit": {
+      "seconds": 38.811,
+      "status": "complete"
+    },
+    "replay_bronze": {
+      "seconds": 4.952,
+      "status": "complete"
+    },
+    "replay_silver": {
+      "seconds": 1.155,
+      "status": "complete"
+    },
+    "replay_gold_bi": {
+      "seconds": 1.218,
+      "status": "complete"
+    },
+    "replay_gold_ml": {
+      "seconds": 1.251,
+      "status": "complete"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 456.659,
+      "memory": {
+        "sample_interval_seconds": 0.5,
+        "peak_sampled_working_set_bytes": 2046468096,
+        "peak_sampled_current_bytes": 2147459072,
+        "memory.peak": 2147483648,
+        "memory.max": 2147483648,
+        "memory.events": {
+          "low": 0,
+          "high": 0,
+          "max": 3193,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    }
+  ],
+  "model_training": false,
+  "complete": true,
+  "reference": {
+    "source_rows": 1888085,
+    "member_rows": {
+      "202401-citibike-tripdata_1.csv": 1000000,
+      "202401-citibike-tripdata_2.csv": 888085
+    },
+    "accepted_before_dedup": 1885944,
+    "accepted_unique": 1885944,
+    "accepted_duplicate_rows": 0,
+    "rejected": 2141,
+    "reasons": {
+      "outside_source_month": 410,
+      "missing_start_station": 1160,
+      "invalid_duration": 571
+    },
+    "stations": 2223
+  },
+  "archive_members": {
+    "202401-citibike-tripdata_2.csv": {
+      "uncompressed_bytes": 173662194,
+      "compressed_bytes": 173662194
+    },
+    "202401-citibike-tripdata_1.csv": {
+      "uncompressed_bytes": 195372814,
+      "compressed_bytes": 195372814
+    }
+  },
+  "bronze_ingest": {
+    "ingestion_run_id": "full-month-202401-01",
+    "checksum": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+    "rows": 1888085,
+    "normalized_parquet_bytes": 107749807,
+    "normalized_files": 38
+  },
+  "audit": {
+    "silver_rows": 1885944,
+    "quarantine_rows": 2141,
+    "quarantine_reasons": {
+      "missing_start_station": 1160,
+      "invalid_duration": 571,
+      "outside_source_month": 410
+    },
+    "bronze_duplicate_nonnull_ids": 0,
+    "stations": 2223,
+    "hours_per_station": 744,
+    "gold_bi_rows": 620302,
+    "gold_ml_rows": 1653912,
+    "gold_bi_ride_sum": 1885944,
+    "gold_ml_ride_sum": 1885944,
+    "feature_rows_after_warmup": 1280448,
+    "intentional_warmup_rows": 373464,
+    "feature_invalid_counts": {
+      "lag_1h": 0,
+      "lag_2h": 0,
+      "lag_24h": 0,
+      "lag_168h": 0,
+      "rolling_6h_mean": 0,
+      "rolling_6h_std": 0,
+      "rolling_24h_mean": 0,
+      "rolling_24h_std": 0,
+      "hour_of_day_sin": 0,
+      "hour_of_day_cos": 0,
+      "day_of_week_sin": 0,
+      "day_of_week_cos": 0,
+      "is_weekend": 0
+    },
+    "numpy_parity_stations": {
+      "2733.03": {
+        "rows": 576,
+        "max_absolute_delta": 8.881784197001252e-16
+      },
+      "SYS038": {
+        "rows": 576,
+        "max_absolute_delta": 8.881784197001252e-16
+      },
+      "6140.05": {
+        "rows": 576,
+        "max_absolute_delta": 8.35387314879199e-13
+      }
+    }
+  },
+  "before_replay": {
+    "bronze.citibike_rides_raw": {
+      "rows": 1888085,
+      "snapshot_id": 2056838612019808633,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "ride_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rideable_type",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "started_at",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ended_at",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lat",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lng",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lat",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lng",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "member_casual",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_member",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_filename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingestion_run_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingested_at_utc",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "supersedes_sha256",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "silver.citibike_rides": {
+      "rows": 1885944,
+      "snapshot_id": 6208757563953422785,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "ride_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rideable_type",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "started_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ended_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lat",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lng",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lat",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lng",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "member_casual",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_member",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_filename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingestion_run_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingested_at_utc",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "supersedes_sha256",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "duration_seconds",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "published_at_utc",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "quarantine.citibike_rides": {
+      "rows": 2141,
+      "snapshot_id": 1090411082531020960,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "ride_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rideable_type",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "started_at",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ended_at",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lat",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lng",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lat",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lng",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "member_casual",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_member",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_filename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingestion_run_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingested_at_utc",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "supersedes_sha256",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rejection_reason",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "quarantined_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "gold.station_hourly_utilization": {
+      "rows": 620302,
+      "snapshot_id": 2538511688750380213,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "station_hour_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ride_count",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "avg_duration_seconds",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "member_rides",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "electric_rides",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "gold.station_hourly_observations": {
+      "rows": 1653912,
+      "snapshot_id": 7364520565867449594,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "station_hour_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ride_count",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "audit.ingestion_ledger": {
+      "rows": 1,
+      "snapshot_id": 6751049497169820042,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "source_filename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "file_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingestion_run_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "finished_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    }
+  },
+  "after_replay": {
+    "bronze.citibike_rides_raw": {
+      "rows": 1888085,
+      "snapshot_id": 2056838612019808633,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "ride_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rideable_type",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "started_at",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ended_at",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lat",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lng",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lat",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lng",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "member_casual",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_member",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_filename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingestion_run_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingested_at_utc",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "supersedes_sha256",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "silver.citibike_rides": {
+      "rows": 1885944,
+      "snapshot_id": 6208757563953422785,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "ride_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rideable_type",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "started_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ended_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lat",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lng",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lat",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lng",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "member_casual",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_member",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_filename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingestion_run_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingested_at_utc",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "supersedes_sha256",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "duration_seconds",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "published_at_utc",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "quarantine.citibike_rides": {
+      "rows": 2141,
+      "snapshot_id": 1090411082531020960,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "ride_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rideable_type",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "started_at",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ended_at",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lat",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "start_lng",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lat",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "end_lng",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "member_casual",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_member",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_filename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingestion_run_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingested_at_utc",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "supersedes_sha256",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rejection_reason",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "quarantined_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "gold.station_hourly_utilization": {
+      "rows": 620302,
+      "snapshot_id": 2538511688750380213,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "station_hour_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ride_count",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "avg_duration_seconds",
+            "type": "double",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "member_rides",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "electric_rides",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "gold.station_hourly_observations": {
+      "rows": 1653912,
+      "snapshot_id": 7364520565867449594,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "station_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "station_hour_ts",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ride_count",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_year",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_month",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_revision",
+            "type": "integer",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    },
+    "audit.ingestion_ledger": {
+      "rows": 1,
+      "snapshot_id": 6751049497169820042,
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "source_filename",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "file_checksum",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "ingestion_run_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "finished_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      }
+    }
+  },
+  "idempotent_replay": true,
+  "data_volumes": {
+    "audit": 17357,
+    "bronze": 63897791,
+    "gold": 6283578,
+    "quarantine": 126365,
+    "silver": 141947220
+  },
+  "warehouse_bytes": 212272311,
+  "container": {
+    "Status": "exited",
+    "ExitCode": 0,
+    "OOMKilled": false,
+    "StartedAt": "2026-10-27T22:37:47.321087258Z",
+    "FinishedAt": "2026-10-27T22:45:29.677743154Z",
+    "name": "citibike_fullmonth_202401_01",
+    "wall_seconds": 462.356656
+  },
+  "table_directory_bytes": {
+    "audit.ingestion_ledger": 17357,
+    "bronze.citibike_rides_raw": 63897791,
+    "silver.candidate_16dd5e8fd543b19e": 70969322,
+    "silver.citibike_rides": 70977898,
+    "quarantine.citibike_rides": 126365,
+    "gold.station_hourly_observations": 719664,
+    "gold.station_hourly_utilization": 5563914
+  },
+  "preservation": {
+    "verified_equal": true,
+    "before": {
+      "files": {
+        "data/citibike/audit-source-cached/202401-citibike-tripdata.sample.csv": "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244",
+        "artifacts/container-sample-03/models/champion_metadata.json": "96702cdc2dba84c5d1c4c8a6bfb08af91d610c0935bc74d0d6fa104479603588",
+        "artifacts/container-sample-03/models/champion_model.pkl": "d1c9400b51dbbddcb7079686b1433a5423abfb53acf20d451399a8172579464d"
+      },
+      "iceberg": {
+        "bronze/citibike_rides_raw": {
+          "version": "2",
+          "metadata_sha256": "4fcb01eb81b6d7eeb9cf96876a0059f90cf748be9b77da69f8b908693735c1ea",
+          "rows": 20000,
+          "snapshot_id": 1897308256249067281
+        },
+        "silver/citibike_rides": {
+          "version": "2",
+          "metadata_sha256": "6aecb8fe7a24346b511deeeb2853951bc9e7442b3ad11c854c6d052dd710ffc9",
+          "rows": 19986,
+          "snapshot_id": 1143462161551830186
+        },
+        "quarantine/citibike_rides": {
+          "version": "2",
+          "metadata_sha256": "b9f41b7390d200a1f3d6b42fb20b408dd6bee0526aa9219f463580a3aa4053e1",
+          "rows": 14,
+          "snapshot_id": 6136902460889335521
+        },
+        "gold/station_hourly_utilization": {
+          "version": "2",
+          "metadata_sha256": "c5dbf2fb6860237bf832ea9dc00f8f7778e67828182a9e5ab68bf61c09cb2b36",
+          "rows": 17794,
+          "snapshot_id": 9212931525022567913
+        },
+        "gold/station_hourly_observations": {
+          "version": "2",
+          "metadata_sha256": "f1a27d3571a1a1815867980d0b85c9777d33243855d6ce6f0333b1d95a0bfb87",
+          "rows": 546481,
+          "snapshot_id": 6741686549154922920
+        },
+        "predictions/station_hourly_demand_predictions": {
+          "version": "2",
+          "metadata_sha256": "10c0927f0c2c76751d6ce90455c4b21437a76146bdd56220b86fba7f6f11f506",
+          "rows": 1,
+          "snapshot_id": 5497005580555184962
+        }
+      },
+      "postgres": {
+        "citibike_cache": {
+          "rows": 0,
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "citibike_validation_container_sample_03": {
+          "rows": 1,
+          "sha256": "0e3aa7abef7b414f1499c28648e585b48b203ec70607920998ad2aade30e35b9"
+        }
+      }
+    },
+    "after": {
+      "files": {
+        "data/citibike/audit-source-cached/202401-citibike-tripdata.sample.csv": "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244",
+        "artifacts/container-sample-03/models/champion_metadata.json": "96702cdc2dba84c5d1c4c8a6bfb08af91d610c0935bc74d0d6fa104479603588",
+        "artifacts/container-sample-03/models/champion_model.pkl": "d1c9400b51dbbddcb7079686b1433a5423abfb53acf20d451399a8172579464d"
+      },
+      "iceberg": {
+        "bronze/citibike_rides_raw": {
+          "version": "2",
+          "metadata_sha256": "4fcb01eb81b6d7eeb9cf96876a0059f90cf748be9b77da69f8b908693735c1ea",
+          "rows": 20000,
+          "snapshot_id": 1897308256249067281
+        },
+        "silver/citibike_rides": {
+          "version": "2",
+          "metadata_sha256": "6aecb8fe7a24346b511deeeb2853951bc9e7442b3ad11c854c6d052dd710ffc9",
+          "rows": 19986,
+          "snapshot_id": 1143462161551830186
+        },
+        "quarantine/citibike_rides": {
+          "version": "2",
+          "metadata_sha256": "b9f41b7390d200a1f3d6b42fb20b408dd6bee0526aa9219f463580a3aa4053e1",
+          "rows": 14,
+          "snapshot_id": 6136902460889335521
+        },
+        "gold/station_hourly_utilization": {
+          "version": "2",
+          "metadata_sha256": "c5dbf2fb6860237bf832ea9dc00f8f7778e67828182a9e5ab68bf61c09cb2b36",
+          "rows": 17794,
+          "snapshot_id": 9212931525022567913
+        },
+        "gold/station_hourly_observations": {
+          "version": "2",
+          "metadata_sha256": "f1a27d3571a1a1815867980d0b85c9777d33243855d6ce6f0333b1d95a0bfb87",
+          "rows": 546481,
+          "snapshot_id": 6741686549154922920
+        },
+        "predictions/station_hourly_demand_predictions": {
+          "version": "2",
+          "metadata_sha256": "10c0927f0c2c76751d6ce90455c4b21437a76146bdd56220b86fba7f6f11f506",
+          "rows": 1,
+          "snapshot_id": 5497005580555184962
+        }
+      },
+      "postgres": {
+        "citibike_cache": {
+          "rows": 0,
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "citibike_validation_container_sample_03": {
+          "rows": 1,
+          "sha256": "0e3aa7abef7b414f1499c28648e585b48b203ec70607920998ad2aade30e35b9"
+        }
+      }
+    }
+  },
+  "preflight": {
+    "docker_total_memory_bytes": 3943489536,
+    "spark_master": "local[1]",
+    "spark_driver_heap": "1g",
+    "shuffle_partitions": 8,
+    "container_memory_limit_bytes": 2147483648,
+    "optional_fixture_services_stopped": [
+      "citibike_validation_ui",
+      "citibike_validation_api",
+      "citibike_correctness_ui",
+      "citibike_correctness_api",
+      "citibike_correctness_restored_api",
+      "citibike_correctness_postgres"
+    ]
+  },
+  "scope": {
+    "full_month_spark_etl": true,
+    "full_month_airflow_watcher": false,
+    "model_training": false,
+    "full_month_prediction_serving": false
+  },
+  "final_health": {
+    "metadatabase": {
+      "status": "healthy"
+    },
+    "scheduler": {
+      "status": "healthy",
+      "latest_scheduler_heartbeat": "2026-10-27T22:46:13.114069+00:00"
+    },
+    "triggerer": {
+      "status": null,
+      "latest_triggerer_heartbeat": null
+    },
+    "dag_processor": {
+      "status": "healthy",
+      "latest_dag_processor_heartbeat": "2026-10-27T22:46:10.889010+00:00"
+    }
+  },
+  "dag_import_errors": 0,
+  "schema_contract_verified": true,
+  "regression_tests": {
+    "tests": "92",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "2",
+    "time": "13.940",
+    "passed": 90
+  }
+}

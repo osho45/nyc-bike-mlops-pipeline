@@ -59,7 +59,7 @@ def make_logistic_regression(params: dict[str, Any] | None = None) -> Pipeline:
 
 def make_random_forest(params: dict[str, Any] | None = None) -> Pipeline:
     params = params or {}
-    clf = RandomForestClassifier(random_state=42, n_jobs=-1, **params)
+    clf = RandomForestClassifier(random_state=42, n_jobs=2, **params)
     return Pipeline(
         steps=[
             ("imputer", SimpleImputer(strategy="median")),
@@ -70,7 +70,7 @@ def make_random_forest(params: dict[str, Any] | None = None) -> Pipeline:
 
 def make_lightgbm(params: dict[str, Any] | None = None) -> Pipeline:
     params = params or {}
-    clf = LGBMClassifier(random_state=42, verbosity=-1, **params)
+    clf = LGBMClassifier(random_state=42, n_jobs=2, verbosity=-1, **params)
     return Pipeline(
         steps=[
             ("imputer", SimpleImputer(strategy="median")),
@@ -236,7 +236,7 @@ def run_one_experiment(
     X_val: pd.DataFrame,
     y_val: pd.Series,
     thresholds: DemandThresholds,
-    pickup_location_id: int,
+    station_id: str,
     artifacts_dir: Path,
 ) -> ExperimentResult:
     model = build_model(family, params)
@@ -255,7 +255,7 @@ def run_one_experiment(
     logged_params = {
         "model_family": family,
         "tuned": str(tuned),
-        "pickup_location_id": int(pickup_location_id),
+        "station_id": str(station_id),
         "q25": float(thresholds.q25),
         "q75": float(thresholds.q75),
     }
@@ -288,7 +288,7 @@ def run_six_experiments(
     X_val: pd.DataFrame,
     y_val: pd.Series,
     thresholds: DemandThresholds,
-    pickup_location_id: int,
+    station_id: str,
     artifacts_dir: Path,
     optuna_trials: int = 20,
 ) -> list[ExperimentResult]:
@@ -321,7 +321,7 @@ def run_six_experiments(
             X_val=X_val,
             y_val=y_val,
             thresholds=thresholds,
-            pickup_location_id=pickup_location_id,
+            station_id=station_id,
             artifacts_dir=artifacts_dir,
         )
         results.append(result)
@@ -345,15 +345,17 @@ def log_test_metrics_to_champion_run(
     X_test: pd.DataFrame,
     y_test: pd.Series,
     artifacts_dir: Path,
+    refit_validation: bool = True,
 ) -> tuple[Pipeline, dict[str, float]]:
-    """Retrains the active champion on train+validation data before test evaluation."""
+    """Finalize the selected model; strict year roles exclude validation from fitting."""
+    scope='Train + Validation' if refit_validation else 'Training Only'
     print(
-        f"\n{'='*60}\nRetraining Champion on Train + Validation Sets: {champion.run_name}\n{'='*60}"
+        f"\n{'='*60}\nRetraining Champion on {scope}: {champion.run_name}\n{'='*60}"
     )
 
     # 1. Expand historical scope to capture trailing structural trends
-    X_train_final = pd.concat([X_train, X_val], ignore_index=True)
-    y_train_final = pd.concat([y_train, y_val], ignore_index=True)
+    X_train_final = pd.concat([X_train, X_val], ignore_index=True) if refit_validation else X_train
+    y_train_final = pd.concat([y_train, y_val], ignore_index=True) if refit_validation else y_train
 
     final_fitted_model = build_model(champion.model_family, champion.params)
     final_fitted_model.fit(X_train_final, y_train_final)
@@ -395,10 +397,14 @@ def export_champion(
     models_dir: Path,
     thresholds: DemandThresholds,
     feature_columns: list[str],
-    pickup_location_id: int,
+    station_id: str,
     test_metrics: dict[str, float],
+    training_cutoff_utc: str | None = None,
+    fit_cutoff_utc: str | None = None,
+    split_policy: str = 'fractional',
 ) -> None:
     models_dir.mkdir(parents=True, exist_ok=True)
+    if any((models_dir/name).exists() for name in ['champion_model.pkl','champion_metadata.json']):raise FileExistsError("Preserve existing checkpoint; configure a new models_dir")
     model_path = models_dir / "champion_model.pkl"
     metadata_path = models_dir / "champion_metadata.json"
 
@@ -406,7 +412,13 @@ def export_champion(
     joblib.dump(final_model, model_path)
 
     metadata = {
-        "pickup_location_id": int(pickup_location_id),
+        "dataset": "citibike",
+        "target": "next_hour_station_ride_demand_class",
+        "training_cutoff_utc": training_cutoff_utc,
+        "fit_cutoff_utc": fit_cutoff_utc or training_cutoff_utc,
+        "selection_cutoff_utc": training_cutoff_utc,
+        "split_policy": split_policy,
+        "station_id": str(station_id),
         "model_name": champion.model_family,
         "model_version": "local-v2-cost-sensitive",
         "penalty_version": "asymmetric-v1",  # Added contract tracking column

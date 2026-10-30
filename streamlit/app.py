@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from urllib.parse import urlencode,quote
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -11,14 +12,14 @@ import streamlit as st
 # Streamlit page configuration
 # =========================================================
 st.set_page_config(
-    page_title="Taxi Demand Dashboard",
-    page_icon="🚖",
+    page_title="Citi Bike Demand Dashboard",
+    page_icon="🚲",
     layout="wide",
 )
 
-st.title("🚖 Taxi Demand Operational Performance Portal")
+st.title("🚲 Citi Bike Demand Operational Performance Portal")
 st.caption(
-    "Live streaming metrics and continuous financial validation "
+    "Historical hourly station-demand predictions and illustrative penalty units "
     "served through FastAPI and PostgreSQL."
 )
 
@@ -31,10 +32,10 @@ API_BASE_URL = os.getenv(
     "http://fastapi:8000",
 )
 
-DEFAULT_PICKUP_LOCATION_ID = int(
+DEFAULT_STATION_ID = str(
     os.getenv(
-        "PICKUP_LOCATION_ID",
-        "237",
+        "STATION_ID",
+        "",
     )
 )
 
@@ -116,6 +117,17 @@ def format_penalty(value) -> str:
 # =========================================================
 # Hourly operational chart
 # =========================================================
+def format_single_hour_axis(fig,times):
+    """Avoid misleading sub-millisecond automatic ticks for one hourly observation."""
+    values=pd.to_datetime(times,utc=True).dropna()
+    if values.nunique()==1:
+        hour=values.iloc[0]
+        fig.update_xaxes(type='date',range=[hour-pd.Timedelta(minutes=30),hour+pd.Timedelta(minutes=30)],tickmode='array',tickvals=[hour],ticktext=[hour.strftime('%b %d %H:%M UTC')])
+        for trace in fig.data:
+            if trace.type=='bar':trace.width=45*60*1000
+            elif trace.type=='scatter' and trace.mode=='lines':
+                trace.mode='lines+markers';trace.marker.size=8
+
 def make_washboard(df: pd.DataFrame) -> go.Figure:
     """
     Build the hourly operational performance chart.
@@ -184,11 +196,11 @@ def make_washboard(df: pd.DataFrame) -> go.Figure:
         go.Bar(
             x=visible["prediction_hour_ts"],
             y=visible["underprediction_penalty"],
-            name="Underprediction Cost (Missed Revenue)",
+            name="Underprediction Penalty",
             marker_color="#d62728",
             hovertemplate=(
                 "<b>%{x|%b %d, %Y %I:%M %p}</b>"
-                "<br>Missed Revenue Penalty: %{y:,.0f} units"
+                "<br>Modeled Underprediction Penalty: %{y:,.0f} units"
                 "<extra></extra>"
             ),
         )
@@ -198,7 +210,7 @@ def make_washboard(df: pd.DataFrame) -> go.Figure:
         go.Bar(
             x=visible["prediction_hour_ts"],
             y=visible["overprediction_penalty"],
-            name="Overprediction Cost (Wasted Resources)",
+            name="Overprediction Penalty",
             marker_color="#ff7f0e",
             hovertemplate=(
                 "<b>%{x|%b %d, %Y %I:%M %p}</b>"
@@ -282,6 +294,7 @@ def make_washboard(df: pd.DataFrame) -> go.Figure:
         height=500,
     )
 
+    format_single_hour_axis(fig,visible['prediction_hour_ts'])
     return fig
 
 
@@ -457,6 +470,7 @@ def make_cumulative_cost(df: pd.DataFrame) -> go.Figure:
         height=440,
     )
 
+    format_single_hour_axis(fig,plot_data['prediction_hour_ts'])
     return fig
 
 
@@ -465,15 +479,10 @@ def make_cumulative_cost(df: pd.DataFrame) -> go.Figure:
 # =========================================================
 st.sidebar.header("🎛️ Evaluation Controls")
 
-pickup_location_id = st.sidebar.number_input(
-    "Pickup Location ID",
-    min_value=0,
-    value=DEFAULT_PICKUP_LOCATION_ID,
-    step=1,
-)
+station_id = st.sidebar.text_input("Start station ID", value=DEFAULT_STATION_ID)
 
-if pickup_location_id == 0:
-    st.info("Enter the pickup location ID used by the trained model.")
+if not station_id.strip():
+    st.info("Enter the start station ID used by the trained model.")
     st.stop()
 
 lookback_option = st.sidebar.selectbox(
@@ -486,13 +495,17 @@ lookback_option = st.sidebar.selectbox(
     ],
     index=0,
     key="lookback_horizon_select",
+    help="Elapsed UTC days ending at the latest recorded prediction; 7 Days contains up to 168 hourly records.",
 )
 
 
 # =========================================================
 # Load prediction data
 # =========================================================
-payload = fetch_json(f"{API_BASE_URL}/predictions/{pickup_location_id}")
+params={'limit':1000}
+if lookback_option!='All History':params['lookback_days']=int(lookback_option.split()[0])
+endpoint=f"{API_BASE_URL}/predictions/{quote(station_id.strip(),safe='')}"
+payload = fetch_json(endpoint+'?'+urlencode(params))
 
 if not payload or payload.get("count", 0) == 0:
     st.warning(
@@ -502,6 +515,19 @@ if not payload or payload.get("count", 0) == 0:
     st.stop()
 
 predictions = payload.get("predictions", [])
+anchor=payload.get('latest_prediction_hour_ts');cursor=payload.get('next_before');seen=set()
+while cursor:
+    if cursor in seen or len(seen)>=50:
+        st.error('History is too large to display safely. Select a shorter lookback horizon.');st.stop()
+    seen.add(cursor)
+    page=fetch_json(endpoint+'?'+urlencode({**params,'before':cursor,'through':anchor}))
+    if page is None:
+        st.error('Could not load complete prediction history. Please retry.');st.stop()
+    predictions.extend(page.get('predictions',[]));cursor=page.get('next_before')
+if any(record.get('model_version')=='synthetic-boundary-fixture' for record in predictions):
+    st.warning('Synthetic boundary-test data: these records are not model predictions or accuracy results.')
+elif any(record.get('model_version')=='not-for-deployment' or str(record.get('model_name','')).startswith('validation-only') for record in predictions):
+    st.warning('Validation sample only: these predictions test infrastructure and are not population-demand estimates or model accuracy results.')
 
 # OPTIMIZATION FIX: Parse JSON records safely to prevent Arrow thread stalls
 df = pd.DataFrame.from_records(predictions)
@@ -538,6 +564,7 @@ if missing_columns:
 df["prediction_hour_ts"] = pd.to_datetime(
     df["prediction_hour_ts"],
     errors="coerce",
+    utc=True,
 )
 
 df = (
@@ -554,14 +581,7 @@ if df.empty:
 # =========================================================
 # Apply the selected lookback window
 # =========================================================
-if lookback_option != "All History":
-    lookback_days = int(lookback_option.split(" ")[0])
-
-    latest_timestamp = df["prediction_hour_ts"].max()
-
-    start_horizon_ts = latest_timestamp - pd.Timedelta(days=lookback_days)
-
-    df = df.loc[df["prediction_hour_ts"] >= start_horizon_ts].reset_index(drop=True)
+# Filtering uses the API's exclusive UTC cutoff and pinned latest timestamp.
 
 if df.empty:
     st.warning("No prediction records are available for the selected lookback window.")
@@ -576,8 +596,8 @@ row = df.iloc[-1]
 st.subheader(f"Latest Prediction: {row['prediction_hour_ts']:%B %d, %Y at %I:%M %p}")
 
 st.caption(
-    f"Showing {len(df):,} prediction records for pickup location "
-    f"{pickup_location_id} within: {lookback_option}."
+    f"Showing {len(df):,} prediction records for start station "
+    f"{station_id} within: {lookback_option}."
 )
 
 
@@ -635,13 +655,13 @@ chart_key_suffix = lookback_option.lower().replace(" ", "_")
 
 st.plotly_chart(
     make_washboard(df),
-    width="stretch",
+    use_container_width=True,
     key=f"washboard_{chart_key_suffix}",
 )
 
 st.plotly_chart(
     make_cumulative_cost(df),
-    width="stretch",
+    use_container_width=True,
     key=f"cumulative_cost_{chart_key_suffix}",
 )
 

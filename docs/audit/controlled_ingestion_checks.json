@@ -1,0 +1,21 @@
+{
+  "scheduled_coordinator_bounded_dry_run_verified": true,
+  "actual_airflow_attempts": 2,
+  "simulation_labels_explicit": true,
+  "tests": {
+    "tests": 115,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "passed": 113
+  },
+  "original_data_models_database_fingerprints_unchanged": true,
+  "dag_import_errors": 0,
+  "pipeline_model_training": false,
+  "full_ingestion_completed": false,
+  "status": "Persistent controlled run in progress; see live progress and year gates",
+  "host_monitor_pid": 19364,
+  "worker_container": "citibike_controlled_worker_01",
+  "watcher_container": "citibike_controlled_watcher_01",
+  "airflow_run": "controlled_multiyear_01"
+}

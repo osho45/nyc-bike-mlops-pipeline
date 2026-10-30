@@ -1,0 +1,72 @@
+{
+  "captured_at": 1793170432.1008677,
+  "airflow_run": "controlled_multiyear_resume_02",
+  "monitor_pid": 17800,
+  "worker": "citibike_controlled_worker_02",
+  "heartbeat": {
+    "sequence": 24,
+    "worker_oom_killed": false,
+    "used_bytes": 151378259968,
+    "worker": "citibike_controlled_worker_02",
+    "schema_version": 2,
+    "free_bytes": 101461721088,
+    "worker_running": true,
+    "producer_pid": 17800,
+    "timestamp": 1793170423.304,
+    "producer_id": "1fc89517d0c14a3aacb81e86347f9018",
+    "heartbeat_source": "primary",
+    "heartbeat_age_seconds": 8.796471118927002
+  },
+  "cgroup": {
+    "memory.current": "1148268544",
+    "memory.peak": "1159069696",
+    "memory.max": "2147483648",
+    "memory.swap.max": "0",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+  },
+  "memory_sample_age_seconds": 0.2858390808105469,
+  "preservation": {
+    "verified_months": [
+      "2024-01",
+      "2024-02",
+      "2024-03",
+      "2024-04",
+      "2024-05",
+      "2024-06"
+    ],
+    "identical_before_after": true,
+    "tables": 6,
+    "data_files": 45
+  },
+  "publication_stress": {
+    "successful_guard_checks": 580,
+    "false_resource_stops": 0,
+    "errors": [],
+    "heartbeat_sources": {
+      "journal": 91,
+      "primary": 489
+    },
+    "last_sequence": 200,
+    "expired_heartbeat_rejected_with_advanced_clock": true
+  },
+  "coordinator": {
+    "run_id": "controlled-1793170214714054360",
+    "started_at": 1793170214.7140615,
+    "status": "running",
+    "verified_months": [
+      "2024-01",
+      "2024-02",
+      "2024-03",
+      "2024-04",
+      "2024-05",
+      "2024-06"
+    ],
+    "model_training": false,
+    "next_month": "2024-07",
+    "last_verified": "2024-06"
+  },
+  "tests": {
+    "passed": 119,
+    "skipped": 2
+  }
+}

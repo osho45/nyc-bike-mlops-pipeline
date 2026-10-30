@@ -1,0 +1,1223 @@
+{
+  "date_local": "2026-10-27",
+  "pilot_verified": true,
+  "multi_year_started": false,
+  "plan": {
+    "observed_at": 1793146596.0411558,
+    "months": [
+      {
+        "year": 2024,
+        "month": 1,
+        "key": "202401-citibike-tripdata.zip",
+        "bytes": 369035302,
+        "etag": "\"ce6c041ebab0621c1951517b1150eb69-22\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202401-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 2,
+        "key": "202402-citibike-tripdata.zip",
+        "bytes": 414712349,
+        "etag": "\"143b5f502db70d11b2b7f19752556fdc-25\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202402-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 3,
+        "key": "202403-citibike-tripdata.zip",
+        "bytes": 520746126,
+        "etag": "\"9e92743c725d17fc9dfa9fc17167c6f1-31\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202403-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "key": "202404-citibike-tripdata.zip",
+        "bytes": 629567797,
+        "etag": "\"98c6312acc3dfc6b7392f2e0e7f2532a-37\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202404-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "key": "202405-citibike-tripdata.zip",
+        "bytes": 809097529,
+        "etag": "\"47baf61b070e46bfa4a5bcbbe4daa03c-48\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202405-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "key": "202406-citibike-tripdata.zip",
+        "bytes": 936046329,
+        "etag": "\"e99a3cd757b8704b34b90c16036a3411-55\"",
+        "last_modified": "2025-07-09T15:30:28.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202406-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "key": "202407-citibike-tripdata.zip",
+        "bytes": 923324464,
+        "etag": "\"3b35129841cef28aa828eee1e4081aaa-54\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202407-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "key": "202408-citibike-tripdata.zip",
+        "bytes": 900042686,
+        "etag": "\"2cb7190cd97177de09682c8cfa858a29-53\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202408-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "key": "202409-citibike-tripdata.zip",
+        "bytes": 976527118,
+        "etag": "\"1e508f002e25751e034a0acc8ffb47c6-57\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202409-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "key": "202410-citibike-tripdata.zip",
+        "bytes": 1006602893,
+        "etag": "\"19789b37531deeb477f82995a02caf82-59\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202410-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "key": "202411-citibike-tripdata.zip",
+        "bytes": 724347545,
+        "etag": "\"0f1d39fba916502f2d8551cecb329b3d-43\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202411-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "key": "202412-citibike-tripdata.zip",
+        "bytes": 450806412,
+        "etag": "\"2de5d6d7e30c360322eef8f2b9fb498a-27\"",
+        "last_modified": "2025-07-03T15:01:20.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202412-citibike-tripdata.zip",
+        "split": "train"
+      },
+      {
+        "year": 2025,
+        "month": 1,
+        "key": "202501-citibike-tripdata.zip",
+        "bytes": 414213312,
+        "etag": "\"556aaf0e00db12bac1c947d44ff19c32-25\"",
+        "last_modified": "2025-07-03T15:41:08.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202501-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 2,
+        "key": "202502-citibike-tripdata.zip",
+        "bytes": 396008433,
+        "etag": "\"fc117ae261b6c45eee9b224300b3afa7-24\"",
+        "last_modified": "2025-07-03T15:41:08.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202502-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 3,
+        "key": "202503-citibike-tripdata.zip",
+        "bytes": 618260276,
+        "etag": "\"a38aee35ac84e40b12c6d68be82051e8-36\"",
+        "last_modified": "2025-07-03T15:41:08.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202503-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 4,
+        "key": "202504-citibike-tripdata.zip",
+        "bytes": 727249076,
+        "etag": "\"f6bfa25779e939ba1e7fc05a76c8ef0b-43\"",
+        "last_modified": "2025-07-03T15:41:08.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202504-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 5,
+        "key": "202505-citibike-tripdata.zip",
+        "bytes": 844446636,
+        "etag": "\"515d4e8a283817e42e455f61055850d6-50\"",
+        "last_modified": "2025-07-03T15:41:08.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202505-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 6,
+        "key": "202506-citibike-tripdata.zip",
+        "bytes": 929043436,
+        "etag": "\"3890935c79ccfe5f8cca115725031182-55\"",
+        "last_modified": "2025-07-06T22:27:06.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202506-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 7,
+        "key": "202507-citibike-tripdata.zip",
+        "bytes": 973875638,
+        "etag": "\"7a27ad7b2d34a31e8b914b4acbffb9c4-57\"",
+        "last_modified": "2025-08-05T20:08:09.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202507-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 8,
+        "key": "202508-citibike-tripdata.zip",
+        "bytes": 1000258641,
+        "etag": "\"c306c1a3430f3c9fe9f9aa82895a40b3-59\"",
+        "last_modified": "2025-09-04T20:09:51.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202508-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 9,
+        "key": "202509-citibike-tripdata.zip",
+        "bytes": 1032411368,
+        "etag": "\"69721b1b97b5b34c8d7b1adbee77267a-61\"",
+        "last_modified": "2025-10-06T12:14:49.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202509-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 10,
+        "key": "202510-citibike-tripdata.zip",
+        "bytes": 924115389,
+        "etag": "\"787f19f6961419db47005b2a6d6f6165-54\"",
+        "last_modified": "2025-11-04T17:01:54.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202510-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 11,
+        "key": "202511-citibike-tripdata.zip",
+        "bytes": 667113932,
+        "etag": "\"ad9947ad034974d529d5407c2207c26b-39\"",
+        "last_modified": "2025-12-08T20:10:34.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202511-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2025,
+        "month": 12,
+        "key": "202512-citibike-tripdata.zip",
+        "bytes": 407790791,
+        "etag": "\"d45b89a92b272695c2fafa18aef2daea-24\"",
+        "last_modified": "2026-01-05T17:13:31.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202512-citibike-tripdata.zip",
+        "split": "validation"
+      },
+      {
+        "year": 2026,
+        "month": 1,
+        "key": "202601-citibike-tripdata.zip",
+        "bytes": 353829139,
+        "etag": "\"a5007e7bc9f98a7f15a1c44ddc85dfc1-21\"",
+        "last_modified": "2026-02-04T14:46:32.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202601-citibike-tripdata.zip",
+        "split": "test"
+      },
+      {
+        "year": 2026,
+        "month": 2,
+        "key": "202602-citibike-tripdata.zip",
+        "bytes": 237639864,
+        "etag": "\"d04ca5636df6a58394571652471f16b3-14\"",
+        "last_modified": "2026-03-04T20:26:39.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202602-citibike-tripdata.zip",
+        "split": "test"
+      },
+      {
+        "year": 2026,
+        "month": 3,
+        "key": "202603-citibike-tripdata.zip",
+        "bytes": 574841304,
+        "etag": "\"b8db89fc0f746259e5d73ac462df98a6-34\"",
+        "last_modified": "2026-04-03T19:07:03.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202603-citibike-tripdata.zip",
+        "split": "test"
+      },
+      {
+        "year": 2026,
+        "month": 4,
+        "key": "202604-citibike-tripdata.zip",
+        "bytes": 164592563,
+        "etag": "\"eb6ce6ba4fea17e0ce63aa82ccd0122b-10\"",
+        "last_modified": "2026-05-04T19:04:39.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202604-citibike-tripdata.zip",
+        "split": "test"
+      },
+      {
+        "year": 2026,
+        "month": 5,
+        "key": "202605-citibike-tripdata.zip",
+        "bytes": 916981226,
+        "etag": "\"def70d12053da452bce43685337cfc1f-54\"",
+        "last_modified": "2026-06-04T15:24:19.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202605-citibike-tripdata.zip",
+        "split": "test"
+      },
+      {
+        "year": 2026,
+        "month": 6,
+        "key": "202606-citibike-tripdata.zip",
+        "bytes": 1051241498,
+        "etag": "\"4b4c2bfa76263debb934be4e041151da-62\"",
+        "last_modified": "2026-07-06T15:42:50.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202606-citibike-tripdata.zip",
+        "split": "test"
+      },
+      {
+        "year": 2026,
+        "month": 7,
+        "key": "202607-citibike-tripdata.zip",
+        "bytes": 974302094,
+        "etag": "\"4fa3e242a9a52ef644a464a84dc93fb1-57\"",
+        "last_modified": "2026-08-12T16:03:43.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202607-citibike-tripdata.zip",
+        "split": "test"
+      },
+      {
+        "year": 2026,
+        "month": 8,
+        "key": "202608-citibike-tripdata.zip",
+        "bytes": 1024034405,
+        "etag": "\"d5f2a3ec3831ad8ef2de3da12102e550-60\"",
+        "last_modified": "2026-09-10T15:28:32.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202608-citibike-tripdata.zip",
+        "split": "test"
+      },
+      {
+        "year": 2026,
+        "month": 9,
+        "key": "202609-citibike-tripdata.zip",
+        "bytes": 972151835,
+        "etag": "\"468907af4bee542cf84202d188ec7e34-57\"",
+        "last_modified": "2026-10-05T19:43:04.000Z",
+        "url": "https://s3.amazonaws.com/tripdata/202609-citibike-tripdata.zip",
+        "split": "test"
+      }
+    ],
+    "total_source_bytes": 23865257406,
+    "missing_required_months": [],
+    "execution_default_limit": 1
+  },
+  "pilot_month": "2024-02",
+  "source": {
+    "dataset": "citibike",
+    "source_url": "https://s3.amazonaws.com/tripdata/202402-citibike-tripdata.zip",
+    "source_filepath": "/opt/airflow/data/citibike/monthly/archives/202402-citibike-tripdata.zip",
+    "source_filename": "202402-citibike-tripdata.zip",
+    "source_year": 2024,
+    "source_month": 2,
+    "file_size_bytes": 414712349,
+    "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+    "discovered_at_utc": "2026-10-28T00:04:54.699668+00:00",
+    "sample": false,
+    "sample_rows": null,
+    "bytes_transferred": 406323741,
+    "bytes_transferred_this_call": 406323741,
+    "members": [
+      "202402-citibike-tripdata_1.csv",
+      "202402-citibike-tripdata_2.csv",
+      "202402-citibike-tripdata_3.csv"
+    ],
+    "source_revision": 1,
+    "supersedes_sha256": null,
+    "origin_etag": "\"143b5f502db70d11b2b7f19752556fdc-25\"",
+    "resumed_from_bytes": 8388608,
+    "attempts_this_call": 1,
+    "reused": false
+  },
+  "initial_controller": {
+    "seconds": 650.686,
+    "requested_months": [
+      "2024-02"
+    ],
+    "full_run": false,
+    "model_training": false
+  },
+  "initial_controller_memory": {
+    "sample_interval_seconds": 0.5,
+    "peak_sampled_working_set_bytes": 88444928,
+    "peak_sampled_current_bytes": 98779136,
+    "memory.peak": 108634112,
+    "memory.max": 268435456,
+    "memory.events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    }
+  },
+  "spark_worker": {
+    "started_at": 1793145840.646346,
+    "finished_at": 1793146761.1858919,
+    "completed_jobs": [
+      "6bcf0b50ae575751d291ab6a",
+      "f79433b8e62d60a2fed1e328",
+      "d33c9f2f55c0f6e2c0a67dd8",
+      "478c50a5bb99e7fd8d1b6e75",
+      "fa4c55c243f10804ea9795d8"
+    ],
+    "memory": {
+      "sample_interval_seconds": 0.5,
+      "peak_sampled_working_set_bytes": 1789165568,
+      "peak_sampled_current_bytes": 1998897152,
+      "memory.peak": 2009538560,
+      "memory.max": 2147483648,
+      "memory.events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  },
+  "jobs": [
+    {
+      "stage": "bronze",
+      "run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW",
+      "attempt": 1,
+      "processing_seconds": 94.991,
+      "returncode": 0,
+      "submitted_at": 1793145911.5543835,
+      "completed_at": 1793146006.6762972,
+      "memory": {
+        "sample_interval_seconds": 0.5,
+        "peak_sampled_working_set_bytes": 1386250240,
+        "peak_sampled_current_bytes": 1518055424,
+        "memory.peak": 1518989312,
+        "memory.max": 2147483648,
+        "memory.events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    },
+    {
+      "stage": "silver",
+      "run_id": "asset_triggered__2026-10-28T00:06:47.879584+00:00_Jnle3f4g",
+      "attempt": 1,
+      "processing_seconds": 339.8,
+      "returncode": 0,
+      "submitted_at": 1793146012.5987647,
+      "completed_at": 1793146352.661865,
+      "memory": {
+        "sample_interval_seconds": 0.5,
+        "peak_sampled_working_set_bytes": 1789165568,
+        "peak_sampled_current_bytes": 1998897152,
+        "memory.peak": 2009538560,
+        "memory.max": 2147483648,
+        "memory.events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    },
+    {
+      "stage": "bi",
+      "run_id": "asset_triggered__2026-10-28T00:12:33.535771+00:00_XwPQpXT2",
+      "attempt": 1,
+      "processing_seconds": 23.107,
+      "returncode": 0,
+      "submitted_at": 1793146360.113232,
+      "completed_at": 1793146383.567822,
+      "memory": {
+        "sample_interval_seconds": 0.5,
+        "peak_sampled_working_set_bytes": 919490560,
+        "peak_sampled_current_bytes": 1129365504,
+        "memory.peak": 2009538560,
+        "memory.max": 2147483648,
+        "memory.events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    },
+    {
+      "stage": "ml",
+      "run_id": "asset_triggered__2026-10-28T00:12:33.535761+00:00_lJGtPFXq",
+      "attempt": 1,
+      "processing_seconds": 23.23,
+      "returncode": 0,
+      "submitted_at": 1793146387.171259,
+      "completed_at": 1793146410.5168662,
+      "memory": {
+        "sample_interval_seconds": 0.5,
+        "peak_sampled_working_set_bytes": 1194672128,
+        "peak_sampled_current_bytes": 1345544192,
+        "memory.peak": 2009538560,
+        "memory.max": 2147483648,
+        "memory.events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    },
+    {
+      "stage": "audit",
+      "run_id": "4e42fef1-60ca-44bc-a85b-197ca0616a51",
+      "attempt": 1,
+      "processing_seconds": 80.152,
+      "returncode": 0,
+      "submitted_at": 1793146413.679599,
+      "completed_at": 1793146494.406113,
+      "memory": {
+        "sample_interval_seconds": 0.5,
+        "peak_sampled_working_set_bytes": 1399685120,
+        "peak_sampled_current_bytes": 1593741312,
+        "memory.peak": 2009538560,
+        "memory.max": 2147483648,
+        "memory.events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    }
+  ],
+  "audit": {
+    "verified": true,
+    "source_sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+    "reference": {
+      "source_rows": 2121501,
+      "member_rows": {
+        "202402-citibike-tripdata_1.csv": 1000000,
+        "202402-citibike-tripdata_2.csv": 1000000,
+        "202402-citibike-tripdata_3.csv": 121501
+      },
+      "accepted_before_dedup": 2118773,
+      "accepted_unique": 2118773,
+      "accepted_duplicate_rows": 0,
+      "rejected": 2728,
+      "reasons": {
+        "outside_source_month": 233,
+        "missing_start_station": 1864,
+        "invalid_duration": 631
+      },
+      "stations": 2231
+    },
+    "metrics": {
+      "silver_rows": 2118773,
+      "quarantine_rows": 2728,
+      "quarantine_reasons": {
+        "missing_start_station": 1864,
+        "invalid_duration": 631,
+        "outside_source_month": 233
+      },
+      "bronze_duplicate_nonnull_ids": 0,
+      "stations": 2231,
+      "hours_per_station": 696,
+      "gold_bi_rows": 626288,
+      "gold_ml_rows": 1552776,
+      "gold_bi_ride_sum": 2118773,
+      "gold_ml_ride_sum": 2118773,
+      "feature_rows_after_warmup": 1177968,
+      "intentional_warmup_rows": 374808,
+      "feature_invalid_counts": {
+        "lag_1h": 0,
+        "lag_2h": 0,
+        "lag_24h": 0,
+        "lag_168h": 0,
+        "rolling_6h_mean": 0,
+        "rolling_6h_std": 0,
+        "rolling_24h_mean": 0,
+        "rolling_24h_std": 0,
+        "hour_of_day_sin": 0,
+        "hour_of_day_cos": 0,
+        "day_of_week_sin": 0,
+        "day_of_week_cos": 0,
+        "is_weekend": 0
+      },
+      "numpy_parity_stations": {
+        "190 Morgan": {
+          "rows": 528,
+          "max_absolute_delta": 8.881784197001252e-16
+        },
+        "SYS038": {
+          "rows": 528,
+          "max_absolute_delta": 8.881784197001252e-16
+        },
+        "6140.05": {
+          "rows": 528,
+          "max_absolute_delta": 1.8515189381673736e-12
+        }
+      }
+    },
+    "continuity": {
+      "station": "6140.05",
+      "cross_month_first_hour_available": true,
+      "spark_numpy_parity": true,
+      "feature_rows": 696,
+      "current_and_future_target_mutation_unchanged": true
+    },
+    "seconds": 77.351,
+    "model_training": false
+  },
+  "checkpoint_reuse": {
+    "tables_unchanged": true,
+    "new_ingestion_events": 0,
+    "new_spark_jobs": 0
+  },
+  "january_cache_reuse": {
+    "dataset": "citibike",
+    "source_url": "https://s3.amazonaws.com/tripdata/202401-citibike-tripdata.zip",
+    "source_filepath": "/opt/airflow/data/citibike/monthly/archives/202401-citibike-tripdata.zip",
+    "source_filename": "202401-citibike-tripdata.zip",
+    "source_year": 2024,
+    "source_month": 1,
+    "file_size_bytes": 369035302,
+    "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+    "discovered_at_utc": "2026-10-27T22:33:01.382265+00:00",
+    "sample": false,
+    "sample_rows": null,
+    "bytes_transferred": 369035302,
+    "members": [
+      "202401-citibike-tripdata_2.csv",
+      "202401-citibike-tripdata_1.csv"
+    ],
+    "source_revision": 1,
+    "supersedes_sha256": null,
+    "reused_from": "/opt/airflow/data/citibike/full_month_validation/incoming/202401-citibike-tripdata.zip",
+    "reused": true,
+    "bytes_transferred_this_call": 0
+  },
+  "airflow": {
+    "prior_event_tables_unchanged": true,
+    "prior_month_warehouse_files_unchanged": 93,
+    "assets": {
+      "local://citibike/monthly-01/incoming": {
+        "asset_events": [
+          {
+            "id": 50,
+            "asset_id": 19,
+            "uri": "local://citibike/monthly-01/incoming",
+            "name": "monthly/citibike/incoming",
+            "group": "asset",
+            "extra": {
+              "dataset": "citibike",
+              "source_url": "https://s3.amazonaws.com/tripdata/202402-citibike-tripdata.zip",
+              "source_filepath": "/opt/airflow/artifacts/monthly-ingestion-01/incoming/202402-citibike-tripdata.zip",
+              "source_filename": "202402-citibike-tripdata.zip",
+              "source_year": 2024,
+              "source_month": 2,
+              "file_size_bytes": 414712349,
+              "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+              "discovered_at_utc": "2026-10-28T00:04:54.699668+00:00",
+              "sample": false,
+              "sample_rows": null,
+              "bytes_transferred": 406323741,
+              "bytes_transferred_this_call": 406323741,
+              "members": [
+                "202402-citibike-tripdata_1.csv",
+                "202402-citibike-tripdata_2.csv",
+                "202402-citibike-tripdata_3.csv"
+              ],
+              "source_revision": 1,
+              "supersedes_sha256": null,
+              "origin_etag": "\"143b5f502db70d11b2b7f19752556fdc-25\"",
+              "resumed_from_bytes": 8388608,
+              "attempts_this_call": 1,
+              "reused": false,
+              "monthly_delivery_id": "4e42fef1-60ca-44bc-a85b-197ca0616a51",
+              "data_split": "train",
+              "from_rest_api": true
+            },
+            "source_task_id": null,
+            "source_dag_id": null,
+            "source_run_id": null,
+            "source_map_index": -1,
+            "created_dagruns": [
+              {
+                "run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW",
+                "dag_id": "monthly_citibike_bronze",
+                "logical_date": null,
+                "start_date": "2026-10-28T00:05:07.375518Z",
+                "end_date": "2026-10-28T00:06:48.192268Z",
+                "state": "success",
+                "data_interval_start": null,
+                "data_interval_end": null,
+                "partition_key": null
+              }
+            ],
+            "timestamp": "2026-10-28T00:05:07.220747Z",
+            "partition_key": null
+          }
+        ],
+        "total_entries": 1
+      },
+      "local://citibike/monthly-01/bronze": {
+        "asset_events": [
+          {
+            "id": 51,
+            "asset_id": 20,
+            "uri": "local://citibike/monthly-01/bronze",
+            "name": "monthly/citibike/bronze",
+            "group": "asset",
+            "extra": {
+              "dataset": "citibike",
+              "source_url": "https://s3.amazonaws.com/tripdata/202402-citibike-tripdata.zip",
+              "source_filepath": "/opt/airflow/artifacts/monthly-ingestion-01/incoming/202402-citibike-tripdata.zip",
+              "source_filename": "202402-citibike-tripdata.zip",
+              "source_year": 2024,
+              "source_month": 2,
+              "file_size_bytes": 414712349,
+              "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+              "discovered_at_utc": "2026-10-28T00:04:54.699668+00:00",
+              "sample": false,
+              "sample_rows": null,
+              "bytes_transferred": 406323741,
+              "bytes_transferred_this_call": 406323741,
+              "members": [
+                "202402-citibike-tripdata_1.csv",
+                "202402-citibike-tripdata_2.csv",
+                "202402-citibike-tripdata_3.csv"
+              ],
+              "source_revision": 1,
+              "supersedes_sha256": null,
+              "origin_etag": "\"143b5f502db70d11b2b7f19752556fdc-25\"",
+              "resumed_from_bytes": 8388608,
+              "attempts_this_call": 1,
+              "reused": false,
+              "monthly_delivery_id": "4e42fef1-60ca-44bc-a85b-197ca0616a51",
+              "data_split": "train",
+              "from_rest_api": true,
+              "ingestion_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW:20242:r1:f0209d02b862"
+            },
+            "source_task_id": "process_bronze",
+            "source_dag_id": "monthly_citibike_bronze",
+            "source_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW",
+            "source_map_index": -1,
+            "created_dagruns": [
+              {
+                "run_id": "asset_triggered__2026-10-28T00:06:47.879584+00:00_Jnle3f4g",
+                "dag_id": "monthly_citibike_silver",
+                "logical_date": null,
+                "start_date": "2026-10-28T00:06:48.173664Z",
+                "end_date": "2026-10-28T00:12:34.625081Z",
+                "state": "success",
+                "data_interval_start": null,
+                "data_interval_end": null,
+                "partition_key": null
+              }
+            ],
+            "timestamp": "2026-10-28T00:06:47.858521Z",
+            "partition_key": null
+          }
+        ],
+        "total_entries": 1
+      },
+      "local://citibike/monthly-01/silver": {
+        "asset_events": [
+          {
+            "id": 52,
+            "asset_id": 21,
+            "uri": "local://citibike/monthly-01/silver",
+            "name": "monthly/citibike/silver",
+            "group": "asset",
+            "extra": {
+              "dataset": "citibike",
+              "source_url": "https://s3.amazonaws.com/tripdata/202402-citibike-tripdata.zip",
+              "source_filepath": "/opt/airflow/artifacts/monthly-ingestion-01/incoming/202402-citibike-tripdata.zip",
+              "source_filename": "202402-citibike-tripdata.zip",
+              "source_year": 2024,
+              "source_month": 2,
+              "file_size_bytes": 414712349,
+              "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+              "discovered_at_utc": "2026-10-28T00:04:54.699668+00:00",
+              "sample": false,
+              "sample_rows": null,
+              "bytes_transferred": 406323741,
+              "bytes_transferred_this_call": 406323741,
+              "members": [
+                "202402-citibike-tripdata_1.csv",
+                "202402-citibike-tripdata_2.csv",
+                "202402-citibike-tripdata_3.csv"
+              ],
+              "source_revision": 1,
+              "supersedes_sha256": null,
+              "origin_etag": "\"143b5f502db70d11b2b7f19752556fdc-25\"",
+              "resumed_from_bytes": 8388608,
+              "attempts_this_call": 1,
+              "reused": false,
+              "monthly_delivery_id": "4e42fef1-60ca-44bc-a85b-197ca0616a51",
+              "data_split": "train",
+              "from_rest_api": true,
+              "ingestion_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW:20242:r1:f0209d02b862",
+              "publication": {
+                "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+                "source_revision": 1,
+                "ingestion_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW:20242:r1:f0209d02b862",
+                "supersedes_sha256": null,
+                "decision": "publish"
+              }
+            },
+            "source_task_id": "process_silver",
+            "source_dag_id": "monthly_citibike_silver",
+            "source_run_id": "asset_triggered__2026-10-28T00:06:47.879584+00:00_Jnle3f4g",
+            "source_map_index": -1,
+            "created_dagruns": [
+              {
+                "run_id": "asset_triggered__2026-10-28T00:12:33.535771+00:00_XwPQpXT2",
+                "dag_id": "monthly_citibike_bi",
+                "logical_date": null,
+                "start_date": "2026-10-28T00:12:34.598851Z",
+                "end_date": "2026-10-28T00:13:04.621493Z",
+                "state": "success",
+                "data_interval_start": null,
+                "data_interval_end": null,
+                "partition_key": null
+              },
+              {
+                "run_id": "asset_triggered__2026-10-28T00:12:33.535761+00:00_lJGtPFXq",
+                "dag_id": "monthly_citibike_ml",
+                "logical_date": null,
+                "start_date": "2026-10-28T00:12:34.593916Z",
+                "end_date": "2026-10-28T00:13:31.584294Z",
+                "state": "success",
+                "data_interval_start": null,
+                "data_interval_end": null,
+                "partition_key": null
+              }
+            ],
+            "timestamp": "2026-10-28T00:12:33.507614Z",
+            "partition_key": null
+          }
+        ],
+        "total_entries": 1
+      },
+      "local://citibike/monthly-01/bi": {
+        "asset_events": [
+          {
+            "id": 53,
+            "asset_id": 22,
+            "uri": "local://citibike/monthly-01/bi",
+            "name": "monthly/citibike/bi",
+            "group": "asset",
+            "extra": {
+              "dataset": "citibike",
+              "source_url": "https://s3.amazonaws.com/tripdata/202402-citibike-tripdata.zip",
+              "source_filepath": "/opt/airflow/artifacts/monthly-ingestion-01/incoming/202402-citibike-tripdata.zip",
+              "source_filename": "202402-citibike-tripdata.zip",
+              "source_year": 2024,
+              "source_month": 2,
+              "file_size_bytes": 414712349,
+              "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+              "discovered_at_utc": "2026-10-28T00:04:54.699668+00:00",
+              "sample": false,
+              "sample_rows": null,
+              "bytes_transferred": 406323741,
+              "bytes_transferred_this_call": 406323741,
+              "members": [
+                "202402-citibike-tripdata_1.csv",
+                "202402-citibike-tripdata_2.csv",
+                "202402-citibike-tripdata_3.csv"
+              ],
+              "source_revision": 1,
+              "supersedes_sha256": null,
+              "origin_etag": "\"143b5f502db70d11b2b7f19752556fdc-25\"",
+              "resumed_from_bytes": 8388608,
+              "attempts_this_call": 1,
+              "reused": false,
+              "monthly_delivery_id": "4e42fef1-60ca-44bc-a85b-197ca0616a51",
+              "data_split": "train",
+              "from_rest_api": true,
+              "ingestion_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW:20242:r1:f0209d02b862",
+              "publication": {
+                "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+                "source_revision": 1,
+                "ingestion_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW:20242:r1:f0209d02b862",
+                "supersedes_sha256": null,
+                "decision": "publish"
+              }
+            },
+            "source_task_id": "process_bi",
+            "source_dag_id": "monthly_citibike_bi",
+            "source_run_id": "asset_triggered__2026-10-28T00:12:33.535771+00:00_XwPQpXT2",
+            "source_map_index": -1,
+            "created_dagruns": [],
+            "timestamp": "2026-10-28T00:13:04.203250Z",
+            "partition_key": null
+          }
+        ],
+        "total_entries": 1
+      },
+      "local://citibike/monthly-01/ml": {
+        "asset_events": [
+          {
+            "id": 54,
+            "asset_id": 23,
+            "uri": "local://citibike/monthly-01/ml",
+            "name": "monthly/citibike/ml",
+            "group": "asset",
+            "extra": {
+              "dataset": "citibike",
+              "source_url": "https://s3.amazonaws.com/tripdata/202402-citibike-tripdata.zip",
+              "source_filepath": "/opt/airflow/artifacts/monthly-ingestion-01/incoming/202402-citibike-tripdata.zip",
+              "source_filename": "202402-citibike-tripdata.zip",
+              "source_year": 2024,
+              "source_month": 2,
+              "file_size_bytes": 414712349,
+              "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+              "discovered_at_utc": "2026-10-28T00:04:54.699668+00:00",
+              "sample": false,
+              "sample_rows": null,
+              "bytes_transferred": 406323741,
+              "bytes_transferred_this_call": 406323741,
+              "members": [
+                "202402-citibike-tripdata_1.csv",
+                "202402-citibike-tripdata_2.csv",
+                "202402-citibike-tripdata_3.csv"
+              ],
+              "source_revision": 1,
+              "supersedes_sha256": null,
+              "origin_etag": "\"143b5f502db70d11b2b7f19752556fdc-25\"",
+              "resumed_from_bytes": 8388608,
+              "attempts_this_call": 1,
+              "reused": false,
+              "monthly_delivery_id": "4e42fef1-60ca-44bc-a85b-197ca0616a51",
+              "data_split": "train",
+              "from_rest_api": true,
+              "ingestion_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW:20242:r1:f0209d02b862",
+              "publication": {
+                "sha256": "f0209d02b862ec7422ea251f55626c007c8289adb62230e870ed7da24ef77f05",
+                "source_revision": 1,
+                "ingestion_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW:20242:r1:f0209d02b862",
+                "supersedes_sha256": null,
+                "decision": "publish"
+              }
+            },
+            "source_task_id": "process_ml",
+            "source_dag_id": "monthly_citibike_ml",
+            "source_run_id": "asset_triggered__2026-10-28T00:12:33.535761+00:00_lJGtPFXq",
+            "source_map_index": -1,
+            "created_dagruns": [],
+            "timestamp": "2026-10-28T00:13:31.272845Z",
+            "partition_key": null
+          }
+        ],
+        "total_entries": 1
+      }
+    },
+    "dags": {
+      "monthly_citibike_bronze": {
+        "paused": true,
+        "runs": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-28T00:05:07.258279+00:00_IxRZgDqW",
+            "dag_id": "monthly_citibike_bronze",
+            "logical_date": null,
+            "queued_at": "2026-10-28T00:05:07.351043Z",
+            "start_date": "2026-10-28T00:05:07.375518Z",
+            "end_date": "2026-10-28T00:06:48.192268Z",
+            "duration": 100.81675,
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "run_after": "2026-10-28T00:05:07.258279Z",
+            "last_scheduling_decision": "2026-10-28T00:06:48.190962Z",
+            "run_type": "asset_triggered",
+            "state": "success",
+            "triggered_by": "asset",
+            "triggering_user_name": null,
+            "conf": {},
+            "note": null,
+            "dag_versions": [
+              {
+                "id": "01a17fd0-38cd-73a7-ac9b-2c1711e22ae0",
+                "version_number": 1,
+                "dag_id": "monthly_citibike_bronze",
+                "bundle_name": "dags-folder",
+                "bundle_version": null,
+                "created_at": "2026-10-28T00:01:54.893071Z",
+                "dag_display_name": "monthly_citibike_bronze",
+                "bundle_url": null
+              }
+            ],
+            "bundle_version": null,
+            "dag_display_name": "monthly_citibike_bronze",
+            "partition_key": null
+          }
+        ]
+      },
+      "monthly_citibike_silver": {
+        "paused": true,
+        "runs": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-28T00:06:47.879584+00:00_Jnle3f4g",
+            "dag_id": "monthly_citibike_silver",
+            "logical_date": null,
+            "queued_at": "2026-10-28T00:06:48.129523Z",
+            "start_date": "2026-10-28T00:06:48.173664Z",
+            "end_date": "2026-10-28T00:12:34.625081Z",
+            "duration": 346.451417,
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "run_after": "2026-10-28T00:06:47.879584Z",
+            "last_scheduling_decision": "2026-10-28T00:12:34.623766Z",
+            "run_type": "asset_triggered",
+            "state": "success",
+            "triggered_by": "asset",
+            "triggering_user_name": null,
+            "conf": {},
+            "note": null,
+            "dag_versions": [
+              {
+                "id": "01a17fd0-38ce-7529-9dd0-6e4f004f3444",
+                "version_number": 1,
+                "dag_id": "monthly_citibike_silver",
+                "bundle_name": "dags-folder",
+                "bundle_version": null,
+                "created_at": "2026-10-28T00:01:54.893082Z",
+                "dag_display_name": "monthly_citibike_silver",
+                "bundle_url": null
+              }
+            ],
+            "bundle_version": null,
+            "dag_display_name": "monthly_citibike_silver",
+            "partition_key": null
+          }
+        ]
+      },
+      "monthly_citibike_bi": {
+        "paused": true,
+        "runs": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-28T00:12:33.535771+00:00_XwPQpXT2",
+            "dag_id": "monthly_citibike_bi",
+            "logical_date": null,
+            "queued_at": "2026-10-28T00:12:34.517607Z",
+            "start_date": "2026-10-28T00:12:34.598851Z",
+            "end_date": "2026-10-28T00:13:04.621493Z",
+            "duration": 30.022642,
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "run_after": "2026-10-28T00:12:33.535771Z",
+            "last_scheduling_decision": "2026-10-28T00:13:04.619711Z",
+            "run_type": "asset_triggered",
+            "state": "success",
+            "triggered_by": "asset",
+            "triggering_user_name": null,
+            "conf": {},
+            "note": null,
+            "dag_versions": [
+              {
+                "id": "01a17fd0-38cf-787e-a84a-7f559bc51ff1",
+                "version_number": 1,
+                "dag_id": "monthly_citibike_bi",
+                "bundle_name": "dags-folder",
+                "bundle_version": null,
+                "created_at": "2026-10-28T00:01:54.893086Z",
+                "dag_display_name": "monthly_citibike_bi",
+                "bundle_url": null
+              }
+            ],
+            "bundle_version": null,
+            "dag_display_name": "monthly_citibike_bi",
+            "partition_key": null
+          }
+        ]
+      },
+      "monthly_citibike_ml": {
+        "paused": true,
+        "runs": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-28T00:12:33.535761+00:00_lJGtPFXq",
+            "dag_id": "monthly_citibike_ml",
+            "logical_date": null,
+            "queued_at": "2026-10-28T00:12:34.571642Z",
+            "start_date": "2026-10-28T00:12:34.593916Z",
+            "end_date": "2026-10-28T00:13:31.584294Z",
+            "duration": 56.990378,
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "run_after": "2026-10-28T00:12:33.535761Z",
+            "last_scheduling_decision": "2026-10-28T00:13:31.581614Z",
+            "run_type": "asset_triggered",
+            "state": "success",
+            "triggered_by": "asset",
+            "triggering_user_name": null,
+            "conf": {},
+            "note": null,
+            "dag_versions": [
+              {
+                "id": "01a17fd0-38d0-7503-8c48-05435c27959d",
+                "version_number": 1,
+                "dag_id": "monthly_citibike_ml",
+                "bundle_name": "dags-folder",
+                "bundle_version": null,
+                "created_at": "2026-10-28T00:01:54.893089Z",
+                "dag_display_name": "monthly_citibike_ml",
+                "bundle_url": null
+              }
+            ],
+            "bundle_version": null,
+            "dag_display_name": "monthly_citibike_ml",
+            "partition_key": null
+          }
+        ]
+      },
+      "monthly_citibike_downloads": {
+        "paused": true,
+        "runs": []
+      },
+      "1_bronze_ingestion": {
+        "paused": true,
+        "runs": []
+      },
+      "2_silver_wap_purification": {
+        "paused": true,
+        "runs": []
+      },
+      "3a_gold_bi_marts": {
+        "paused": true,
+        "runs": []
+      },
+      "3b_gold_ml_observations": {
+        "paused": true,
+        "runs": []
+      },
+      "4_ml_batch_demand_score": {
+        "paused": true,
+        "runs": []
+      }
+    }
+  },
+  "preservation": {
+    "source_models_and_postgres_fingerprints_unchanged": true,
+    "prior_orchestration_tables_unchanged": true,
+    "prior_full_month_warehouse_files_unchanged": 93
+  },
+  "tests": {
+    "tests": 111,
+    "skipped": 2,
+    "failures": 0,
+    "errors": 0,
+    "passed": 109
+  },
+  "containers": {
+    "/citibike_monthly_worker_01": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "StartedAt": "2026-10-28T00:03:59.196637743Z",
+      "FinishedAt": "2026-10-28T00:19:21.883946426Z"
+    },
+    "/citibike_monthly_pilot_01": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "StartedAt": "2026-10-28T00:04:00.114802682Z",
+      "FinishedAt": "2026-10-28T00:14:56.681098519Z"
+    },
+    "/citibike_monthly_checkpoint_reuse_01": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "StartedAt": "2026-10-28T00:16:32.630269477Z",
+      "FinishedAt": "2026-10-28T00:16:36.731231012Z"
+    },
+    "/citibike_monthly_watcher_01": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "StartedAt": "2026-10-28T00:03:59.629000358Z",
+      "FinishedAt": "2026-10-28T00:19:20.781132873Z"
+    }
+  },
+  "health": {
+    "metadatabase": {
+      "status": "healthy"
+    },
+    "scheduler": {
+      "status": "healthy",
+      "latest_scheduler_heartbeat": "2026-10-28T00:19:15.604698+00:00"
+    },
+    "triggerer": {
+      "status": null,
+      "latest_triggerer_heartbeat": null
+    },
+    "dag_processor": {
+      "status": "healthy",
+      "latest_dag_processor_heartbeat": "2026-10-28T00:19:18.660139+00:00"
+    }
+  },
+  "dag_import_errors": 0,
+  "host_free_disk_bytes": 114518429696,
+  "split_policy": {
+    "train": 2024,
+    "validation": 2025,
+    "test": 2026,
+    "calendar_timezone": "America/New_York",
+    "station_and_threshold_selection": "2024 only",
+    "context": "Earlier observed hours may cross month/year boundaries; current/future counts excluded; gaps restart warmup",
+    "final_fit": "2024 only; validation rows excluded from final refit",
+    "metadata_cutoffs": "Separate fit and validation-selection cutoffs; scoring uses conservative information cutoff"
+  },
+  "limits": [
+    "Only February 2024 download-to-Iceberg and January archive reuse/boundary context were executed; remaining archive contents have not been validated",
+    "No Citi Bike model training, scoring or test-quality metrics were produced",
+    "Scheduled discovery DAG remains paused; its full multi-year coordinator has not been run",
+    "Monthly automation pins initial source versions; changed origins or manual corrections require operator review",
+    "Checkpoint skips assume this controller owns the isolated tables; table replacement is detected, arbitrary external in-place edits are outside this guarantee"
+  ],
+  "warehouse_bytes": 237740393,
+  "watcher_dependency": "watchdog 4.0.2 reused into the monthly root and Docker import-checked without downloading dependencies"
+}

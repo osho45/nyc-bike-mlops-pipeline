@@ -1,0 +1,25 @@
+﻿purpose: isolated_opt_in_4g_capacity_validation
+profile: native-4g
+allowed_stations: [384]
+allowed_years: [2024, 2025]
+full_network_training_enabled: false
+production_changes_allowed: false
+resources:
+  memory_gib: 4
+  extra_swap_gib: 0
+  cpu_threads: 2
+  stop_fraction: 0.85
+  host_total_min_gib: 12
+  host_free_startup_min_gib: 6
+  host_free_runtime_min_gib: 2
+  docker_total_min_gib: 6
+  vm_available_startup_min_gib: 5
+  vm_available_runtime_min_gib: 1
+  disk_reserve_gib: 10
+  heartbeat_max_age_seconds: 30
+  maximum_training_workers: 1
+restart:
+  automatic_retry: false
+  reuse_completed_phases: true
+  overwrite_existing_phases: false
+  automatic_mid_fit_resume: false

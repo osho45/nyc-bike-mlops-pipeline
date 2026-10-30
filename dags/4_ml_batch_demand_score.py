@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime,timezone
 
 from airflow.sdk import dag, task
 from airflow.sdk.exceptions import AirflowFailException
@@ -15,7 +15,7 @@ from airflow.sdk.exceptions import AirflowFailException
     schedule="@hourly",
     catchup=False,
     max_active_runs=1,
-    tags=["ml", "batch-inference", "taxi-demand"],
+    tags=["ml", "batch-inference", "citibike-demand"],
 )
 def ml_batch_demand_score_dag():
 
@@ -29,6 +29,8 @@ def ml_batch_demand_score_dag():
         real_now = conf.get("real_now")
         if real_now is None and logical_date is not None:
             real_now = logical_date.isoformat()
+        if real_now is None:
+            real_now = datetime.now(timezone.utc).isoformat()
 
         months_back = int(conf.get("months_back", 2))
 
@@ -95,6 +97,7 @@ def ml_batch_demand_score_dag():
             "/opt/airflow/jobs/ml_evaluate_feedback.py",
             "--real-now",
             real_now,
+            "--months-back", str(int((getattr(context.get("dag_run"),"conf",{}) or {}).get("months_back",2))),
         ]
 
         log.info(

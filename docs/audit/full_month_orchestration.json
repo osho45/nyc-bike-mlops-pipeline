@@ -1,0 +1,1606 @@
+{
+  "date_local": "2026-10-27",
+  "verified": true,
+  "scope": "Isolated real watcher/Airflow asset chain using shared production ETL logic and a separately capped validation worker",
+  "source": {
+    "year": 2024,
+    "month": 1,
+    "source_url": "https://s3.amazonaws.com/tripdata/202401-citibike-tripdata.zip",
+    "source_sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+    "source_bytes": 369035302
+  },
+  "actual_audit": {
+    "matches_full_month_baseline": true,
+    "schema_matches_baseline": true,
+    "audit": {
+      "silver_rows": 1885944,
+      "quarantine_rows": 2141,
+      "quarantine_reasons": {
+        "missing_start_station": 1160,
+        "invalid_duration": 571,
+        "outside_source_month": 410
+      },
+      "bronze_duplicate_nonnull_ids": 0,
+      "stations": 2223,
+      "hours_per_station": 744,
+      "gold_bi_rows": 620302,
+      "gold_ml_rows": 1653912,
+      "gold_bi_ride_sum": 1885944,
+      "gold_ml_ride_sum": 1885944,
+      "feature_rows_after_warmup": 1280448,
+      "intentional_warmup_rows": 373464,
+      "feature_invalid_counts": {
+        "lag_1h": 0,
+        "lag_2h": 0,
+        "lag_24h": 0,
+        "lag_168h": 0,
+        "rolling_6h_mean": 0,
+        "rolling_6h_std": 0,
+        "rolling_24h_mean": 0,
+        "rolling_24h_std": 0,
+        "hour_of_day_sin": 0,
+        "hour_of_day_cos": 0,
+        "day_of_week_sin": 0,
+        "day_of_week_cos": 0,
+        "is_weekend": 0
+      },
+      "numpy_parity_stations": {
+        "2733.03": {
+          "rows": 576,
+          "max_absolute_delta": 8.881784197001252e-16
+        },
+        "SYS038": {
+          "rows": 576,
+          "max_absolute_delta": 8.881784197001252e-16
+        },
+        "6140.05": {
+          "rows": 576,
+          "max_absolute_delta": 8.35387314879199e-13
+        }
+      }
+    },
+    "tables": {
+      "bronze.citibike_rides_raw": {
+        "rows": 1888085,
+        "snapshot_id": 2153785404081447562,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "ride_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rideable_type",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "started_at",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ended_at",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_station_name",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_station_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_station_name",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_station_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_lat",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_lng",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_lat",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_lng",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "member_casual",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_member",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_filename",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_checksum",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_year",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_month",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ingestion_run_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ingested_at_utc",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_revision",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "supersedes_sha256",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "silver.citibike_rides": {
+        "rows": 1885944,
+        "snapshot_id": 7832676052825847359,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "ride_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rideable_type",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "started_at",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ended_at",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_station_name",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_station_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_station_name",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_station_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_lat",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_lng",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_lat",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_lng",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "member_casual",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_member",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_filename",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_checksum",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_year",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_month",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ingestion_run_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ingested_at_utc",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_revision",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "supersedes_sha256",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "duration_seconds",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "published_at_utc",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "quarantine.citibike_rides": {
+        "rows": 2141,
+        "snapshot_id": 2445287784411862760,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "ride_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rideable_type",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "started_at",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ended_at",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_station_name",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_station_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_station_name",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_station_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_lat",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "start_lng",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_lat",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "end_lng",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "member_casual",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_member",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_filename",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_checksum",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_year",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_month",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ingestion_run_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ingested_at_utc",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_revision",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "supersedes_sha256",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rejection_reason",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "quarantined_at",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "gold.station_hourly_utilization": {
+        "rows": 620302,
+        "snapshot_id": 6013538390087672765,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "station_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "station_hour_ts",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ride_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "avg_duration_seconds",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "member_rides",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "electric_rides",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "target_year",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "target_month",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_checksum",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_revision",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "gold.station_hourly_observations": {
+        "rows": 1653912,
+        "snapshot_id": 4802501109665414834,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "station_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "station_hour_ts",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ride_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "target_year",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "target_month",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_checksum",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "source_revision",
+              "type": "integer",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "audit.ingestion_ledger": {
+        "rows": 1,
+        "snapshot_id": 6005291437345224748,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "source_filename",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "file_checksum",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "ingestion_run_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "finished_at",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      }
+    },
+    "seconds": 58.33,
+    "memory": {
+      "sample_interval_seconds": 0.5,
+      "peak_sampled_working_set_bytes": 1128742912,
+      "peak_sampled_current_bytes": 1165783040,
+      "memory.peak": 1171894272,
+      "memory.max": 2147483648,
+      "memory.events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  },
+  "cases": {
+    "initial": {
+      "incoming_event_id": 35,
+      "manifest_to_event_seconds": 32.142471,
+      "event_to_final_dag_seconds": 563.286353,
+      "dags": {
+        "bronze": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:02:48.981017Z",
+            "end_date": "2026-10-27T23:05:35.937413Z",
+            "queued_at": "2026-10-27T23:02:48.917239Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_bronze",
+                "state": "success",
+                "try_number": 2,
+                "start_date": "2026-10-27T23:05:12.474395Z",
+                "end_date": "2026-10-27T23:05:34.989658Z",
+                "duration": 22.515263,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "silver": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:05:35.073010+00:00_JX8eSnyZ",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:05:35.913111Z",
+            "end_date": "2026-10-27T23:11:06.033127Z",
+            "queued_at": "2026-10-27T23:05:35.851165Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_silver",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:05:36.056854Z",
+                "end_date": "2026-10-27T23:11:04.876661Z",
+                "duration": 328.819807,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "bi": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:11:05.136346+00:00_W6vRIuA9",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:11:06.001536Z",
+            "end_date": "2026-10-27T23:12:11.758210Z",
+            "queued_at": "2026-10-27T23:11:05.968276Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_bi",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:11:45.535916Z",
+                "end_date": "2026-10-27T23:12:11.610522Z",
+                "duration": 26.074606,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "ml": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:11:05.136337+00:00_24qfdzyP",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:11:05.997035Z",
+            "end_date": "2026-10-27T23:11:45.433584Z",
+            "queued_at": "2026-10-27T23:11:05.922784Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_ml",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:11:06.388672Z",
+                "end_date": "2026-10-27T23:11:45.054123Z",
+                "duration": 38.665451,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ]
+      },
+      "table_state_unchanged_from_initial": true
+    },
+    "duplicate": {
+      "incoming_event_id": 40,
+      "manifest_to_event_seconds": 79.595059,
+      "event_to_final_dag_seconds": 65.403415,
+      "dags": {
+        "bronze": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:13:49.427739+00:00_TRYxiAk8",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:13:50.201290Z",
+            "end_date": "2026-10-27T23:14:10.321524Z",
+            "queued_at": "2026-10-27T23:13:50.047421Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_bronze",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:13:50.678205Z",
+                "end_date": "2026-10-27T23:14:09.963174Z",
+                "duration": 19.284969,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "silver": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:14:09.984949+00:00_Ldf8wdMh",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:14:10.304938Z",
+            "end_date": "2026-10-27T23:14:25.705039Z",
+            "queued_at": "2026-10-27T23:14:10.289241Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_silver",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:14:10.390585Z",
+                "end_date": "2026-10-27T23:14:25.109015Z",
+                "duration": 14.71843,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "bi": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:14:25.138568+00:00_Yt7CThgs",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:14:25.684276Z",
+            "end_date": "2026-10-27T23:14:54.793745Z",
+            "queued_at": "2026-10-27T23:14:25.667825Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_bi",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:14:40.394821Z",
+                "end_date": "2026-10-27T23:14:54.058847Z",
+                "duration": 13.664026,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "ml": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:14:25.138563+00:00_4YG4gMHZ",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:14:25.682893Z",
+            "end_date": "2026-10-27T23:14:40.338313Z",
+            "queued_at": "2026-10-27T23:14:25.654261Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_ml",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:14:25.757689Z",
+                "end_date": "2026-10-27T23:14:39.415535Z",
+                "duration": 13.657846,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ]
+      },
+      "table_state_unchanged_from_initial": true
+    },
+    "replay": {
+      "incoming_event_id": 45,
+      "manifest_to_event_seconds": 13.105346,
+      "event_to_final_dag_seconds": 63.76331,
+      "dags": {
+        "bronze": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:16:06.767052+00:00_t2wMfAZ3",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:16:07.141487Z",
+            "end_date": "2026-10-27T23:16:26.294663Z",
+            "queued_at": "2026-10-27T23:16:07.125555Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_bronze",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:16:07.200714Z",
+                "end_date": "2026-10-27T23:16:26.061603Z",
+                "duration": 18.860889,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "silver": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:16:26.087596+00:00_pKW9aKVc",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:16:26.279861Z",
+            "end_date": "2026-10-27T23:16:41.152803Z",
+            "queued_at": "2026-10-27T23:16:26.262338Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_silver",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:16:26.354516Z",
+                "end_date": "2026-10-27T23:16:41.035739Z",
+                "duration": 14.681223,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "bi": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:16:41.058739+00:00_35S0L7nz",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:16:41.128245Z",
+            "end_date": "2026-10-27T23:16:55.417666Z",
+            "queued_at": "2026-10-27T23:16:41.096899Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_bi",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:16:41.201445Z",
+                "end_date": "2026-10-27T23:16:54.870958Z",
+                "duration": 13.669513,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ],
+        "ml": [
+          {
+            "dag_run_id": "asset_triggered__2026-10-27T23:16:41.058744+00:00_aghA987E",
+            "state": "success",
+            "run_type": "asset_triggered",
+            "start_date": "2026-10-27T23:16:41.129577Z",
+            "end_date": "2026-10-27T23:17:10.527581Z",
+            "queued_at": "2026-10-27T23:16:41.112880Z",
+            "triggered_by": "asset",
+            "tasks": [
+              {
+                "task_id": "process_ml",
+                "state": "success",
+                "try_number": 1,
+                "start_date": "2026-10-27T23:16:55.465506Z",
+                "end_date": "2026-10-27T23:17:10.119785Z",
+                "duration": 14.654279,
+                "pool": "citibike_spark"
+              }
+            ]
+          }
+        ]
+      },
+      "table_state_unchanged_from_initial": true
+    }
+  },
+  "asset_dependencies": {
+    "incoming": [
+      {
+        "id": 35,
+        "timestamp": "2026-10-27T23:02:48.471857Z",
+        "source_dag_id": null,
+        "source_task_id": null,
+        "source_run_id": null,
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk",
+            "dag_id": "validation_fullmonth_bronze",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:02:48.981017Z",
+            "end_date": "2026-10-27T23:05:35.937413Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      },
+      {
+        "id": 40,
+        "timestamp": "2026-10-27T23:13:49.390330Z",
+        "source_dag_id": null,
+        "source_task_id": null,
+        "source_run_id": null,
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:13:49.427739+00:00_TRYxiAk8",
+            "dag_id": "validation_fullmonth_bronze",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:13:50.201290Z",
+            "end_date": "2026-10-27T23:14:10.321524Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      },
+      {
+        "id": 45,
+        "timestamp": "2026-10-27T23:16:06.764271Z",
+        "source_dag_id": null,
+        "source_task_id": null,
+        "source_run_id": null,
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:16:06.767052+00:00_t2wMfAZ3",
+            "dag_id": "validation_fullmonth_bronze",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:16:07.141487Z",
+            "end_date": "2026-10-27T23:16:26.294663Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      }
+    ],
+    "bronze": [
+      {
+        "id": 36,
+        "timestamp": "2026-10-27T23:05:35.048965Z",
+        "source_dag_id": "validation_fullmonth_bronze",
+        "source_task_id": "process_bronze",
+        "source_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk",
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:05:35.073010+00:00_JX8eSnyZ",
+            "dag_id": "validation_fullmonth_silver",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:05:35.913111Z",
+            "end_date": "2026-10-27T23:11:06.033127Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      },
+      {
+        "id": 41,
+        "timestamp": "2026-10-27T23:14:09.982769Z",
+        "source_dag_id": "validation_fullmonth_bronze",
+        "source_task_id": "process_bronze",
+        "source_run_id": "asset_triggered__2026-10-27T23:13:49.427739+00:00_TRYxiAk8",
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:14:09.984949+00:00_Ldf8wdMh",
+            "dag_id": "validation_fullmonth_silver",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:14:10.304938Z",
+            "end_date": "2026-10-27T23:14:25.705039Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      },
+      {
+        "id": 46,
+        "timestamp": "2026-10-27T23:16:26.083378Z",
+        "source_dag_id": "validation_fullmonth_bronze",
+        "source_task_id": "process_bronze",
+        "source_run_id": "asset_triggered__2026-10-27T23:16:06.767052+00:00_t2wMfAZ3",
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:16:26.087596+00:00_pKW9aKVc",
+            "dag_id": "validation_fullmonth_silver",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:16:26.279861Z",
+            "end_date": "2026-10-27T23:16:41.152803Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      }
+    ],
+    "silver": [
+      {
+        "id": 37,
+        "timestamp": "2026-10-27T23:11:05.088776Z",
+        "source_dag_id": "validation_fullmonth_silver",
+        "source_task_id": "process_silver",
+        "source_run_id": "asset_triggered__2026-10-27T23:05:35.073010+00:00_JX8eSnyZ",
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:11:05.136337+00:00_24qfdzyP",
+            "dag_id": "validation_fullmonth_ml",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:11:05.997035Z",
+            "end_date": "2026-10-27T23:11:45.433584Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          },
+          {
+            "run_id": "asset_triggered__2026-10-27T23:11:05.136346+00:00_W6vRIuA9",
+            "dag_id": "validation_fullmonth_bi",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:11:06.001536Z",
+            "end_date": "2026-10-27T23:12:11.758210Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      },
+      {
+        "id": 42,
+        "timestamp": "2026-10-27T23:14:25.136484Z",
+        "source_dag_id": "validation_fullmonth_silver",
+        "source_task_id": "process_silver",
+        "source_run_id": "asset_triggered__2026-10-27T23:14:09.984949+00:00_Ldf8wdMh",
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:14:25.138563+00:00_4YG4gMHZ",
+            "dag_id": "validation_fullmonth_ml",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:14:25.682893Z",
+            "end_date": "2026-10-27T23:14:40.338313Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          },
+          {
+            "run_id": "asset_triggered__2026-10-27T23:14:25.138568+00:00_Yt7CThgs",
+            "dag_id": "validation_fullmonth_bi",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:14:25.684276Z",
+            "end_date": "2026-10-27T23:14:54.793745Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      },
+      {
+        "id": 47,
+        "timestamp": "2026-10-27T23:16:41.056605Z",
+        "source_dag_id": "validation_fullmonth_silver",
+        "source_task_id": "process_silver",
+        "source_run_id": "asset_triggered__2026-10-27T23:16:26.087596+00:00_pKW9aKVc",
+        "created_dagruns": [
+          {
+            "run_id": "asset_triggered__2026-10-27T23:16:41.058739+00:00_35S0L7nz",
+            "dag_id": "validation_fullmonth_bi",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:16:41.128245Z",
+            "end_date": "2026-10-27T23:16:55.417666Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          },
+          {
+            "run_id": "asset_triggered__2026-10-27T23:16:41.058744+00:00_aghA987E",
+            "dag_id": "validation_fullmonth_ml",
+            "logical_date": null,
+            "start_date": "2026-10-27T23:16:41.129577Z",
+            "end_date": "2026-10-27T23:17:10.527581Z",
+            "state": "success",
+            "data_interval_start": null,
+            "data_interval_end": null,
+            "partition_key": null
+          }
+        ]
+      }
+    ],
+    "bi": [
+      {
+        "id": 39,
+        "timestamp": "2026-10-27T23:12:11.630976Z",
+        "source_dag_id": "validation_fullmonth_bi",
+        "source_task_id": "process_bi",
+        "source_run_id": "asset_triggered__2026-10-27T23:11:05.136346+00:00_W6vRIuA9",
+        "created_dagruns": []
+      },
+      {
+        "id": 44,
+        "timestamp": "2026-10-27T23:14:54.076805Z",
+        "source_dag_id": "validation_fullmonth_bi",
+        "source_task_id": "process_bi",
+        "source_run_id": "asset_triggered__2026-10-27T23:14:25.138568+00:00_Yt7CThgs",
+        "created_dagruns": []
+      },
+      {
+        "id": 48,
+        "timestamp": "2026-10-27T23:16:54.888767Z",
+        "source_dag_id": "validation_fullmonth_bi",
+        "source_task_id": "process_bi",
+        "source_run_id": "asset_triggered__2026-10-27T23:16:41.058739+00:00_35S0L7nz",
+        "created_dagruns": []
+      }
+    ],
+    "ml": [
+      {
+        "id": 38,
+        "timestamp": "2026-10-27T23:11:45.083283Z",
+        "source_dag_id": "validation_fullmonth_ml",
+        "source_task_id": "process_ml",
+        "source_run_id": "asset_triggered__2026-10-27T23:11:05.136337+00:00_24qfdzyP",
+        "created_dagruns": []
+      },
+      {
+        "id": 43,
+        "timestamp": "2026-10-27T23:14:39.448298Z",
+        "source_dag_id": "validation_fullmonth_ml",
+        "source_task_id": "process_ml",
+        "source_run_id": "asset_triggered__2026-10-27T23:14:25.138563+00:00_4YG4gMHZ",
+        "created_dagruns": []
+      },
+      {
+        "id": 49,
+        "timestamp": "2026-10-27T23:17:10.142704Z",
+        "source_dag_id": "validation_fullmonth_ml",
+        "source_task_id": "process_ml",
+        "source_run_id": "asset_triggered__2026-10-27T23:16:41.058744+00:00_aghA987E",
+        "created_dagruns": []
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "key": "6c5fd58477f985191050c829",
+      "stage": "bronze",
+      "run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk",
+      "attempt": 1,
+      "processing_seconds": 88.178,
+      "submitted_at": 1793142176.8567953,
+      "completed_at": 1793142265.1984863,
+      "returncode": 0,
+      "case": "initial",
+      "lineage": {
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "checksum": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "rows": 1888085,
+        "normalized_parquet_bytes": 107749807,
+        "normalized_files": 38
+      },
+      "peak_sampled_working_set_bytes": 1416622080
+    },
+    {
+      "key": "04619b0b77fe06ea3614de66",
+      "stage": "bronze",
+      "run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk",
+      "attempt": 2,
+      "processing_seconds": 18.089,
+      "submitted_at": 1793142315.92956,
+      "completed_at": 1793142334.4615254,
+      "returncode": 0,
+      "case": "initial",
+      "lineage": {
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "checksum": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "idempotent": true
+      },
+      "peak_sampled_working_set_bytes": 699084800
+    },
+    {
+      "key": "32044f69e765d1132973b21c",
+      "stage": "silver",
+      "run_id": "asset_triggered__2026-10-27T23:05:35.073010+00:00_JX8eSnyZ",
+      "attempt": 1,
+      "processing_seconds": 325.517,
+      "submitted_at": 1793142338.1211536,
+      "completed_at": 1793142664.1152043,
+      "returncode": 0,
+      "case": "initial",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "publish"
+      },
+      "peak_sampled_working_set_bytes": 1742094336
+    },
+    {
+      "key": "e9bfe6002c8f7a084a79e25d",
+      "stage": "ml",
+      "run_id": "asset_triggered__2026-10-27T23:11:05.136337+00:00_24qfdzyP",
+      "attempt": 1,
+      "processing_seconds": 30.275,
+      "submitted_at": 1793142673.9828162,
+      "completed_at": 1793142704.4337459,
+      "returncode": 0,
+      "case": "initial",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "publish"
+      },
+      "peak_sampled_working_set_bytes": 1164304384
+    },
+    {
+      "key": "7709400f0fe946766fcd1a4c",
+      "stage": "bi",
+      "run_id": "asset_triggered__2026-10-27T23:11:05.136346+00:00_W6vRIuA9",
+      "attempt": 1,
+      "processing_seconds": 23.006,
+      "submitted_at": 1793142707.5381074,
+      "completed_at": 1793142730.6578953,
+      "returncode": 0,
+      "case": "initial",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "publish"
+      },
+      "peak_sampled_working_set_bytes": 988303360
+    },
+    {
+      "key": "015f0f4e62a62cbf45d7a166",
+      "stage": "bronze",
+      "run_id": "asset_triggered__2026-10-27T23:13:49.427739+00:00_TRYxiAk8",
+      "attempt": 1,
+      "processing_seconds": 15.272,
+      "submitted_at": 1793142833.9221888,
+      "completed_at": 1793142849.405982,
+      "returncode": 0,
+      "case": "duplicate",
+      "lineage": {
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "checksum": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "idempotent": true
+      },
+      "peak_sampled_working_set_bytes": 637968384
+    },
+    {
+      "key": "ad7df19b2a2abbdd2787174a",
+      "stage": "silver",
+      "run_id": "asset_triggered__2026-10-27T23:14:09.984949+00:00_Ldf8wdMh",
+      "attempt": 1,
+      "processing_seconds": 11.706,
+      "submitted_at": 1793142852.069883,
+      "completed_at": 1793142864.3737931,
+      "returncode": 0,
+      "case": "duplicate",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "replay"
+      },
+      "peak_sampled_working_set_bytes": 687824896
+    },
+    {
+      "key": "18a40d8dffa45298537c17cd",
+      "stage": "ml",
+      "run_id": "asset_triggered__2026-10-27T23:14:25.138563+00:00_4YG4gMHZ",
+      "attempt": 1,
+      "processing_seconds": 11.65,
+      "submitted_at": 1793142867.3688567,
+      "completed_at": 1793142879.2815993,
+      "returncode": 0,
+      "case": "duplicate",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "replay"
+      },
+      "peak_sampled_working_set_bytes": 777371648
+    },
+    {
+      "key": "35f3d768ba0ee7468d574fac",
+      "stage": "bi",
+      "run_id": "asset_triggered__2026-10-27T23:14:25.138568+00:00_Yt7CThgs",
+      "attempt": 1,
+      "processing_seconds": 11.289,
+      "submitted_at": 1793142882.0225012,
+      "completed_at": 1793142893.889718,
+      "returncode": 0,
+      "case": "duplicate",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "replay"
+      },
+      "peak_sampled_working_set_bytes": 762462208
+    },
+    {
+      "key": "18d0e73eecbd2fd068dff9d4",
+      "stage": "bronze",
+      "run_id": "asset_triggered__2026-10-27T23:16:06.767052+00:00_t2wMfAZ3",
+      "attempt": 1,
+      "processing_seconds": 16.036,
+      "submitted_at": 1793142969.0211856,
+      "completed_at": 1793142985.1778953,
+      "returncode": 0,
+      "case": "replay",
+      "lineage": {
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "checksum": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "idempotent": true
+      },
+      "peak_sampled_working_set_bytes": 681664512
+    },
+    {
+      "key": "a087b936c0490faf22d3bea5",
+      "stage": "silver",
+      "run_id": "asset_triggered__2026-10-27T23:16:26.087596+00:00_pKW9aKVc",
+      "attempt": 1,
+      "processing_seconds": 11.817,
+      "submitted_at": 1793142987.9874768,
+      "completed_at": 1793143000.3036144,
+      "returncode": 0,
+      "case": "replay",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "replay"
+      },
+      "peak_sampled_working_set_bytes": 714158080
+    },
+    {
+      "key": "ae16351d1a0492b0af912d9b",
+      "stage": "bi",
+      "run_id": "asset_triggered__2026-10-27T23:16:41.058739+00:00_35S0L7nz",
+      "attempt": 1,
+      "processing_seconds": 11.625,
+      "submitted_at": 1793143002.8353329,
+      "completed_at": 1793143014.7323425,
+      "returncode": 0,
+      "case": "replay",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "replay"
+      },
+      "peak_sampled_working_set_bytes": 717045760
+    },
+    {
+      "key": "6342bfc0603a7a5c928e030c",
+      "stage": "ml",
+      "run_id": "asset_triggered__2026-10-27T23:16:41.058744+00:00_aghA987E",
+      "attempt": 1,
+      "processing_seconds": 11.91,
+      "submitted_at": 1793143017.0832622,
+      "completed_at": 1793143029.4683552,
+      "returncode": 0,
+      "case": "replay",
+      "publication": {
+        "sha256": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+        "source_revision": 1,
+        "ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b",
+        "supersedes_sha256": null,
+        "decision": "replay"
+      },
+      "peak_sampled_working_set_bytes": 748236800
+    }
+  ],
+  "retry_evidence": {
+    "captured_state": "up_for_retry",
+    "bronze_rows": 1888085,
+    "ledger_rows": 1,
+    "bronze_outlet_events": 0,
+    "downstream_runs": 0,
+    "snapshots_unchanged_after_retry": true,
+    "canonical_ingestion_run_id": "asset_triggered__2026-10-27T23:02:48.500422+00:00_8EhmdwIk:20241:r1:0a2e81eacd7b"
+  },
+  "worker": {
+    "started_at": 1793142116.8704343,
+    "finished_at": 1793143066.8683212,
+    "completed_jobs": [
+      "6c5fd58477f985191050c829",
+      "04619b0b77fe06ea3614de66",
+      "32044f69e765d1132973b21c",
+      "e9bfe6002c8f7a084a79e25d",
+      "7709400f0fe946766fcd1a4c",
+      "015f0f4e62a62cbf45d7a166",
+      "ad7df19b2a2abbdd2787174a",
+      "18a40d8dffa45298537c17cd",
+      "35f3d768ba0ee7468d574fac",
+      "18d0e73eecbd2fd068dff9d4",
+      "a087b936c0490faf22d3bea5",
+      "ae16351d1a0492b0af912d9b",
+      "6342bfc0603a7a5c928e030c"
+    ],
+    "memory": {
+      "sample_interval_seconds": 0.5,
+      "peak_sampled_working_set_bytes": 1744142336,
+      "peak_sampled_current_bytes": 1981562880,
+      "memory.peak": 1985646592,
+      "memory.max": 2147483648,
+      "memory.events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  },
+  "watcher_after_restart_memory": {
+    "memory.peak": "54185984",
+    "memory.max": "201326592",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+  },
+  "watcher_replay_without_restart": true,
+  "preservation": {
+    "original_fingerprints_equal": true,
+    "prior_full_month_warehouse_equal": true,
+    "prior_full_month_files_hashed": 93,
+    "source_sha256_unchanged": "0a2e81eacd7bf3890712de8f2a1b56bda985c17d9e61b08acf5e7c7ec9f20eb0",
+    "models_scoring_disabled": true,
+    "archived_receipts": 3,
+    "pending_manifests": 0
+  },
+  "tests": {
+    "tests": 100,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "passed": 98
+  },
+  "health": {
+    "metadatabase": {
+      "status": "healthy"
+    },
+    "scheduler": {
+      "status": "healthy",
+      "latest_scheduler_heartbeat": "2026-10-27T23:18:01.392571+00:00"
+    },
+    "triggerer": {
+      "status": null,
+      "latest_triggerer_heartbeat": null
+    },
+    "dag_processor": {
+      "status": "healthy",
+      "latest_dag_processor_heartbeat": "2026-10-27T23:18:03.499130+00:00"
+    }
+  },
+  "dag_import_errors": 0,
+  "final_state": "Validation DAGs paused; dedicated worker/watcher stopped; core services retained",
+  "failures_and_fixes": [
+    {
+      "case": "watcher initial launch",
+      "issue": "Missing authentication-file mount; no event emitted",
+      "fix": "Read-only auth mount provided"
+    },
+    {
+      "case": "initial Bronze attempt 1",
+      "issue": "Deliberate post-commit/pre-outlet failure",
+      "fix": "Airflow automatic attempt 2 reused canonical committed source"
+    },
+    {
+      "case": "duplicate delivery before watcher fix",
+      "issue": "Native bind-mount notification missed; pending manifest observed for 55.4 seconds",
+      "fix": "Periodic 10-second directory reconciliation plus atomic-move handler; subsequent live replay delivered without restart"
+    },
+    {
+      "case": "watcher lifecycle after all deliveries",
+      "issue": "PID-1 watcher required forced stop (exit 137, OOM false)",
+      "fix": "SIGTERM now follows Ctrl+C observer cleanup; actual idle restart/stop exited 0"
+    }
+  ],
+  "limitations": [
+    "Validation uses dedicated DAG IDs/assets/catalog and file-based subprocess transport to enforce the existing worker memory cap; production DAGs remain paused",
+    "One complete modern-schema month; not a multiple-complete-month stress or production-availability test",
+    "No full-month model training, prediction serving, API/dashboard or scoring validation performed"
+  ],
+  "watcher_graceful_shutdown_verified": true,
+  "watcher_final_exit_code": 0
+}

@@ -7,7 +7,8 @@ import sys
 import psycopg2
 from psycopg2.extras import DictCursor
 import pandas as pd
-from pyspark.sql import SparkSession
+from jobs.ml_utils import load_config,create_spark_session,get_gold_ml_table
+from jobs.persistence import postgres_dsn
 
 # Import source of truth business constraints from your shared architecture module
 from jobs.ml_features import DemandThresholds, class_from_ride_count, calculate_penalty
@@ -25,23 +26,19 @@ def parse_args():
         required=True,
         help="ISO timestamp string of the current processed hour",
     )
+    parser.add_argument('--months-back',type=int,default=2)
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
-    current_hour = pd.Timestamp(args.real_now).floor("h")
+    from jobs.ml_features import shifted_simulation_time
+    current_hour = shifted_simulation_time(args.real_now,months_back=args.months_back)
     logger.info(
         f"Starting feedback loop settlement evaluating target context date: {current_hour}"
     )
 
-    conn_string = (
-        "host=operational_cache_postgres "
-        "dbname=operational_cache "
-        "user=cache_user "
-        "password=cache_password "
-        "port=5432"
-    )
+    conn_string = postgres_dsn()
 
     connection = psycopg2.connect(conn_string)
     cursor = connection.cursor(cursor_factory=DictCursor)
@@ -51,13 +48,13 @@ def main():
         cursor.execute(
             """
             SELECT
-                pickup_location_id,
+                station_id,
                 prediction_hour_ts,
                 predicted_class,
                 baseline_predicted_class,
                 threshold_q25,
                 threshold_q75
-            FROM hourly_demand_predictions
+            FROM station_hourly_demand_predictions
             WHERE actual_class IS NULL
               AND prediction_hour_ts <= %s
             ORDER BY prediction_hour_ts ASC
@@ -78,21 +75,12 @@ def main():
         )
 
         # 2. Spin up local PySpark cluster environment matching master configuration profiles
-        spark = (
-            SparkSession.builder.appName("MLOpsFeedbackEvaluator")
-            .config("spark.sql.catalog.nyc", "org.apache.iceberg.spark.SparkCatalog")
-            .config("spark.sql.catalog.nyc.type", "hadoop")
-            .config("spark.sql.catalog.nyc.warehouse", "/opt/airflow/data/warehouse")
-            .config(
-                "spark.sql.extensions",
-                "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions",
-            )
-            .getOrCreate()
-        )
+        cfg=load_config();spark=create_spark_session(cfg,'CitiBikeFeedback')
+        table=get_gold_ml_table(cfg)
 
         # 3. Iterate through un-evaluated records and fetch true values from the Iceberg Gold layer
         for row in pending_rows:
-            loc_id = int(row["pickup_location_id"])
+            loc_id = str(row["station_id"])
             pred_hour = row["prediction_hour_ts"]
             pred_class = int(row["predicted_class"])
             baseline_class = int(row["baseline_predicted_class"])
@@ -106,8 +94,8 @@ def main():
             pred_hour_str = pd.Timestamp(pred_hour).strftime("%Y-%m-%d %H:%M:%S")
 
             iceberg_actual_df = spark.sql(f"""
-                SELECT ride_count FROM nyc.gold.hourly_ml_observations
-                WHERE pickup_location_id = {loc_id} AND pickup_hour_ts = '{pred_hour_str}'
+                SELECT ride_count FROM {table}
+                WHERE station_id = '{loc_id.replace(chr(39),chr(39)*2)}' AND station_hour_ts = '{pred_hour_str}'
             """).toPandas()
 
             if iceberg_actual_df.empty:
@@ -132,13 +120,13 @@ def main():
             # 4. Update the row atomically inside PostgreSQL
             cursor.execute(
                 """
-                UPDATE hourly_demand_predictions
+                UPDATE station_hourly_demand_predictions
                 SET
                     actual_class = %s,
                     actual_ride_count = %s,
                     model_penalty = %s,
                     baseline_penalty = %s
-                WHERE pickup_location_id = %s AND prediction_hour_ts = %s
+                WHERE station_id = %s AND prediction_hour_ts = %s
             """,
                 (
                     actual_cls,

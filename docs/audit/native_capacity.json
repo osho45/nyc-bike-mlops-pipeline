@@ -1,0 +1,471 @@
+{
+  "smoke": {
+    "prepare": {
+      "correctness_passed": true,
+      "stations": 4,
+      "raw_rows_scanned": 38820660,
+      "raw_rows_selected": 70176,
+      "matrix_rows": {
+        "train": 34464,
+        "validation": 35040
+      },
+      "max_open_raw_writers": 8,
+      "max_station_history_rows": 17544,
+      "max_stream_batch_rows": 4096,
+      "max_carry_rows": 168,
+      "input_hashes_unchanged": true,
+      "status": "complete",
+      "phase": "prepare",
+      "phase_work_seconds": 10.819483027997194,
+      "memory": {
+        "elapsed_seconds": 10.822046802000841,
+        "kernel_container_peak_bytes": 186994688,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "prepare": {
+            "current_bytes": 152977408,
+            "anon_bytes": 143626240,
+            "file_bytes": 1470464,
+            "working_set_bytes": 151580672,
+            "process_rss_bytes": 250146816
+          },
+          "raw_extraction": {
+            "current_bytes": 166436864,
+            "anon_bytes": 156925952,
+            "file_bytes": 1470464,
+            "working_set_bytes": 165040128,
+            "process_rss_bytes": 265703424
+          },
+          "streamed_features_and_matrix_write": {
+            "current_bytes": 180826112,
+            "anon_bytes": 170717184,
+            "file_bytes": 1482752,
+            "working_set_bytes": 179425280,
+            "process_rss_bytes": 280961024
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "smoke",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "construct": {
+      "correctness_passed": true,
+      "train_rows": 34464,
+      "validation_rows": 35040,
+      "feature_order": [
+        "lag_1h",
+        "lag_2h",
+        "lag_24h",
+        "lag_168h",
+        "rolling_6h_mean",
+        "rolling_6h_std",
+        "rolling_24h_mean",
+        "rolling_24h_std",
+        "hour_of_day_sin",
+        "hour_of_day_cos",
+        "day_of_week_sin",
+        "day_of_week_cos",
+        "is_weekend",
+        "station_code"
+      ],
+      "training_only_bin_sampling": true,
+      "validation_references_training_bins": true,
+      "train_sampled_rows": 34464,
+      "train_batch_reads": 9,
+      "validation_sampled_rows": 0,
+      "validation_batch_reads": 9,
+      "max_native_input_batch_rows": 4096,
+      "binaries": {
+        "train.bin": "8b2e880a6dfbdf1d2de069b1eba9040f3ca3d683a856beb7dfa02572d6a68761",
+        "validation.bin": "4ebf92f2315e4c92e949b38aab9938220266d23915ae99aca03f4db2ec746663"
+      },
+      "native_bin_counts": [
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        14,
+        15,
+        7,
+        5,
+        2,
+        4
+      ],
+      "status": "complete",
+      "phase": "construct",
+      "phase_work_seconds": 0.661858461011434,
+      "memory": {
+        "elapsed_seconds": 0.6648337549995631,
+        "kernel_container_peak_bytes": 143630336,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "sequence_native_construction": {
+            "current_bytes": 142598144,
+            "anon_bytes": 132796416,
+            "file_bytes": 4218880,
+            "working_set_bytes": 140378112,
+            "process_rss_bytes": 232742912
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "smoke",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "fit": {
+      "correctness_passed": true,
+      "fit_seconds": 0.10787804200663231,
+      "rounds": 10,
+      "model_sha256": "e1e76d83ea6e0c0899d532feea52b90d5b58c76986bda9563e6478d22bb7713b",
+      "first_train_poisson": -3.1000409580580026,
+      "last_train_poisson": -5.185351349081925,
+      "validation_rmse_last": 6.946809371584282,
+      "checkpoint_iterations": [],
+      "native_binary_reload_label_order_passed": true,
+      "early_stopping_or_hpo": false,
+      "calibration_performed": false,
+      "policy_guard_certification": "not evaluated; resource/correctness capacity stage only",
+      "status": "complete",
+      "phase": "fit",
+      "phase_work_seconds": 0.7736170300049707,
+      "memory": {
+        "elapsed_seconds": 0.7760911750083324,
+        "kernel_container_peak_bytes": 145989632,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "binary_reload": {
+            "current_bytes": 145989632,
+            "anon_bytes": 138301440,
+            "file_bytes": 176128,
+            "working_set_bytes": 145924096,
+            "process_rss_bytes": 237363200
+          },
+          "model_fitting": {
+            "current_bytes": 145989632,
+            "anon_bytes": 138596352,
+            "file_bytes": 180224,
+            "working_set_bytes": 145924096,
+            "process_rss_bytes": 239063040
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "smoke",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "export": {
+      "correctness_passed": true,
+      "prediction_rows": {
+        "train": 34464,
+        "validation": 35040
+      },
+      "metrics": {
+        "train": {
+          "rows": 34464,
+          "mae": 5.007533920782593,
+          "rmse": 8.186842592102769,
+          "wape": 1.0509819804507168
+        },
+        "validation": {
+          "rows": 35040,
+          "mae": 4.470775301744295,
+          "rmse": 6.946809371585133,
+          "wape": 1.110232077313717
+        }
+      },
+      "prediction_seconds": 0.04857865802478045,
+      "prediction_rows_per_second": 1430751.7503786401,
+      "all_row_keys_labels_and_feature_order_passed": true,
+      "max_prediction_batch_rows": 4096,
+      "status": "complete",
+      "phase": "export",
+      "phase_work_seconds": 0.9989009099954274,
+      "memory": {
+        "elapsed_seconds": 1.00189991001389,
+        "kernel_container_peak_bytes": 140627968,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "batched_prediction_and_retention": {
+            "current_bytes": 133988352,
+            "anon_bytes": 124506112,
+            "file_bytes": 2146304,
+            "working_set_bytes": 132538368,
+            "process_rss_bytes": 225665024
+          },
+          "export": {
+            "current_bytes": 124895232,
+            "anon_bytes": 118071296,
+            "file_bytes": 0,
+            "working_set_bytes": 124895232,
+            "process_rss_bytes": 209199104
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "smoke",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    }
+  },
+  "stage_96": {
+    "prepare": {
+      "correctness_passed": true,
+      "stations": 96,
+      "raw_rows_scanned": 38820660,
+      "raw_rows_selected": 1684224,
+      "matrix_rows": {
+        "train": 827136,
+        "validation": 840960
+      },
+      "max_open_raw_writers": 8,
+      "max_station_history_rows": 17544,
+      "max_stream_batch_rows": 4096,
+      "max_carry_rows": 168,
+      "input_hashes_unchanged": true,
+      "status": "complete",
+      "phase": "prepare",
+      "phase_work_seconds": 219.4539031009772,
+      "memory": {
+        "elapsed_seconds": 219.46187695398112,
+        "kernel_container_peak_bytes": 196030464,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "prepare": {
+            "current_bytes": 153006080,
+            "anon_bytes": 143548416,
+            "file_bytes": 1601536,
+            "working_set_bytes": 151605248,
+            "process_rss_bytes": 247418880
+          },
+          "raw_extraction": {
+            "current_bytes": 169721856,
+            "anon_bytes": 159277056,
+            "file_bytes": 1601536,
+            "working_set_bytes": 168325120,
+            "process_rss_bytes": 266543104
+          },
+          "streamed_features_and_matrix_write": {
+            "current_bytes": 196030464,
+            "anon_bytes": 185499648,
+            "file_bytes": 1613824,
+            "working_set_bytes": 194629632,
+            "process_rss_bytes": 294268928
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "96",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "construct": {
+      "correctness_passed": true,
+      "train_rows": 827136,
+      "validation_rows": 840960,
+      "feature_order": [
+        "lag_1h",
+        "lag_2h",
+        "lag_24h",
+        "lag_168h",
+        "rolling_6h_mean",
+        "rolling_6h_std",
+        "rolling_24h_mean",
+        "rolling_24h_std",
+        "hour_of_day_sin",
+        "hour_of_day_cos",
+        "day_of_week_sin",
+        "day_of_week_cos",
+        "is_weekend",
+        "station_code"
+      ],
+      "training_only_bin_sampling": true,
+      "validation_references_training_bins": true,
+      "train_sampled_rows": 200000,
+      "train_batch_reads": 202,
+      "validation_sampled_rows": 0,
+      "validation_batch_reads": 206,
+      "max_native_input_batch_rows": 4096,
+      "binaries": {
+        "train.bin": "1ca375ec55bbf7cdc18fb955c566b6006203661f4f3d0caf653ae64c0152b83a",
+        "validation.bin": "8391ff2c550d11c16b11ec61ca86973afc6ac392fcc8604bfd391de7cf8d30a3"
+      },
+      "native_bin_counts": [
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        14,
+        15,
+        7,
+        5,
+        2,
+        62
+      ],
+      "status": "complete",
+      "phase": "construct",
+      "phase_work_seconds": 9.102130084007513,
+      "memory": {
+        "elapsed_seconds": 9.104381946002832,
+        "kernel_container_peak_bytes": 281784320,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "sequence_native_construction": {
+            "current_bytes": 281632768,
+            "anon_bytes": 178159616,
+            "file_bytes": 100130816,
+            "working_set_bytes": 185507840,
+            "process_rss_bytes": 373506048
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "96",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "fit": {
+      "correctness_passed": true,
+      "fit_seconds": 7.750117045012303,
+      "rounds": 100,
+      "model_sha256": "1139e3eb1cf8f40bf83b0850f202180ad844b83035c16878e4731ce08537de8e",
+      "first_train_poisson": 0.037373520021391264,
+      "last_train_poisson": -2.1439922333383707,
+      "validation_rmse_last": 2.3530110022667143,
+      "checkpoint_iterations": [
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "native_binary_reload_label_order_passed": true,
+      "early_stopping_or_hpo": false,
+      "calibration_performed": false,
+      "policy_guard_certification": "not evaluated; resource/correctness capacity stage only",
+      "status": "complete",
+      "phase": "fit",
+      "phase_work_seconds": 15.128335668996442,
+      "memory": {
+        "elapsed_seconds": 15.131015794002451,
+        "kernel_container_peak_bytes": 208171008,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "binary_reload": {
+            "current_bytes": 180867072,
+            "anon_bytes": 170541056,
+            "file_bytes": 3108864,
+            "working_set_bytes": 177975296,
+            "process_rss_bytes": 272031744
+          },
+          "model_fitting": {
+            "current_bytes": 208171008,
+            "anon_bytes": 197341184,
+            "file_bytes": 3403776,
+            "working_set_bytes": 204800000,
+            "process_rss_bytes": 300572672
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "96",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "export": {
+      "correctness_passed": true,
+      "prediction_rows": {
+        "train": 827136,
+        "validation": 840960
+      },
+      "metrics": {
+        "train": {
+          "rows": 827136,
+          "mae": 1.296239351126565,
+          "rmse": 2.399524837962081,
+          "wape": 0.5247577932723083
+        },
+        "validation": {
+          "rows": 840960,
+          "mae": 1.2844727955499775,
+          "rmse": 2.3530110022658732,
+          "wape": 0.5260631749751548
+        }
+      },
+      "prediction_seconds": 3.4659984548634384,
+      "prediction_rows_per_second": 481274.3057225984,
+      "all_row_keys_labels_and_feature_order_passed": true,
+      "max_prediction_batch_rows": 4096,
+      "status": "complete",
+      "phase": "export",
+      "phase_work_seconds": 23.03159157099435,
+      "memory": {
+        "elapsed_seconds": 23.035376651998376,
+        "kernel_container_peak_bytes": 184410112,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "batched_prediction_and_retention": {
+            "current_bytes": 184406016,
+            "anon_bytes": 126427136,
+            "file_bytes": 50499584,
+            "working_set_bytes": 135065600,
+            "process_rss_bytes": 275894272
+          },
+          "export": {
+            "current_bytes": 123842560,
+            "anon_bytes": 117112832,
+            "file_bytes": 0,
+            "working_set_bytes": 123842560,
+            "process_rss_bytes": 207482880
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "96",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    }
+  },
+  "projection_192_bytes_with_25_percent_margin": {
+    "prepare": 256823874,
+    "construct": 532431248,
+    "fit": 341319902,
+    "export": 287619784
+  },
+  "projection_basis": "two-point 4/96 station linear extrapolation with 25% headroom; estimate, not a measured 192-stage peak",
+  "recommend_controlled_192_authorization_resource_only": true,
+  "stage_192_executed": false,
+  "larger_stages_enabled": false,
+  "operational_policy_guard_certification": false,
+  "calibration_or_frozen_policy_changes": false,
+  "read_2026": false,
+  "deployment_performed": false,
+  "native_and_export_metrics_agree": true
+}

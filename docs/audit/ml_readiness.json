@@ -1,0 +1,114 @@
+{
+  "status": "complete",
+  "validation": {
+    "last_hour": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.7464326484018264,
+      "rmse": 3.881042448500455,
+      "wape": 0.5246619854763068,
+      "mean_operational_penalty": 2.70738203957382,
+      "total_operational_penalty": 284600.0
+    },
+    "previous_day": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.7884893455098934,
+      "rmse": 4.061314222215234,
+      "wape": 0.5372966268565436,
+      "mean_operational_penalty": 2.724267503805175,
+      "total_operational_penalty": 286375.0
+    },
+    "previous_week": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.7164859208523593,
+      "rmse": 3.8886506504542857,
+      "wape": 0.5156654120619243,
+      "mean_operational_penalty": 2.6400304414003046,
+      "total_operational_penalty": 277520.0
+    },
+    "training_weekly_mean": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.6145623500023836,
+      "rmse": 3.5667093508748997,
+      "wape": 0.4850456094042501,
+      "mean_operational_penalty": 3.633609208523592,
+      "total_operational_penalty": 381965.0
+    },
+    "lightgbm_poisson": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.431251713050256,
+      "rmse": 2.797140241586944,
+      "wape": 0.42997556543190385,
+      "mean_operational_penalty": 4.0080859969558595,
+      "total_operational_penalty": 421330.0
+    }
+  },
+  "test": {
+    "last_hour": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.7404976339490155,
+      "rmse": 4.051279202437846,
+      "wape": 0.5205739005376038,
+      "mean_operational_penalty": 2.561441001373836,
+      "total_operational_penalty": 201360.0
+    },
+    "previous_day": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.8042919656032157,
+      "rmse": 4.327770325517983,
+      "wape": 0.5396544573930975,
+      "mean_operational_penalty": 2.592415916145118,
+      "total_operational_penalty": 203795.0
+    },
+    "previous_week": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.7537144456317102,
+      "rmse": 4.130018445287934,
+      "wape": 0.5245269810107559,
+      "mean_operational_penalty": 2.5845290795298426,
+      "total_operational_penalty": 203175.0
+    },
+    "training_weekly_mean": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.7879790153507975,
+      "rmse": 4.041363490442077,
+      "wape": 0.5347753377800994,
+      "mean_operational_penalty": 3.803617768279652,
+      "total_operational_penalty": 299010.0
+    },
+    "lightgbm_poisson": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.44652680724801,
+      "rmse": 2.9773478174769656,
+      "wape": 0.4326487365413801,
+      "mean_operational_penalty": 4.0002798554928,
+      "total_operational_penalty": 314470.0
+    }
+  },
+  "rows": {
+    "train": 102503,
+    "validation": 105120,
+    "test": 78612
+  },
+  "validation_selected_model": "lightgbm_poisson",
+  "fit_seconds": 0.5678340229933383,
+  "elapsed_seconds": 24.627389425004367,
+  "process_peak_rss_bytes": 1940381696,
+  "cgroup_peak_bytes": 1870196736,
+  "cgroup_limit_bytes": 2147483648,
+  "cgroup_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "source_checkpoints_unchanged": true,
+  "source_snapshot_unchanged": true,
+  "test_used_for_selection": false,
+  "scope": "12 stations selected by 2024-only demand ranks; rolling one-hour-ahead; not fleet-wide performance",
+  "artifacts": "artifacts/ml-readiness-01"
+}

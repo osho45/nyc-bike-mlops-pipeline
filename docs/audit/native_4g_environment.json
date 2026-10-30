@@ -1,0 +1,78 @@
+{
+  "status": "prepared_but_blocked_by_host_resources",
+  "preflight": {
+    "status": "blocked",
+    "sample": {
+      "timestamp": 1793312774.4470885,
+      "producer_id": "2600021cff0c4c649ceca533f0b6af88",
+      "sequence": 0,
+      "host_total_bytes": 8259321856,
+      "host_available_bytes": 574373888,
+      "image_id": "sha256:809353853ccd99ce12d5a4f359780f025f4932ac46fce3f065c8f57477c85c18",
+      "docker_total_bytes": 3943489536,
+      "vm_available_bytes": 2424176640,
+      "disk_free_bytes": 33319096320,
+      "active_training_workers": 0
+    },
+    "startup_blockers": [
+      "host_total_bytes below required 12884901888 bytes (observed 8259321856)",
+      "host_available_bytes below required 6442450944 bytes (observed 574373888)",
+      "docker_total_bytes below required 6442450944 bytes (observed 3943489536)",
+      "vm_available_bytes below required 5368709120 bytes (observed 2424176640)"
+    ],
+    "worker_launched": false,
+    "full_network_training_enabled": false
+  },
+  "compose_configuration_validated": true,
+  "unit_tests_passed": 186,
+  "tests_skipped": 2,
+  "learner_fit_tests_deselected": 3,
+  "monitor_normal_restart_verified": true,
+  "monitor_sessions": [
+    {
+      "producer_id": "95288b459d164856b0bb9902b95b6f7f",
+      "sequences": [
+        0,
+        1
+      ]
+    },
+    {
+      "producer_id": "922c349be6bc4574a990aa58678a36bc",
+      "sequences": [
+        0,
+        1
+      ]
+    }
+  ],
+  "phase_restart_policy_unit_tested": true,
+  "actual_4g_kernel_enforcement_verified": false,
+  "actual_4g_worker_restart_verified": false,
+  "benchmarks_executed": false,
+  "four_gib_worker_launched": false,
+  "actual_4g_metrics": null,
+  "protected_hashes_unchanged": true,
+  "protected_artifact_count": 114,
+  "existing_services_remain_running": [
+    "citibike_airflow_dag_processor",
+    "citibike_airflow_metadata_postgres",
+    "citibike_airflow_scheduler",
+    "citibike_airflow_webserver",
+    "citibike_controlled_watcher_01",
+    "citibike_controlled_worker_02",
+    "citibike_fastapi",
+    "citibike_operational_cache_postgres",
+    "citibike_streamlit"
+  ],
+  "historical_2g_projection_only": {
+    "construction_bytes": 2741106784,
+    "fitting_bytes": {
+      "compact": 2913657760,
+      "deferred": 2263569984
+    }
+  },
+  "four_gib_stop_gate_bytes": 3650722201,
+  "full_network_safe_to_authorize_on_current_host": false,
+  "full_network_training_enabled": false,
+  "read_2026": false,
+  "production_changes": false
+}

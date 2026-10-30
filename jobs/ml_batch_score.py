@@ -24,7 +24,7 @@ from jobs.ml_features import (
     DemandThresholds,
     build_one_prediction_feature_row,
     calculate_penalty,
-    load_location_history,
+    load_station_history,
     shifted_simulation_time,
 )
 from jobs.ml_utils import (
@@ -64,7 +64,7 @@ def ensure_predictions_table_exists(spark: SparkSession, table_name: str) -> Non
     """Dynamically establishes the Iceberg target table including evaluation metadata contract schema rows."""
     spark.sql(f"""
         CREATE TABLE IF NOT EXISTS {table_name} (
-            pickup_location_id INT,
+            station_id STRING,
             prediction_hour_ts TIMESTAMP,
             scored_at_ts TIMESTAMP,
             model_name STRING,
@@ -85,7 +85,7 @@ def ensure_predictions_table_exists(spark: SparkSession, table_name: str) -> Non
             model_penalty DOUBLE,
             baseline_penalty DOUBLE
         ) USING iceberg
-        PARTITIONED BY (pickup_location_id)
+        PARTITIONED BY (station_id)
         TBLPROPERTIES ('format-version'='2')
     """)
 
@@ -97,9 +97,9 @@ def run_batch_score(
     spark = create_spark_session(cfg, app_name="MLBatchDemandScoreIceberg")
     gold_table = get_gold_ml_table(cfg)
 
-    catalog = cfg.get("catalog", {}).get("spark_catalog_name", "nyc")
+    catalog = cfg.get("catalog", {}).get("spark_catalog_name", "citibike")
     predictions_namespace = f"{catalog}.predictions"
-    predictions_table = f"{predictions_namespace}.hourly_demand_predictions"
+    predictions_table = f"{predictions_namespace}.station_hourly_demand_predictions"
 
     spark.sql(f"CREATE NAMESPACE IF NOT EXISTS {predictions_namespace}")
     ensure_predictions_table_exists(spark, predictions_table)
@@ -116,7 +116,11 @@ def run_batch_score(
     model = joblib.load(model_path)
     meta = read_json(metadata_path)
 
-    pickup_location_id = int(meta["pickup_location_id"])
+    if meta.get('dataset')!='citibike':raise ValueError('Refuse non-Citi-Bike checkpoint; train a station model first')
+    if meta.get('validation_only'):
+        from jobs.lakehouse import sample_validation
+        if not sample_validation(cfg):raise ValueError('Sample smoke checkpoints cannot serve production scoring')
+    station_id = str(meta["station_id"])
     thresholds = DemandThresholds(q25=float(meta["q25"]), q75=float(meta["q75"]))
     feature_columns = list(meta["features"])
 
@@ -132,15 +136,17 @@ def run_batch_score(
     spark_df = spark.table(gold_table)
 
     # Named argument renamed from 'end_exclusive_ts' to 'end_ts' to avoid TypeError crashes
-    history_pdf = load_location_history(
+    if meta.get('training_cutoff_utc') and feature_window_end_ts<pd.Timestamp(meta['training_cutoff_utc']):
+        raise ValueError('Refuse backtest before the fitted model training cutoff')
+    history_pdf = load_station_history(
         spark_df,
-        pickup_location_id=pickup_location_id,
+        station_id=station_id,
         end_ts=prediction_hour_ts,
     )
 
     X_live, row_meta = build_one_prediction_feature_row(
         history_pdf=history_pdf,
-        pickup_location_id=pickup_location_id,
+        station_id=station_id,
         feature_window_end_ts=feature_window_end_ts,
         thresholds=thresholds,
         feature_columns=feature_columns,
@@ -159,7 +165,7 @@ def run_batch_score(
 
     schema = StructType(
         [
-            StructField("pickup_location_id", IntegerType(), True),
+            StructField("station_id", StringType(), True),
             StructField("prediction_hour_ts", TimestampType(), True),
             StructField("scored_at_ts", TimestampType(), True),
             StructField("model_name", StringType(), True),
@@ -184,7 +190,7 @@ def run_batch_score(
 
     # Contract parameter columns populated explicitly into payload log dictionaries
     record_dict = {
-        "pickup_location_id": pickup_location_id,
+        "station_id": station_id,
         "prediction_hour_ts": prediction_hour_ts.to_pydatetime(),
         "scored_at_ts": datetime.utcnow(),
         "model_name": str(meta.get("model_name")),
@@ -213,20 +219,11 @@ def run_batch_score(
     pandas_bridge_df = pd.DataFrame([record_dict])
     spark_record_df = spark.createDataFrame(pandas_bridge_df, schema=schema)
 
-    print(
-        f"🧹 Executing idempotent purge for Location {pickup_location_id} at {prediction_hour_ts}..."
-    )
-    spark.sql(f"""
-        DELETE FROM {predictions_table}
-        WHERE pickup_location_id = {pickup_location_id}
-          AND prediction_hour_ts = CAST('{prediction_hour_ts.strftime("%Y-%m-%d %H:%M:%S")}' AS TIMESTAMP)
-    """)
-
-    print(
-        f"🚀 Pushing next-hour batch prediction into warehouse layer: {predictions_table}"
-    )
-    spark_record_df.writeTo(predictions_table).append()
-    print("🟢 Prediction successfully committed to Iceberg storage container view.")
+    spark_record_df.createOrReplaceTempView('new_station_prediction')
+    spark.sql(f"""MERGE INTO {predictions_table} t USING new_station_prediction s
+        ON t.station_id=s.station_id AND t.prediction_hour_ts=s.prediction_hour_ts
+        WHEN MATCHED THEN UPDATE SET * WHEN NOT MATCHED THEN INSERT *""")
+    spark.stop()
 
 
 def main() -> None:

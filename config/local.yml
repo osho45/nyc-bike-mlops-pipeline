@@ -1,16 +1,25 @@
-environment: local
-
+﻿environment: local
 catalog:
-  spark_catalog_name: nyc
-  logical_name: nyc_catalog
+  spark_catalog_name: citibike
+  logical_name: citibike_catalog
   type: hadoop
-  warehouse_path: /opt/airflow/data/warehouse
-
+  warehouse_path: data/citibike/warehouse
 storage:
-  incoming_directory: /opt/airflow/data/incoming
-  warehouse_directory: /opt/airflow/data/warehouse
-
+  incoming_directory: data/citibike/incoming
+  warehouse_directory: data/citibike/warehouse
 assets:
-  incoming_taxi_data_uri: file:///opt/airflow/data/incoming/taxi_data_drop
-  bronze_taxi_data_uri: iceberg://bronze.yellow_taxi_raw
-  silver_taxi_data_uri: iceberg://silver.yellow_taxi_trips
+  incoming_citibike_data_uri: file:///opt/airflow/data/citibike/incoming/citibike_data_drop
+  bronze_citibike_data_uri: iceberg://bronze.citibike_rides_raw
+  silver_citibike_data_uri: iceberg://silver.citibike_rides
+ml:
+  split_policy: calendar_year
+  models_dir: models/citibike
+  predictions_dir: data/citibike/predictions
+quality:
+  maximum_rejection_fraction: 0.35
+spark:
+  spark.master: local[2]
+  spark.driver.memory: 2g
+  spark.sql.shuffle.partitions: 8
+  spark.default.parallelism: 2
+  spark.sql.session.timeZone: UTC

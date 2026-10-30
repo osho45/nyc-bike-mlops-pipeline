@@ -1,0 +1,77 @@
+{
+  "date_local": "2026-10-27",
+  "status": "bounded_container_validation_passed",
+  "airflow_run": {
+    "dag_id": "validation_citibike_sample",
+    "run_id": "bounded-sample-03",
+    "state": "success",
+    "duration_seconds": 52.034159
+  },
+  "pipeline": {
+    "scope": "isolated genuine-source sample; not population/model accuracy",
+    "source_sha256": "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244",
+    "source_url": "https://s3.amazonaws.com/tripdata/202401-citibike-tripdata.zip",
+    "checks": [
+      "Spark Bronze ingestion and checksum retry idempotency",
+      "Real Spark Silver/quarantine and both Iceberg Gold marts reconcile",
+      "Spark/reference accepted IDs, rejection reasons and fractional duration parity",
+      "Bounded training-only logistic smoke fit; no model quality claim",
+      "Actual batch scoring writes prediction through Spark/Iceberg MERGE",
+      "Actual Hadoop metadata read and PostgreSQL repeated upsert preserve one text-key prediction"
+    ],
+    "complete": true,
+    "source_rows": 20000,
+    "accepted_rides": 19986,
+    "rejected_rows": 14,
+    "gold_ml_rows": 546481,
+    "station_id": "6140.05",
+    "feature_window_end_utc": "2024-01-13 22:00:00",
+    "prediction_hour_utc": "2024-01-13 23:00:00",
+    "training_rows": 114,
+    "postgres_database": "citibike_validation_container_sample_03",
+    "duration_seconds": 49.04
+  },
+  "airflow_health": {
+    "metadatabase": "healthy",
+    "scheduler": "healthy",
+    "triggerer": null,
+    "dag_processor": "healthy"
+  },
+  "registered_dags": 7,
+  "dag_import_errors": 0,
+  "tests": {
+    "tests": 50,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 2,
+    "passed": 48
+  },
+  "serving": {
+    "live_http_checked": true,
+    "postgres_backend": true,
+    "streamlit_apptest_live_http": true,
+    "browser_automation": false,
+    "sample_dashboard": "http://127.0.0.1:8503/",
+    "sample_api": "http://127.0.0.1:8011/docs",
+    "airflow": "http://127.0.0.1:18080/",
+    "production_cache_rows_before_and_after": 0
+  },
+  "fixes": [
+    "Linear first-failed-rule quarantine expression eliminates observed Spark JVM heap exhaustion",
+    "Fractional trip durations retained using microseconds",
+    "Fresh per-run test directories avoid Docker Desktop bind-mount locking",
+    "Fresh PostgreSQL cache schema bootstrapped non-destructively",
+    "Docker build context excludes data/models/secrets",
+    "Sample catalogue/warehouse/model and database isolation with production guards retained"
+  ],
+  "not_validated": [
+    "Full-month data ingestion and quality",
+    "Production asset-event lineage/recovery and coalesced-event handling",
+    "Full six-experiment model evaluation",
+    "Restart/disaster-recovery behavior",
+    "Browser automation",
+    "Optional watcher and Jupyter services"
+  ],
+  "original_data_preserved": true,
+  "committed_or_pushed": false
+}

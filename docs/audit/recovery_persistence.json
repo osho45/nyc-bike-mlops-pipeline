@@ -1,0 +1,60 @@
+{
+  "equal_before_after": true,
+  "fingerprints": {
+    "files": {
+      "data/citibike/audit-source-cached/202401-citibike-tripdata.sample.csv": "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244",
+      "artifacts/container-sample-03/models/champion_metadata.json": "96702cdc2dba84c5d1c4c8a6bfb08af91d610c0935bc74d0d6fa104479603588",
+      "artifacts/container-sample-03/models/champion_model.pkl": "d1c9400b51dbbddcb7079686b1433a5423abfb53acf20d451399a8172579464d"
+    },
+    "iceberg": {
+      "bronze/citibike_rides_raw": {
+        "version": "2",
+        "metadata_sha256": "4fcb01eb81b6d7eeb9cf96876a0059f90cf748be9b77da69f8b908693735c1ea",
+        "rows": 20000,
+        "snapshot_id": 1897308256249067281
+      },
+      "silver/citibike_rides": {
+        "version": "2",
+        "metadata_sha256": "6aecb8fe7a24346b511deeeb2853951bc9e7442b3ad11c854c6d052dd710ffc9",
+        "rows": 19986,
+        "snapshot_id": 1143462161551830186
+      },
+      "quarantine/citibike_rides": {
+        "version": "2",
+        "metadata_sha256": "b9f41b7390d200a1f3d6b42fb20b408dd6bee0526aa9219f463580a3aa4053e1",
+        "rows": 14,
+        "snapshot_id": 6136902460889335521
+      },
+      "gold/station_hourly_utilization": {
+        "version": "2",
+        "metadata_sha256": "c5dbf2fb6860237bf832ea9dc00f8f7778e67828182a9e5ab68bf61c09cb2b36",
+        "rows": 17794,
+        "snapshot_id": 9212931525022567913
+      },
+      "gold/station_hourly_observations": {
+        "version": "2",
+        "metadata_sha256": "f1a27d3571a1a1815867980d0b85c9777d33243855d6ce6f0333b1d95a0bfb87",
+        "rows": 546481,
+        "snapshot_id": 6741686549154922920
+      },
+      "predictions/station_hourly_demand_predictions": {
+        "version": "2",
+        "metadata_sha256": "10c0927f0c2c76751d6ce90455c4b21437a76146bdd56220b86fba7f6f11f506",
+        "rows": 1,
+        "snapshot_id": 5497005580555184962
+      }
+    },
+    "postgres": {
+      "citibike_cache": {
+        "rows": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "citibike_validation_container_sample_03": {
+        "rows": 1,
+        "sha256": "0e3aa7abef7b414f1499c28648e585b48b203ec70607920998ad2aade30e35b9"
+      }
+    }
+  },
+  "retained_airflow_run": "bounded-sample-03",
+  "retained_airflow_state": "success"
+}

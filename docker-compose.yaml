@@ -1,17 +1,27 @@
+name: nyc-bike-mlops
 x-airflow-common-env: &airflow-common-env
-  AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg://airflow_user:airflow_pass@airflow-metadata-db:5432/airflow_metadata
+  AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg://airflow_user:${POSTGRES_METADATA_PASSWORD:?Run python tools/init_local.py}@airflow-metadata-db:5432/airflow_metadata
   AIRFLOW__CORE__LOAD_EXAMPLES: "False"
   AIRFLOW__CORE__EXECUTOR: LocalExecutor
+  AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
+  AIRFLOW__CORE__PARALLELISM: "2"
+  AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: "1"
+  AIRFLOW__DAG_PROCESSOR__PARSING_PROCESSES: "1"
 
-  # Teaching-only local secrets.
-  AIRFLOW__CORE__FERNET_KEY: 81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs=
-  AIRFLOW__API__SECRET_KEY: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
-  AIRFLOW__API_AUTH__JWT_SECRET: super_secret_shared_jwt_token_must_be_long_64_bytes_abc123xyz_padding
+  # Local-only configuration; generate .env using tools/init_local.py.
+  AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:?Run python tools/init_local.py}
+  AIRFLOW__API__SECRET_KEY: ${AIRFLOW_API_SECRET_KEY:?Run python tools/init_local.py}
+  AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_JWT_SECRET:?Run python tools/init_local.py}
 
   # Simple Auth Manager for local teaching use.
   AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: admin:admin
   AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_PASSWORDS_FILE: /opt/airflow/auth/simple_auth_manager_passwords.json.generated
 
+  POSTGRES_CACHE_HOST: operational-cache-postgres
+  POSTGRES_CACHE_PORT: 5432
+  POSTGRES_CACHE_DB: citibike_cache
+  POSTGRES_CACHE_USER: cache_user
+  POSTGRES_CACHE_PASSWORD: ${POSTGRES_CACHE_PASSWORD:?Run python tools/init_local.py}
   JAVA_HOME: /opt/java/openjdk
   SPARK_HOME: /home/airflow/.local/lib/python3.11/site-packages/pyspark
   PYTHONPATH: /opt/airflow
@@ -27,17 +37,18 @@ x-airflow-common-volumes: &airflow-common-volumes
   - ./models:/opt/airflow/models:rw
   - ./notebooks:/opt/airflow/notebooks:rw
   - ./sql:/opt/airflow/sql:rw
+  - ./tools:/opt/airflow/tools:rw
 
 services:
   airflow-metadata-db:
     image: postgres:17-alpine
-    container_name: airflow_metadata_postgres
+    container_name: citibike_airflow_metadata_postgres
     environment:
       - POSTGRES_DB=airflow_metadata
       - POSTGRES_USER=airflow_user
-      - POSTGRES_PASSWORD=airflow_pass
+      - POSTGRES_PASSWORD=${POSTGRES_METADATA_PASSWORD:?Run python tools/init_local.py}
     ports:
-      - "5432:5432"
+      - "5542:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
@@ -53,8 +64,8 @@ services:
     build:
       context: ./airflow-image
       dockerfile: Dockerfile
-    image: airflow-spark-iceberg-teaching:3.2.2-python3.11
-    container_name: airflow_init_job
+    image: citibike-airflow-spark-iceberg:3.2.2-python3.11
+    container_name: citibike_airflow_init_job
     depends_on:
       airflow-metadata-db:
         condition: service_healthy
@@ -63,11 +74,12 @@ services:
     volumes: *airflow-common-volumes
     command: >
       bash -c '
-        mkdir -p /opt/airflow/auth /opt/airflow/data/incoming /opt/airflow/data/warehouse /opt/airflow/logs &&
+        mkdir -p /opt/airflow/auth /opt/airflow/data/citibike/incoming /opt/airflow/data/citibike/warehouse /opt/airflow/logs &&
         if [ ! -f /opt/airflow/auth/simple_auth_manager_passwords.json.generated ]; then
-          echo "{\"admin\": \"admin\"}" > /opt/airflow/auth/simple_auth_manager_passwords.json.generated;
+          python -m tools.init_airflow_auth;
         fi &&
-        airflow db migrate
+        airflow db migrate &&
+        airflow pools set citibike_spark 1 "Serialize local Spark jobs within the laptop memory budget"
       '
     networks:
       - platform_network
@@ -75,16 +87,16 @@ services:
 
   airflow-webserver:
     user: "${AIRFLOW_UID:-1000}:0"
-    image: airflow-spark-iceberg-teaching:3.2.2-python3.11
+    image: citibike-airflow-spark-iceberg:3.2.2-python3.11
     pull_policy: never
-    container_name: airflow_webserver
+    container_name: citibike_airflow_webserver
     depends_on:
       airflow-init:
         condition: service_completed_successfully
     environment:
       <<: *airflow-common-env
     ports:
-      - "8080:8080"
+      - "18080:8080"
     volumes: *airflow-common-volumes
     command: airflow api-server
     networks:
@@ -98,9 +110,9 @@ services:
 
   airflow-scheduler:
     user: "${AIRFLOW_UID:-1000}:0"
-    image: airflow-spark-iceberg-teaching:3.2.2-python3.11
+    image: citibike-airflow-spark-iceberg:3.2.2-python3.11
     pull_policy: never
-    container_name: airflow_scheduler
+    container_name: citibike_airflow_scheduler
     depends_on:
       airflow-init:
         condition: service_completed_successfully
@@ -117,9 +129,9 @@ services:
 
   airflow-dag-processor:
     user: "${AIRFLOW_UID:-1000}:0"
-    image: airflow-spark-iceberg-teaching:3.2.2-python3.11
+    image: citibike-airflow-spark-iceberg:3.2.2-python3.11
     pull_policy: never
-    container_name: airflow_dag_processor
+    container_name: citibike_airflow_dag_processor
     depends_on:
       airflow-init:
         condition: service_completed_successfully
@@ -137,7 +149,7 @@ services:
 
   mock-lambda-watcher:
     image: python:3.11-slim
-    container_name: mock_lambda_watcher
+    container_name: citibike_mock_lambda_watcher
     depends_on:
       airflow-webserver:
         condition: service_healthy
@@ -149,8 +161,8 @@ services:
       AIRFLOW_BASE_URL: http://airflow-webserver:8080
       AIRFLOW_USERNAME: admin
       AIRFLOW_PASSWORD: admin
-      WATCH_DIRECTORY: /opt/airflow/data/incoming
-      TARGET_ASSET_URI: file:///opt/airflow/data/incoming/taxi_data_drop
+      WATCH_DIRECTORY: /opt/airflow/data/citibike/incoming
+      TARGET_ASSET_URI: file:///opt/airflow/data/citibike/incoming/citibike_data_drop
     networks:
       - platform_network
     command: >
@@ -163,21 +175,21 @@ services:
 
   jupyter-notebook:
     user: "${AIRFLOW_UID:-1000}:0"
-    image: airflow-spark-iceberg-teaching:3.2.2-python3.11
+    image: citibike-airflow-spark-iceberg:3.2.2-python3.11
     pull_policy: never
-    container_name: jupyter_notebook
+    container_name: citibike_jupyter_notebook
     depends_on:
       airflow-init:
         condition: service_completed_successfully
     environment:
       <<: *airflow-common-env
-      JUPYTER_TOKEN: "dev_token"
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:?Run python tools/init_local.py}
       HOME: /home/airflow
       JUPYTER_RUNTIME_DIR: /tmp/jupyter-runtime
       JUPYTER_CONFIG_DIR: /tmp/jupyter-config
       JUPYTER_DATA_DIR: /tmp/jupyter-data
     ports:
-      - "8888:8888"
+      - "8889:8888"
     volumes: *airflow-common-volumes
     working_dir: /opt/airflow
     entrypoint: []
@@ -187,7 +199,6 @@ services:
       --port=8888
       --no-browser
       --allow-root
-      --NotebookApp.token=dev_token
     networks:
       - platform_network
     restart: unless-stopped
@@ -196,21 +207,21 @@ services:
     build:
       context: .
       dockerfile: fastapi/Dockerfile
-    container_name: fastapi
+    container_name: citibike_fastapi
     environment:
-      POSTGRES_CACHE_HOST: operational_cache_postgres
+      POSTGRES_CACHE_HOST: operational-cache-postgres
       POSTGRES_CACHE_PORT: 5432
-      POSTGRES_CACHE_DB: operational_cache
+      POSTGRES_CACHE_DB: citibike_cache
       POSTGRES_CACHE_USER: cache_user
-      POSTGRES_CACHE_PASSWORD: cache_password
-      PREDICTIONS_DIR: /opt/airflow/data/predictions/hourly_demand_predictions
+      POSTGRES_CACHE_PASSWORD: ${POSTGRES_CACHE_PASSWORD:?Run python tools/init_local.py}
+      PREDICTIONS_DIR: /opt/airflow/data/citibike/predictions
     depends_on:
       operational-cache-postgres:
         condition: service_healthy
     volumes:
       - ./data:/opt/airflow/data
     ports:
-      - "8000:8000"
+      - "8010:8000"
     networks:
       - platform_network
 
@@ -218,32 +229,33 @@ services:
     build:
       context: .
       dockerfile: streamlit/Dockerfile
-    container_name: streamlit
+    container_name: citibike_streamlit
     environment:
       API_BASE_URL: http://fastapi:8000
-      PICKUP_LOCATION_ID: "237"
+      STATION_ID: "${STATION_ID:-}"
     depends_on:
       - fastapi
     ports:
-      - "8501:8501"
+      - "8502:8501"
     networks:
       - platform_network
 
   operational-cache-postgres:
     image: postgres:16-alpine
-    container_name: operational_cache_postgres
+    container_name: citibike_operational_cache_postgres
     environment:
       POSTGRES_USER: cache_user
-      POSTGRES_PASSWORD: cache_password
-      POSTGRES_DB: operational_cache
+      POSTGRES_PASSWORD: ${POSTGRES_CACHE_PASSWORD:?Run python tools/init_local.py}
+      POSTGRES_DB: citibike_cache
     ports:
-      - "5433:5432"
+      - "5543:5432"
     networks:
       - platform_network
     volumes:
       - operational_cache_data:/var/lib/postgresql/data
+      - ./sql/citibike_cache.sql:/docker-entrypoint-initdb.d/01-citibike-cache.sql:ro
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U cache_user -d operational_cache" ]
+      test: [ "CMD-SHELL", "pg_isready -U cache_user -d citibike_cache" ]
       interval: 5s
       timeout: 5s
       retries: 5

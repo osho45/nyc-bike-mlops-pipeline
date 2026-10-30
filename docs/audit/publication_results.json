@@ -1,0 +1,178 @@
+{
+  "ingestion": {
+    "months": 33,
+    "period": "2024-01 through 2026-09",
+    "totals": {
+      "source_rows": 125217844,
+      "silver_rows": 125092464,
+      "quarantine_rows": 125380,
+      "gold_bi_rows": 26653677,
+      "gold_ml_rows": 53739226
+    }
+  },
+  "forecast_384": {
+    "train": {
+      "rows": 3308544,
+      "mae": 1.2455313261889045,
+      "rmse": 2.2479359900302933,
+      "wape": 0.5440275054515481
+    },
+    "validation": {
+      "rows": 3363840,
+      "mae": 1.2577112330372509,
+      "rmse": 2.3137687522227646,
+      "wape": 0.5389625871364885
+    }
+  },
+  "policy_48": {
+    "reused_holdout": true,
+    "rows": 310680,
+    "aggregate": {
+      "frozen_poisson_fallback": {
+        "rows": 310680,
+        "actual_rides": 813323.0,
+        "mae": 1.3661451281958246,
+        "rmse": 2.652777603885479,
+        "wape": 0.521851673231765,
+        "mean_operational_penalty": 2.132531865585168,
+        "total_operational_penalty": 662535.0,
+        "decision_accuracy": 0.8334942706321617,
+        "zero_demand_rows": 162250,
+        "zero_demand_high_action_rate": 0.021115562403697996,
+        "zero_demand_mean_penalty": 0.47691833590138677,
+        "confusion_actual_rows_action_columns": [
+          [
+            8686,
+            6099,
+            30
+          ],
+          [
+            1689,
+            221123,
+            16635
+          ],
+          [
+            7,
+            27270,
+            29141
+          ]
+        ]
+      },
+      "last_hour": {
+        "rows": 310680,
+        "actual_rides": 813323.0,
+        "mae": 1.573854126432342,
+        "rmse": 3.3979356838073556,
+        "wape": 0.6011941135317703,
+        "mean_operational_penalty": 2.595580661774173,
+        "total_operational_penalty": 806395.0,
+        "decision_accuracy": 0.7926644779194026,
+        "zero_demand_rows": 162250,
+        "zero_demand_high_action_rate": 0.07176579352850539,
+        "zero_demand_mean_penalty": 0.9075500770416025,
+        "confusion_actual_rows_action_columns": [
+          [
+            10336,
+            4425,
+            54
+          ],
+          [
+            4441,
+            207288,
+            27718
+          ],
+          [
+            41,
+            27736,
+            28641
+          ]
+        ]
+      },
+      "previous_day": {
+        "rows": 310680,
+        "actual_rides": 813323.0,
+        "mae": 1.71904531994335,
+        "rmse": 3.8381269673144907,
+        "wape": 0.6566554739015127,
+        "mean_operational_penalty": 2.7586584266769667,
+        "total_operational_penalty": 857060.0,
+        "decision_accuracy": 0.78138599201751,
+        "zero_demand_rows": 162250,
+        "zero_demand_high_action_rate": 0.07501386748844376,
+        "zero_demand_mean_penalty": 0.9755315870570108,
+        "confusion_actual_rows_action_columns": [
+          [
+            9791,
+            4712,
+            312
+          ],
+          [
+            4823,
+            205872,
+            28752
+          ],
+          [
+            269,
+            29051,
+            27098
+          ]
+        ]
+      },
+      "previous_week": {
+        "rows": 310680,
+        "actual_rides": 813323.0,
+        "mae": 1.6873374533281833,
+        "rmse": 3.7750834839683827,
+        "wape": 0.6445434347731467,
+        "mean_operational_penalty": 2.7392976696279128,
+        "total_operational_penalty": 851045.0,
+        "decision_accuracy": 0.7849105188618514,
+        "zero_demand_rows": 162250,
+        "zero_demand_high_action_rate": 0.07391063174114021,
+        "zero_demand_mean_penalty": 0.9791063174114022,
+        "confusion_actual_rows_action_columns": [
+          [
+            9618,
+            4762,
+            435
+          ],
+          [
+            5182,
+            206913,
+            27352
+          ],
+          [
+            472,
+            28621,
+            27325
+          ]
+        ]
+      }
+    },
+    "penalty_reduction_percent": 17.8398923604437,
+    "guard_classifications": {
+      "passes_bound": 185,
+      "baseline_identical": 4,
+      "insufficient_support": 48,
+      "observed_regression_and_bound_failure": 1,
+      "uncertainty_bound_failure": 2
+    },
+    "guard_passes": 189,
+    "guard_count": 240
+  },
+  "memory_384_bytes": {
+    "construction_baseline": 745046016,
+    "construction_buffered": 369717248,
+    "fit_baseline": 421576704,
+    "fit_compact": 392990720,
+    "fit_deferred": 305307648
+  },
+  "source_sha256": {
+    "docs/audit/controlled_ingestion_progress.json": "1f1f0f734e0b3ca904cd6459743046034b6b5ffc3ecd56b8acebb3dfe04a09bb",
+    "docs/audit/native_capacity_384.json": "3e56db5cfbf1b38ac99ebaac8b0b31a18ed45404516651ed4673839b7ffa6913",
+    "docs/audit/cohort48_2026.json": "305c571ab39bfa673533e8f2e94146bab527cf691e02bf815fa0923732d40413",
+    "docs/audit/native_memory_optimization.json": "f4bdd284ad803d334945d9f62e47e8a56a0883d74c5a4d87e9657cb7da80ff52",
+    "docs/audit/native_fit_memory.json": "625a4eb35f367d9ddf1b5473698c8e8c38cdc6ee486e8566a499ba973d733a01"
+  },
+  "scope": "Saved result summaries only; no raw data, predictions, model inference or 2026 rescore"
+}

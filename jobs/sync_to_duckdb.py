@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from datetime import timezone
 from pathlib import Path
 
@@ -10,10 +11,11 @@ from pyiceberg.expressions import And, EqualTo
 from pyiceberg.table import StaticTable
 
 from jobs.ml_features import shifted_simulation_time
-from jobs.ml_utils import get_models_dir, load_config, read_json
+from jobs.persistence import load_prediction_table,postgres_dsn
+from jobs.ml_utils import get_models_dir, load_config, read_json, project_root
 
 DUCKDB_COLUMNS = [
-    "pickup_location_id",
+    "station_id",
     "prediction_hour_ts",
     "scored_at_ts",
     "model_name",
@@ -69,12 +71,13 @@ def sync_predictions_to_duckdb(
     # Load the location used by the champion model.
     models_dir = get_models_dir(cfg)
     metadata = read_json(models_dir / "champion_metadata.json")
-    pickup_location_id = int(metadata["pickup_location_id"])
+    station_id = str(metadata["station_id"])
 
     # 2. Load the local Iceberg table.
     warehouse_path = Path(cfg["catalog"]["warehouse_path"])
+    if not warehouse_path.is_absolute():warehouse_path = Path(__file__).resolve().parents[1] / warehouse_path
 
-    table_path = warehouse_path / "predictions" / "hourly_demand_predictions"
+    table_path = warehouse_path / "predictions" / "station_hourly_demand_predictions"
 
     metadata_dir = table_path / "metadata"
 
@@ -88,18 +91,18 @@ def sync_predictions_to_duckdb(
 
     print(f"🕵️ Loading Iceberg table from path: {table_path}")
 
-    iceberg_table = StaticTable.from_metadata(str(table_path))
+    iceberg_table = load_prediction_table(cfg)
 
     print(
         "🕵️ Scanning Iceberg for "
-        f"location={pickup_location_id}, "
+        f"location={station_id}, "
         f"prediction_hour_ts={prediction_hour_utc.isoformat()}"
     )
 
     row_filter = And(
         EqualTo(
-            "pickup_location_id",
-            pickup_location_id,
+            "station_id",
+            station_id,
         ),
         EqualTo(
             "prediction_hour_ts",
@@ -114,17 +117,17 @@ def sync_predictions_to_duckdb(
     if arrow_table.num_rows == 0:
         print(
             "⚠️ No matching prediction row found in Iceberg for "
-            f"location={pickup_location_id}, "
+            f"location={station_id}, "
             f"prediction_hour_ts={prediction_hour_utc.isoformat()}."
         )
 
         diagnostic_rows = iceberg_table.scan(
             row_filter=EqualTo(
-                "pickup_location_id",
-                pickup_location_id,
+                "station_id",
+                station_id,
             ),
             selected_fields=(
-                "pickup_location_id",
+                "station_id",
                 "prediction_hour_ts",
             ),
             limit=10,
@@ -170,20 +173,20 @@ def sync_predictions_to_duckdb(
         raise ValueError(
             "Expected one prediction row, but Iceberg returned "
             f"{len(pandas_record)} rows for "
-            f"location={pickup_location_id}, "
+            f"location={station_id}, "
             f"prediction_hour_ts={prediction_hour_utc.isoformat()}."
         )
 
     # 3. Synchronize the row to DuckDB.
-    duckdb_path = Path("/opt/airflow/data/predictions.duckdb")
+    duckdb_path = Path(os.getenv('DUCKDB_CACHE_PATH',str(project_root()/'data/citibike/predictions.duckdb')))
     duckdb_path.parent.mkdir(parents=True, exist_ok=True)
 
     connection = duckdb.connect(str(duckdb_path))
 
     try:
         connection.execute("""
-            CREATE TABLE IF NOT EXISTS hourly_demand_predictions (
-                pickup_location_id INTEGER,
+            CREATE TABLE IF NOT EXISTS station_hourly_demand_predictions (
+                station_id TEXT,
                 prediction_hour_ts TIMESTAMP,
                 scored_at_ts TIMESTAMP,
                 model_name VARCHAR,
@@ -201,7 +204,7 @@ def sync_predictions_to_duckdb(
                 model_penalty DOUBLE,
                 baseline_penalty DOUBLE,
                 PRIMARY KEY (
-                    pickup_location_id,
+                    station_id,
                     prediction_hour_ts
                 )
             )
@@ -213,7 +216,7 @@ def sync_predictions_to_duckdb(
             print("🚀 Merging prediction row into DuckDB serving cache.")
 
             connection.execute(
-                "INSERT OR REPLACE INTO hourly_demand_predictions SELECT * FROM pandas_record"
+                "INSERT OR REPLACE INTO station_hourly_demand_predictions SELECT * FROM pandas_record"
             )
 
             connection.commit()

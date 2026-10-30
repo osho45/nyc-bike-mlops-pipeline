@@ -1,0 +1,571 @@
+{
+  "status": "complete",
+  "selected_policy": "empirical_expected_cost_8",
+  "rows": {
+    "train": 102503,
+    "validation": 105120,
+    "test": 78612
+  },
+  "candidate_count": 41,
+  "calibration_seconds": 0.11452845401072409,
+  "selection_seconds": 4.186328964002314,
+  "test_decision_and_metrics_seconds": 0.7555389079934685,
+  "elapsed_seconds": 19.598190577991772,
+  "process_peak_rss_bytes": 1443991552,
+  "cgroup_peak_bytes": 1467019264,
+  "cgroup_limit_bytes": 2147483648,
+  "cgroup_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "forecast_counts_unchanged": true,
+  "source_artifacts_and_checkpoints_unchanged": true,
+  "test_used_for_policy_selection": false,
+  "test_previously_inspected": true,
+  "test_forecast_sha256": "923e45b8b2c6dbe1d4944b3580db4bdb9edc3dc864ba3f58b7b988f199955aa0",
+  "test_baselines": {
+    "last_hour": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.7404976339490155,
+      "rmse": 4.051279202437846,
+      "wape": 0.5205739005376038,
+      "mean_operational_penalty": 2.561441001373836,
+      "total_operational_penalty": 201360.0,
+      "decision_accuracy": 0.7951203378619041,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.07424937846624594,
+      "zero_demand_mean_penalty": 0.8694301013578122,
+      "confusion_actual_rows_action_columns": [
+        [
+          1729,
+          826,
+          1
+        ],
+        [
+          828,
+          53621,
+          7224
+        ],
+        [
+          1,
+          7226,
+          7156
+        ]
+      ]
+    },
+    "previous_day": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.8042919656032157,
+      "rmse": 4.327770325517983,
+      "wape": 0.5396544573930975,
+      "mean_operational_penalty": 2.592415916145118,
+      "total_operational_penalty": 203795.0,
+      "decision_accuracy": 0.7933903220882308,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.07219353604895773,
+      "zero_demand_mean_penalty": 0.862736660929432,
+      "confusion_actual_rows_action_columns": [
+        [
+          1677,
+          859,
+          20
+        ],
+        [
+          880,
+          53602,
+          7191
+        ],
+        [
+          21,
+          7271,
+          7091
+        ]
+      ]
+    },
+    "previous_week": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.7537144456317102,
+      "rmse": 4.130018445287934,
+      "wape": 0.5245269810107559,
+      "mean_operational_penalty": 2.5845290795298426,
+      "total_operational_penalty": 203175.0,
+      "decision_accuracy": 0.7947895995522312,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.07283897494740868,
+      "zero_demand_mean_penalty": 0.8636928667049149,
+      "confusion_actual_rows_action_columns": [
+        [
+          1720,
+          822,
+          14
+        ],
+        [
+          884,
+          53761,
+          7028
+        ],
+        [
+          25,
+          7359,
+          6999
+        ]
+      ]
+    },
+    "training_weekly_mean": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.7879790153507975,
+      "rmse": 4.041363490442077,
+      "wape": 0.5347753377800994,
+      "mean_operational_penalty": 3.803617768279652,
+      "total_operational_penalty": 299010.0,
+      "decision_accuracy": 0.6642624535694296,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.3481784279977051,
+      "zero_demand_mean_penalty": 3.5673646968827692,
+      "confusion_actual_rows_action_columns": [
+        [
+          1960,
+          546,
+          50
+        ],
+        [
+          960,
+          41823,
+          18890
+        ],
+        [
+          3,
+          5944,
+          8436
+        ]
+      ]
+    }
+  },
+  "validation_baselines": {
+    "last_hour": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.7464326484018264,
+      "rmse": 3.881042448500455,
+      "wape": 0.5246619854763068,
+      "mean_operational_penalty": 2.70738203957382,
+      "total_operational_penalty": 284600.0,
+      "decision_accuracy": 0.7835235920852359,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.08646103835447531,
+      "zero_demand_mean_penalty": 1.0026715489379192,
+      "confusion_actual_rows_action_columns": [
+        [
+          2133,
+          1123,
+          3
+        ],
+        [
+          1117,
+          70602,
+          10255
+        ],
+        [
+          9,
+          10249,
+          9629
+        ]
+      ]
+    },
+    "previous_day": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.7884893455098934,
+      "rmse": 4.061314222215234,
+      "wape": 0.5372966268565436,
+      "mean_operational_penalty": 2.724267503805175,
+      "total_operational_penalty": 286375.0,
+      "decision_accuracy": 0.7823059360730593,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.08365871429372093,
+      "zero_demand_mean_penalty": 0.9845498533450409,
+      "confusion_actual_rows_action_columns": [
+        [
+          2101,
+          1146,
+          12
+        ],
+        [
+          1121,
+          70550,
+          10303
+        ],
+        [
+          20,
+          10282,
+          9585
+        ]
+      ]
+    },
+    "previous_week": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.7164859208523593,
+      "rmse": 3.8886506504542857,
+      "wape": 0.5156654120619243,
+      "mean_operational_penalty": 2.6400304414003046,
+      "total_operational_penalty": 277520.0,
+      "decision_accuracy": 0.7889554794520548,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.08218282362172362,
+      "zero_demand_mean_penalty": 0.948306462159284,
+      "confusion_actual_rows_action_columns": [
+        [
+          2239,
+          996,
+          24
+        ],
+        [
+          977,
+          70879,
+          10118
+        ],
+        [
+          13,
+          10057,
+          9817
+        ]
+      ]
+    },
+    "training_weekly_mean": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.6145623500023836,
+      "rmse": 3.5667093508748997,
+      "wape": 0.4850456094042501,
+      "mean_operational_penalty": 3.633609208523592,
+      "total_operational_penalty": 381965.0,
+      "decision_accuracy": 0.6789573820395738,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.3329721448988361,
+      "zero_demand_mean_penalty": 3.4029555177760757,
+      "confusion_actual_rows_action_columns": [
+        [
+          2626,
+          609,
+          24
+        ],
+        [
+          1283,
+          56425,
+          24266
+        ],
+        [
+          0,
+          7566,
+          12321
+        ]
+      ]
+    }
+  },
+  "validation_policy_comparison": {
+    "original_mapping": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.431251713050256,
+      "rmse": 2.797140241586944,
+      "wape": 0.42997556543190385,
+      "mean_operational_penalty": 4.0080859969558595,
+      "total_operational_penalty": 421330.0,
+      "decision_accuracy": 0.6261891171993912,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.48194369196853926,
+      "zero_demand_mean_penalty": 4.944233751190987,
+      "confusion_actual_rows_action_columns": [
+        [
+          2315,
+          943,
+          1
+        ],
+        [
+          790,
+          48507,
+          32677
+        ],
+        [
+          0,
+          4884,
+          15003
+        ]
+      ]
+    },
+    "calibrated_thresholds_0_1": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.431251713050256,
+      "rmse": 2.797140241586944,
+      "wape": 0.42997556543190385,
+      "mean_operational_penalty": 2.3013698630136985,
+      "total_operational_penalty": 241920.0,
+      "decision_accuracy": 0.8354832572298325,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.00812673977618772,
+      "zero_demand_mean_penalty": 0.2060642292674725,
+      "confusion_actual_rows_action_columns": [
+        [
+          2315,
+          944,
+          0
+        ],
+        [
+          790,
+          78630,
+          2554
+        ],
+        [
+          0,
+          13006,
+          6881
+        ]
+      ]
+    },
+    "asymmetric_scale_1": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.431251713050256,
+      "rmse": 2.797140241586944,
+      "wape": 0.42997556543190385,
+      "mean_operational_penalty": 4.0080859969558595,
+      "total_operational_penalty": 421330.0,
+      "decision_accuracy": 0.6261891171993912,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.48194369196853926,
+      "zero_demand_mean_penalty": 4.944233751190987,
+      "confusion_actual_rows_action_columns": [
+        [
+          2315,
+          943,
+          1
+        ],
+        [
+          790,
+          48507,
+          32677
+        ],
+        [
+          0,
+          4884,
+          15003
+        ]
+      ]
+    },
+    "poisson_expected_cost_1": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.431251713050256,
+      "rmse": 2.797140241586944,
+      "wape": 0.42997556543190385,
+      "mean_operational_penalty": 2.4632800608828007,
+      "total_operational_penalty": 258940.0,
+      "decision_accuracy": 0.7893645357686454,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.14669232350028957,
+      "zero_demand_mean_penalty": 1.6866254413660395,
+      "confusion_actual_rows_action_columns": [
+        [
+          1678,
+          1580,
+          1
+        ],
+        [
+          308,
+          68607,
+          13059
+        ],
+        [
+          0,
+          7194,
+          12693
+        ]
+      ]
+    },
+    "empirical_expected_cost_8": {
+      "rows": 105120,
+      "actual_rides": 349911.0,
+      "mae": 1.431251713050256,
+      "rmse": 2.797140241586944,
+      "wape": 0.42997556543190385,
+      "mean_operational_penalty": 2.1902587519025873,
+      "total_operational_penalty": 230240.0,
+      "decision_accuracy": 0.8322203196347032,
+      "zero_demand_rows": 53527,
+      "zero_demand_high_action_rate": 0.0247912268574738,
+      "zero_demand_mean_penalty": 0.43454705102098007,
+      "confusion_actual_rows_action_columns": [
+        [
+          1975,
+          1283,
+          1
+        ],
+        [
+          524,
+          75869,
+          5581
+        ],
+        [
+          0,
+          10248,
+          9639
+        ]
+      ]
+    }
+  },
+  "test_policy_comparison": {
+    "original_mapping": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.44652680724801,
+      "rmse": 2.9773478174769656,
+      "wape": 0.4326487365413801,
+      "mean_operational_penalty": 4.0002798554928,
+      "total_operational_penalty": 314470.0,
+      "decision_accuracy": 0.6261893858444003,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.4707161981258367,
+      "zero_demand_mean_penalty": 4.820711417096959,
+      "confusion_actual_rows_action_columns": [
+        [
+          1860,
+          694,
+          2
+        ],
+        [
+          569,
+          36532,
+          24572
+        ],
+        [
+          0,
+          3549,
+          10834
+        ]
+      ]
+    },
+    "calibrated_thresholds_0_1": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.44652680724801,
+      "rmse": 2.9773478174769656,
+      "wape": 0.4326487365413801,
+      "mean_operational_penalty": 2.164427822724266,
+      "total_operational_penalty": 170150.0,
+      "decision_accuracy": 0.8453925609321732,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.0037052973799961753,
+      "zero_demand_mean_penalty": 0.15060240963855423,
+      "confusion_actual_rows_action_columns": [
+        [
+          1860,
+          696,
+          0
+        ],
+        [
+          569,
+          59368,
+          1736
+        ],
+        [
+          0,
+          9153,
+          5230
+        ]
+      ]
+    },
+    "asymmetric_scale_1": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.44652680724801,
+      "rmse": 2.9773478174769656,
+      "wape": 0.4326487365413801,
+      "mean_operational_penalty": 4.0002798554928,
+      "total_operational_penalty": 314470.0,
+      "decision_accuracy": 0.6261893858444003,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.4707161981258367,
+      "zero_demand_mean_penalty": 4.820711417096959,
+      "confusion_actual_rows_action_columns": [
+        [
+          1860,
+          694,
+          2
+        ],
+        [
+          569,
+          36532,
+          24572
+        ],
+        [
+          0,
+          3549,
+          10834
+        ]
+      ]
+    },
+    "poisson_expected_cost_1": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.44652680724801,
+      "rmse": 2.9773478174769656,
+      "wape": 0.4326487365413801,
+      "mean_operational_penalty": 2.35873657965705,
+      "total_operational_penalty": 185425.0,
+      "decision_accuracy": 0.7994072151834326,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.12562153375406387,
+      "zero_demand_mean_penalty": 1.4730349971313828,
+      "confusion_actual_rows_action_columns": [
+        [
+          1311,
+          1243,
+          2
+        ],
+        [
+          247,
+          52445,
+          8981
+        ],
+        [
+          0,
+          5296,
+          9087
+        ]
+      ]
+    },
+    "empirical_expected_cost_8": {
+      "rows": 78612,
+      "actual_rides": 262833.0,
+      "mae": 1.44652680724801,
+      "rmse": 2.9773478174769656,
+      "wape": 0.4326487365413801,
+      "mean_operational_penalty": 2.07417442629624,
+      "total_operational_penalty": 163055.0,
+      "decision_accuracy": 0.8417417188215539,
+      "zero_demand_rows": 41832,
+      "zero_demand_high_action_rate": 0.014319181487856186,
+      "zero_demand_mean_penalty": 0.3191336775674125,
+      "confusion_actual_rows_action_columns": [
+        [
+          1587,
+          967,
+          2
+        ],
+        [
+          395,
+          57531,
+          3747
+        ],
+        [
+          0,
+          7330,
+          7053
+        ]
+      ]
+    }
+  }
+}

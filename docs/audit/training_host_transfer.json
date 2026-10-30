@@ -1,0 +1,62 @@
+{
+  "status": "portable_384_handoff_prepared_remote_validation_pending",
+  "manifest": "artifacts\\training-transfer-01\\manifest.json",
+  "manifest_sha256": "5eab0c316838a7aa7c4e604e57b92ea88498d1b0d32f6747d688dfe015a7edf0",
+  "files": 106,
+  "bytes_by_category": {
+    "source": 197133,
+    "benchmark": 654426636,
+    "development": 21057045
+  },
+  "total_transfer_bytes_without_image": 675680814,
+  "development_rows": 38820660,
+  "gold_parquet_payload_bytes": 20284199,
+  "image_id": "sha256:809353853ccd99ce12d5a4f359780f025f4932ac46fce3f065c8f57477c85c18",
+  "image_unpacked_bytes": 9481476677,
+  "runtime_package_records": 515,
+  "image_export_created": false,
+  "large_dataset_duplicate_created": false,
+  "source_closure_import_smoke": {
+    "isolated_source_import": true,
+    "model_called": false,
+    "worker_module": "/opt/airflow/artifacts/training-transfer-01/source-smoke-portable/tools/native_4g_worker.py",
+    "controller_module": "/opt/airflow/artifacts/training-transfer-01/source-smoke-portable/tools/native_4g_preflight.py"
+  },
+  "posix_copy_smoke": {
+    "platform": "posix",
+    "resumable_copy": true,
+    "no_clobber_publication": true,
+    "hash_verified": true,
+    "no_model_called": true
+  },
+  "probe_limits_validated": true,
+  "probe_stopped": true,
+  "probe_intentional_stop_exit_code": 137,
+  "protected_artifacts_unchanged": true,
+  "protected_artifact_count": 114,
+  "existing_services_unchanged": true,
+  "tests_passed": 194,
+  "tests_skipped": 2,
+  "tests_deselected": 3,
+  "remote_host_provisioned": false,
+  "remote_benchmarks_executed": false,
+  "full_network_training_enabled": false,
+  "full_network_executor_available": false,
+  "full_network_next_steps": [
+    "eligible host admission",
+    "real bounded 384 4 GiB receipts and artifact parity",
+    "explicit authorization and generalized 1898 executor/portable source loader"
+  ],
+  "resource_plan": {
+    "host_ram_recommended_gib": 16,
+    "worker_memory_gib": 4,
+    "worker_cpu_threads": 2,
+    "disk_free_recommended_gib": 40,
+    "disk_reserve_gib": 10,
+    "historical_full_workflow_estimate_hours": 2.55
+  },
+  "read_2026": false,
+  "frozen_policy_changes": false,
+  "deployment": false,
+  "commit_or_push": false
+}

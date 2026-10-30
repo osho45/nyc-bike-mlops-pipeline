@@ -182,3 +182,38 @@ pyrightconfig.json
 
 
 .Trash*
+# Audit/runtime artifacts
+models/
+artifacts/
+.env
+!.env.example
+.runtime/
+docs/audit/runtime/
+.test-tmp*/
+
+# Publication exclusions (retain all files locally)
+airflow_auth/*.generated
+notebooks/legacy_taxi/
+/demand_log.png
+/operational_cost.png
+*.dump
+*.sql.gz
+*.pem
+*.key
+credentials*.json
+.secrets/
+playwright-report/
+test-results/
+*.pkl
+*.pickle
+*.joblib
+*.bin
+*.parquet
+*.zip
+auth/*.generated
+*.bundle
+*.p12
+*.pfx
+*.pgpass
+security-backup*/
+publication-private/

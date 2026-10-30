@@ -3,6 +3,7 @@ import time
 import json
 import logging
 import shutil
+import signal
 from pathlib import Path
 from typing import Any
 
@@ -19,12 +20,26 @@ BASE_URL = os.getenv("AIRFLOW_BASE_URL", "http://airflow-webserver:8080").rstrip
 USER_NAME = os.getenv("AIRFLOW_USERNAME")
 USER_PASS = os.getenv("AIRFLOW_PASSWORD")
 
-WATCH_DIRECTORY = os.getenv("WATCH_DIRECTORY", "/opt/airflow/data/incoming")
+WATCH_DIRECTORY = os.getenv("WATCH_DIRECTORY", "/opt/airflow/data/citibike/incoming")
 PROCESSED_DIRECTORY = os.path.join(WATCH_DIRECTORY, ".processed")
 TARGET_ASSET_URI = os.getenv(
     "TARGET_ASSET_URI",
-    "file:///opt/airflow/data/incoming/taxi_data_drop",
+    "file:///opt/airflow/data/citibike/incoming/citibike_data_drop",
 )
+CONSUMER_DAG_IDS=('1_bronze_ingestion','2_silver_wap_purification','3a_gold_bi_marts','3b_gold_ml_observations')
+
+def consumers_ready(headers):
+    """Do not acknowledge manifests when Airflow would discard paused-consumer scheduling."""
+    try:
+        consumers=tuple(item.strip() for item in os.getenv('CONSUMER_DAG_IDS',','.join(CONSUMER_DAG_IDS)).split(',') if item.strip())
+        if not consumers:return False
+        for dag_id in consumers:
+            response=requests.get(f'{BASE_URL}/api/v2/dags/{dag_id}',headers=headers,timeout=10)
+            if response.status_code!=200:return False
+            dag=response.json()
+            if dag.get('is_paused') is not False or dag.get('is_stale',True):return False
+        return True
+    except (requests.RequestException,ValueError):return False
 
 REQUIRED_KEYS = {
     "dataset",
@@ -182,13 +197,37 @@ def validate_manifest(manifest_path: str, manifest_data: dict[str, Any]) -> bool
         )
         return False
 
-    payload_parquet_path = manifest_data["source_filepath"]
+    if manifest_data.get('dataset')!='citibike' or manifest_data.get('sample'):
+        log.error('Only complete Citi Bike sources may trigger production ETL')
+        return False
+    expected=Path(WATCH_DIRECTORY).resolve()
+    filename=str(manifest_data['source_filename'])
+    import re,hashlib
+    match=re.fullmatch(r'\d{6}-citibike-tripdata(?:\.r([1-9]\d*))?\.zip',filename)
+    if not match:
+        log.error('Unexpected source filename');return False
+    revision=manifest_data.get('source_revision',1)
+    if isinstance(revision,bool) or not isinstance(revision,int) or revision<1 or revision!=int(match.group(1) or 1):return False
+    parent=manifest_data.get('supersedes_sha256')
+    if revision==1 and parent:return False
+    if revision>1 and (not isinstance(parent,str) or not re.fullmatch('[0-9a-f]{64}',parent)):return False
+    try:
+        year,month=int(manifest_data['source_year']),int(manifest_data['source_month'])
+        if not 2013<=year<=2100 or not 1<=month<=12 or filename[:6]!=f'{year}{month:02d}':return False
+    except (TypeError,ValueError):return False
+    payload_source_path=str(expected/filename)
+    manifest_data['source_filepath']=payload_source_path
+    if not Path(payload_source_path).resolve().is_relative_to(expected):return False
 
-    if not os.path.exists(payload_parquet_path):
-        log.error("Declared data file is missing: %s", payload_parquet_path)
+    if not os.path.exists(payload_source_path):
+        log.error("Declared data file is missing: %s", payload_source_path)
         pending_manifests.add(manifest_path)
         return False
 
+    if Path(payload_source_path).stat().st_size!=manifest_data['file_size_bytes']:return False
+    if not manifest_data.get('sha256'):return False
+    with open(payload_source_path,'rb') as stream:
+        if hashlib.file_digest(stream,'sha256').hexdigest()!=manifest_data['sha256']:return False
     return True
 
 
@@ -200,6 +239,8 @@ def archive_processed_manifest(manifest_path: str) -> None:
     try:
         base_name = os.path.basename(manifest_path)
         destination = os.path.join(PROCESSED_DIRECTORY, base_name)
+        if os.path.exists(destination):
+            destination=os.path.join(PROCESSED_DIRECTORY,f'{time.time_ns()}-{base_name}')
         shutil.move(manifest_path, destination)
         log.debug("Manifest archived to %s", destination)
     except Exception as exc:
@@ -238,6 +279,11 @@ def process_manifest(manifest_path: str) -> None:
             "Authorization": f"Bearer {access_token}",
             "Content-Type": "application/json",
         }
+
+        if not consumers_ready(headers):
+            log.warning('Required consumer DAGs are paused, missing or unavailable; retaining manifest for retry')
+            pending_manifests.add(manifest_path)
+            return
 
         asset_id = find_asset_id_by_uri(headers, TARGET_ASSET_URI)
 
@@ -294,6 +340,10 @@ class InboundManifestStagingHandler(FileSystemEventHandler):
         if not event.is_directory and event.src_path.endswith(".manifest.json"):
             process_manifest(event.src_path)
 
+    def on_moved(self, event):
+        if not event.is_directory and event.dest_path.endswith('.manifest.json'):
+            process_manifest(event.dest_path)
+
 
 def process_existing_manifests() -> None:
     for root, _, files in os.walk(WATCH_DIRECTORY):
@@ -313,6 +363,18 @@ def retry_pending_manifests() -> None:
             pending_manifests.discard(pending_path)
 
 
+def reconcile_manifests() -> None:
+    # Docker Desktop bind mounts do not reliably relay native filesystem events.
+    # Retry known failures, then discover files whose notification never arrived.
+    retry_pending_manifests()
+    process_existing_manifests()
+
+
+def request_shutdown(signum,frame):
+    """Let Docker SIGTERM follow the same observer cleanup path as Ctrl+C."""
+    raise KeyboardInterrupt
+
+
 if __name__ == "__main__":
     os.makedirs(WATCH_DIRECTORY, exist_ok=True)
     os.makedirs(PROCESSED_DIRECTORY, exist_ok=True)
@@ -328,10 +390,11 @@ if __name__ == "__main__":
     observer = Observer()
     observer.schedule(handler, WATCH_DIRECTORY, recursive=True)
     observer.start()
+    signal.signal(signal.SIGTERM,request_shutdown)
 
     try:
         while True:
-            retry_pending_manifests()
+            reconcile_manifests()
             time.sleep(10)
 
     except KeyboardInterrupt:

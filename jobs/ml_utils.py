@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from pyspark.sql import SparkSession
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from pyspark.sql import SparkSession
 
 
 def project_root() -> Path:
@@ -15,12 +17,8 @@ def project_root() -> Path:
     if env_root:
         return Path(env_root).resolve()
 
-    cwd = Path.cwd().resolve()
-    if cwd.name == "notebooks":
-        return cwd.parent
-    if cwd.name in {"jobs", "dags"}:
-        return cwd.parent
-    return cwd
+    return Path(__file__).resolve().parents[1]
+
 
 
 def load_config(config_path: str | Path | os.PathLike | None = None) -> dict[str, Any]:
@@ -35,7 +33,7 @@ def load_config(config_path: str | Path | os.PathLike | None = None) -> dict[str
     if not config_path.exists():
         raise FileNotFoundError(f"Config file not found: {config_path}")
 
-    with config_path.open("r") as f:
+    with config_path.open("r",encoding='utf-8-sig') as f:
         return yaml.safe_load(f)
 
 
@@ -47,20 +45,20 @@ def _resolve_path(path_value: str, root: Path) -> str:
 
 
 def get_catalog_name(cfg: dict[str, Any]) -> str:
-    return cfg.get("catalog", {}).get("spark_catalog_name", "nyc")
+    return cfg.get("catalog", {}).get("spark_catalog_name", "citibike")
 
 
 def get_gold_ml_table(cfg: dict[str, Any]) -> str:
     catalog = get_catalog_name(cfg)
-    return cfg.get("tables", {}).get("gold_ml_observations", f"{catalog}.gold.hourly_ml_observations")
+    return cfg.get("tables", {}).get("gold_ml_observations", f"{catalog}.gold.station_hourly_observations")
 
 
 def get_models_dir(cfg: dict[str, Any] | None = None) -> Path:
     root = project_root()
     if cfg:
-        value = cfg.get("ml", {}).get("models_dir", "models")
+        value = cfg.get("ml", {}).get("models_dir", "models/citibike")
     else:
-        value = os.getenv("MODELS_DIR", "models")
+        value = os.getenv("MODELS_DIR", "models/citibike")
     return Path(_resolve_path(value, root))
 
 
@@ -68,23 +66,24 @@ def get_predictions_dir(cfg: dict[str, Any] | None = None) -> Path:
     root = project_root()
     if cfg:
         value = cfg.get("ml", {}).get(
-            "predictions_dir", "data/predictions/hourly_demand_predictions"
+            "predictions_dir", "data/citibike/predictions"
         )
     else:
         value = os.getenv(
-            "PREDICTIONS_DIR", "data/predictions/hourly_demand_predictions"
+            "PREDICTIONS_DIR", "data/citibike/predictions"
         )
     return Path(_resolve_path(value, root))
 
 
 def create_spark_session(
-    cfg: dict[str, Any], app_name: str = "TaxiDemandML"
+    cfg: dict[str, Any], app_name: str = "CitiBikeDemandML"
 ) -> SparkSession:
     """Create a Spark session configured for the same Iceberg catalog used by the course project."""
+    from pyspark.sql import SparkSession
     catalog_cfg = cfg.get("catalog", {})
-    catalog = catalog_cfg.get("spark_catalog_name", "nyc")
+    catalog = catalog_cfg.get("spark_catalog_name", "citibike")
     catalog_type = catalog_cfg.get("type", "hadoop")
-    warehouse_path = catalog_cfg.get("warehouse_path", "data/warehouse")
+    warehouse_path = catalog_cfg.get("warehouse_path", "data/citibike/warehouse")
     warehouse_path = _resolve_path(warehouse_path, project_root())
 
     builder = (

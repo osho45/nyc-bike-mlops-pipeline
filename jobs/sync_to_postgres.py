@@ -14,11 +14,12 @@ from pyiceberg.expressions import And, EqualTo
 from pyiceberg.table import StaticTable
 
 from jobs.ml_features import shifted_simulation_time
+from jobs.persistence import load_prediction_table,postgres_dsn
 from jobs.ml_utils import get_models_dir, load_config, read_json
 
 # Added evaluation contract fields to match the updated Iceberg schema
 POSTGRES_COLUMNS = [
-    "pickup_location_id",
+    "station_id",
     "prediction_hour_ts",
     "scored_at_ts",
     "model_name",
@@ -71,11 +72,12 @@ def sync_predictions_to_postgres(
     # Load the location used by the champion model.
     models_dir = get_models_dir(cfg)
     metadata = read_json(models_dir / "champion_metadata.json")
-    pickup_location_id = int(metadata["pickup_location_id"])
+    station_id = str(metadata["station_id"])
 
     # 2. Load the local Iceberg table.
     warehouse_path = Path(cfg["catalog"]["warehouse_path"])
-    table_path = warehouse_path / "predictions" / "hourly_demand_predictions"
+    if not warehouse_path.is_absolute():warehouse_path = Path(__file__).resolve().parents[1] / warehouse_path
+    table_path = warehouse_path / "predictions" / "station_hourly_demand_predictions"
     metadata_dir = table_path / "metadata"
 
     if not table_path.exists() or not metadata_dir.exists():
@@ -84,15 +86,15 @@ def sync_predictions_to_postgres(
         )
 
     print(f"🕵️ Loading Iceberg table from path: {table_path}")
-    iceberg_table = StaticTable.from_metadata(str(table_path))
+    iceberg_table = load_prediction_table(cfg)
 
     print(
-        f"🕵️ Scanning Iceberg for location={pickup_location_id}, "
+        f"🕵️ Scanning Iceberg for location={station_id}, "
         f"prediction_hour_ts={prediction_hour_utc.isoformat()}"
     )
 
     row_filter = And(
-        EqualTo("pickup_location_id", pickup_location_id),
+        EqualTo("station_id", station_id),
         EqualTo("prediction_hour_ts", prediction_hour_utc),
     )
 
@@ -125,7 +127,7 @@ def sync_predictions_to_postgres(
         raise ValueError(f"Expected 1 row, got {len(pandas_record)}")
 
     # 3. Synchronize the row to PostgreSQL (Atomic Multi-Process Safe Upsert)
-    conn_string = "host=operational_cache_postgres dbname=operational_cache user=cache_user password=cache_password port=5432"
+    conn_string = postgres_dsn()
 
     connection = psycopg2.connect(conn_string)
     cursor = connection.cursor()
@@ -133,8 +135,8 @@ def sync_predictions_to_postgres(
     try:
         # Added threshold_q25, threshold_q75, and penalty_version tracking properties to DDL contract
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS hourly_demand_predictions (
-                pickup_location_id BIGINT,
+            CREATE TABLE IF NOT EXISTS station_hourly_demand_predictions (
+                station_id TEXT,
                 prediction_hour_ts TIMESTAMPTZ,
                 scored_at_ts TIMESTAMPTZ,
                 model_name VARCHAR,
@@ -154,7 +156,7 @@ def sync_predictions_to_postgres(
                 actual_ride_count BIGINT,
                 model_penalty DOUBLE PRECISION,
                 baseline_penalty DOUBLE PRECISION,
-                PRIMARY KEY (pickup_location_id, prediction_hour_ts)
+                PRIMARY KEY (station_id, prediction_hour_ts)
             );
             """)
 
@@ -184,14 +186,14 @@ def sync_predictions_to_postgres(
         # ---------------------------------------------------------
         # Expanded the insert statement block and upsert conflict resolutions to handle metadata fields
         upsert_query = """
-            INSERT INTO hourly_demand_predictions (
-                pickup_location_id, prediction_hour_ts, scored_at_ts, model_name, model_version,
+            INSERT INTO station_hourly_demand_predictions (
+                station_id, prediction_hour_ts, scored_at_ts, model_name, model_version,
                 predicted_class, predicted_label, prob_class_0, prob_class_1, prob_class_2,
                 baseline_predicted_class, mlflow_run_id, feature_window_end_ts,
                 threshold_q25, threshold_q75, penalty_version,
                 actual_class, actual_ride_count, model_penalty, baseline_penalty
             ) VALUES %s
-            ON CONFLICT (pickup_location_id, prediction_hour_ts) DO UPDATE SET
+            ON CONFLICT (station_id, prediction_hour_ts) DO UPDATE SET
                 scored_at_ts = EXCLUDED.scored_at_ts,
                 model_name = EXCLUDED.model_name,
                 model_version = EXCLUDED.model_version,

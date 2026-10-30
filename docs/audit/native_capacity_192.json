@@ -1,0 +1,270 @@
+{
+  "stage_192": {
+    "prepare": {
+      "correctness_passed": true,
+      "stations": 192,
+      "raw_rows_scanned": 38820660,
+      "raw_rows_selected": 3368448,
+      "matrix_rows": {
+        "train": 1654272,
+        "validation": 1681920
+      },
+      "max_open_raw_writers": 8,
+      "max_station_history_rows": 17544,
+      "max_stream_batch_rows": 4096,
+      "max_carry_rows": 168,
+      "input_hashes_unchanged": true,
+      "status": "complete",
+      "phase": "prepare",
+      "phase_work_seconds": 490.9128565599967,
+      "memory": {
+        "elapsed_seconds": 490.9282956520037,
+        "kernel_container_peak_bytes": 199876608,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "prepare": {
+            "current_bytes": 152100864,
+            "anon_bytes": 143028224,
+            "file_bytes": 1470464,
+            "working_set_bytes": 150700032,
+            "process_rss_bytes": 247754752
+          },
+          "raw_extraction": {
+            "current_bytes": 172818432,
+            "anon_bytes": 162885632,
+            "file_bytes": 1470464,
+            "working_set_bytes": 171421696,
+            "process_rss_bytes": 270635008
+          },
+          "streamed_features_and_matrix_write": {
+            "current_bytes": 199569408,
+            "anon_bytes": 188751872,
+            "file_bytes": 1474560,
+            "working_set_bytes": 198168576,
+            "process_rss_bytes": 298344448
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "192",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "construct": {
+      "correctness_passed": true,
+      "train_rows": 1654272,
+      "validation_rows": 1681920,
+      "feature_order": [
+        "lag_1h",
+        "lag_2h",
+        "lag_24h",
+        "lag_168h",
+        "rolling_6h_mean",
+        "rolling_6h_std",
+        "rolling_24h_mean",
+        "rolling_24h_std",
+        "hour_of_day_sin",
+        "hour_of_day_cos",
+        "day_of_week_sin",
+        "day_of_week_cos",
+        "is_weekend",
+        "station_code"
+      ],
+      "training_only_bin_sampling": true,
+      "validation_references_training_bins": true,
+      "train_sampled_rows": 200000,
+      "train_batch_reads": 404,
+      "validation_sampled_rows": 0,
+      "validation_batch_reads": 411,
+      "max_native_input_batch_rows": 4096,
+      "binaries": {
+        "train.bin": "61aff44d828ccae83040fdf2bb42a747b8945f743945000f73b353bc938da4d6",
+        "validation.bin": "4b828c85acd4ea61946d9c4c3f53e7dd468ab212f1bb4e69db1474448d002de8"
+      },
+      "native_bin_counts": [
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        63,
+        14,
+        15,
+        7,
+        5,
+        2,
+        63
+      ],
+      "status": "complete",
+      "phase": "construct",
+      "phase_work_seconds": 16.986079275986413,
+      "memory": {
+        "elapsed_seconds": 16.989191476022825,
+        "kernel_container_peak_bytes": 439627776,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "sequence_native_construction": {
+            "current_bytes": 439627776,
+            "anon_bytes": 231145472,
+            "file_bytes": 200212480,
+            "working_set_bytes": 239448064,
+            "process_rss_bytes": 530190336
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "192",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "fit": {
+      "correctness_passed": true,
+      "fit_seconds": 15.671035868988838,
+      "rounds": 100,
+      "model_sha256": "da977b71e6918c79193d6441d6328549327520468c150bc7841c2645410ebc68",
+      "first_train_poisson": 0.17148512478999905,
+      "last_train_poisson": -1.7764803144879724,
+      "validation_rmse_last": 2.363242660019281,
+      "checkpoint_iterations": [
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "native_binary_reload_label_order_passed": true,
+      "early_stopping_or_hpo": false,
+      "calibration_performed": false,
+      "policy_guard_certification": "not evaluated; resource/correctness capacity stage only",
+      "status": "complete",
+      "phase": "fit",
+      "phase_work_seconds": 28.633529397979146,
+      "memory": {
+        "elapsed_seconds": 28.637656184990192,
+        "kernel_container_peak_bytes": 285130752,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "binary_reload": {
+            "current_bytes": 230043648,
+            "anon_bytes": 216563712,
+            "file_bytes": 6656000,
+            "working_set_bytes": 224972800,
+            "process_rss_bytes": 321667072
+          },
+          "model_fitting": {
+            "current_bytes": 285130752,
+            "anon_bytes": 269991936,
+            "file_bytes": 6766592,
+            "working_set_bytes": 278396928,
+            "process_rss_bytes": 376901632
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "192",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    },
+    "export": {
+      "correctness_passed": true,
+      "prediction_rows": {
+        "train": 1654272,
+        "validation": 1681920
+      },
+      "metrics": {
+        "train": {
+          "rows": 1654272,
+          "mae": 1.2752941587271143,
+          "rmse": 2.307031648556254,
+          "wape": 0.5405008398352584
+        },
+        "validation": {
+          "rows": 1681920,
+          "mae": 1.276772157491735,
+          "rmse": 2.3632426600198246,
+          "wape": 0.5451692155188366
+        }
+      },
+      "prediction_seconds": 6.199190004001139,
+      "prediction_rows_per_second": 538165.7922803985,
+      "all_row_keys_labels_and_feature_order_passed": true,
+      "max_prediction_batch_rows": 4096,
+      "status": "complete",
+      "phase": "export",
+      "phase_work_seconds": 43.07722106599249,
+      "memory": {
+        "elapsed_seconds": 43.082029226992745,
+        "kernel_container_peak_bytes": 237273088,
+        "memory_limit_bytes": 2147483648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "phase_sampled_peaks": {
+          "batched_prediction_and_retention": {
+            "current_bytes": 237268992,
+            "anon_bytes": 128331776,
+            "file_bytes": 100954112,
+            "working_set_bytes": 137134080,
+            "process_rss_bytes": 328216576
+          },
+          "export": {
+            "current_bytes": 123183104,
+            "anon_bytes": 117125120,
+            "file_bytes": 0,
+            "working_set_bytes": 123183104,
+            "process_rss_bytes": 207331328
+          }
+        },
+        "sample_interval_seconds": 0.02
+      },
+      "stage": "192",
+      "larger_stages_enabled": false,
+      "read_2026": false,
+      "deployment_performed": false
+    }
+  },
+  "observed_vs_projected": {
+    "prepare": {
+      "observed_peak_bytes": 199876608,
+      "prior_projection_bytes": 256823874,
+      "ratio": 0.778263347900437
+    },
+    "construct": {
+      "observed_peak_bytes": 439627776,
+      "prior_projection_bytes": 532431248,
+      "ratio": 0.8256986749958748
+    },
+    "fit": {
+      "observed_peak_bytes": 285130752,
+      "prior_projection_bytes": 341319902,
+      "ratio": 0.8353768717535844
+    },
+    "export": {
+      "observed_peak_bytes": 237273088,
+      "prior_projection_bytes": 287619784,
+      "ratio": 0.82495398856151
+    }
+  },
+  "projection_384_bytes_with_25_percent_margin": {
+    "prepare": 259461120,
+    "construct": 944143360,
+    "fit": 548812800,
+    "export": 428748800
+  },
+  "projection_basis": "96/192 measured phase peaks linearly extrapolated to 384, with 25 percent margin; estimates only",
+  "recommend_controlled_384_authorization_resource_only": true,
+  "native_and_export_metrics_agree": true,
+  "protected_artifact_hashes_unchanged": true,
+  "source_inputs_unchanged": true,
+  "prediction_hashes_verified": true,
+  "larger_stages_enabled": false,
+  "operational_policy_guard_certification": false,
+  "read_2026": false,
+  "deployment_performed": false
+}

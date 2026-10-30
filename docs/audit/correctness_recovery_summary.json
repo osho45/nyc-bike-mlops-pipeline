@@ -1,0 +1,372 @@
+{
+  "date_local": "2026-10-27",
+  "status": "bounded_correctness_and_recovery_passed",
+  "browser_before": {
+    "All History": {
+      "displayed_records": 1000,
+      "api_total_count": null,
+      "api_page_count": 1000,
+      "cutoff_exclusive": null
+    },
+    "7 Days": {
+      "displayed_records": 169,
+      "api_total_count": null,
+      "api_page_count": 1000,
+      "cutoff_exclusive": null
+    },
+    "10 Days": {
+      "displayed_records": 241,
+      "api_total_count": null,
+      "api_page_count": 1000,
+      "cutoff_exclusive": null
+    },
+    "14 Days": {
+      "displayed_records": 337,
+      "api_total_count": null,
+      "api_page_count": 1000,
+      "cutoff_exclusive": null
+    }
+  },
+  "browser_after": {
+    "All History": {
+      "displayed_records": 1009,
+      "api_total_count": 1009,
+      "cutoff_exclusive": null
+    },
+    "7 Days": {
+      "displayed_records": 168,
+      "api_total_count": 168,
+      "cutoff_exclusive": "2024-11-05T00:00:00+00:00"
+    },
+    "10 Days": {
+      "displayed_records": 240,
+      "api_total_count": 240,
+      "cutoff_exclusive": "2024-11-02T00:00:00+00:00"
+    },
+    "14 Days": {
+      "displayed_records": 336,
+      "api_total_count": 336,
+      "cutoff_exclusive": "2024-10-29T00:00:00+00:00"
+    }
+  },
+  "fixtures_synthetic_for_windows_and_corrections": true,
+  "live_genuine_sources": {
+    "january_rows": 20000,
+    "february_rows": 2000,
+    "february_bytes_transferred": 1048890
+  },
+  "asset_runs": {
+    "bronze": [
+      {
+        "run_id": "asset_triggered__2026-10-27T21:43:42.432907+00:00_rcHDQfXT",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:47:17.979944+00:00_EksqKqPX",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:49:54.526881+00:00_qIepjQx8",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:51:11.401032+00:00_UtvXVo9Y",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      }
+    ],
+    "silver": [
+      {
+        "run_id": "asset_triggered__2026-10-27T21:44:38.889977+00:00_8IvG94Yf",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:47:35.854377+00:00_EIFuxMtM",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:50:04.908452+00:00_NzKOtP5s",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:51:32.005553+00:00_eGXLFfUG",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      }
+    ],
+    "bi": [
+      {
+        "run_id": "asset_triggered__2026-10-27T21:45:32.256936+00:00_bPiaboWD",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:48:04.796690+00:00_xMD7fkUR",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:50:16.790941+00:00_y4Xo0vbZ",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:51:51.499638+00:00_ZkUJbL0T",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      }
+    ],
+    "ml": [
+      {
+        "run_id": "asset_triggered__2026-10-27T21:45:32.256921+00:00_1igoUpKT",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:48:04.796694+00:00_I4t3Ldbg",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:50:16.790949+00:00_8Qdd8GnK",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      },
+      {
+        "run_id": "asset_triggered__2026-10-27T21:51:51.499642+00:00_g5aSa9ka",
+        "state": "success",
+        "attempts": [
+          1
+        ]
+      }
+    ]
+  },
+  "batch_publications": {
+    "bronze/citibike_rides_raw": {
+      "rows": 22000,
+      "metadata_version": "4",
+      "snapshot_id": 8273462788589188178,
+      "months": {
+        "2024-01": {
+          "rows": 20000,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244"
+          ]
+        },
+        "2024-02": {
+          "rows": 2000,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "808a60b10f97a8d0944f22ae8a02405b48da19320c68a376586bdb1f871904b6"
+          ]
+        }
+      }
+    },
+    "silver/citibike_rides": {
+      "rows": 21986,
+      "metadata_version": "3",
+      "snapshot_id": 9175442686744269373,
+      "months": {
+        "2024-01": {
+          "rows": 19986,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244"
+          ]
+        },
+        "2024-02": {
+          "rows": 2000,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "808a60b10f97a8d0944f22ae8a02405b48da19320c68a376586bdb1f871904b6"
+          ]
+        }
+      }
+    },
+    "quarantine/citibike_rides": {
+      "rows": 14,
+      "metadata_version": "3",
+      "snapshot_id": 7556711474984396846,
+      "months": {
+        "2024-01": {
+          "rows": 14,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244"
+          ]
+        }
+      }
+    },
+    "gold/station_hourly_utilization": {
+      "rows": 19600,
+      "metadata_version": "3",
+      "snapshot_id": 4367782145381365257,
+      "months": {
+        "2024-01": {
+          "rows": 17794,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244"
+          ],
+          "rides": 19986
+        },
+        "2024-02": {
+          "rows": 1806,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "808a60b10f97a8d0944f22ae8a02405b48da19320c68a376586bdb1f871904b6"
+          ],
+          "rides": 2000
+        }
+      }
+    },
+    "gold/station_hourly_observations": {
+      "rows": 632210,
+      "metadata_version": "3",
+      "snapshot_id": 7865139055650571800,
+      "months": {
+        "2024-01": {
+          "rows": 546481,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "4954ee134282588a584cede1b9da6990a7bda88dadff12e1f80ce9f25fe2b244"
+          ],
+          "rides": 19986
+        },
+        "2024-02": {
+          "rows": 85729,
+          "revisions": [
+            1
+          ],
+          "checksums": [
+            "808a60b10f97a8d0944f22ae8a02405b48da19320c68a376586bdb1f871904b6"
+          ],
+          "rides": 2000
+        }
+      }
+    },
+    "audit/ingestion_ledger": {
+      "rows": 2,
+      "metadata_version": "3",
+      "snapshot_id": 4435146617596146892
+    }
+  },
+  "corrected_january_revision_2_rows": 19985,
+  "stale_and_ordered_replay_snapshot_equality": true,
+  "precommit_sigkill_exit": 137,
+  "postcommit_sigkill_exit": 137,
+  "precommit_preserved_revision": 2,
+  "postcommit_preserved_revision": 3,
+  "resume_preserved_silver_snapshot": true,
+  "resumed_months": {
+    "2024-01": {
+      "rows": 19984,
+      "revisions": [
+        3
+      ],
+      "checksums": [
+        "93d19ef18e47b06f425482de607d818936d99be052ddd7a63f22ab90b9076070"
+      ]
+    },
+    "2024-02": {
+      "rows": 2000,
+      "revisions": [
+        1
+      ],
+      "checksums": [
+        "808a60b10f97a8d0944f22ae8a02405b48da19320c68a376586bdb1f871904b6"
+      ]
+    }
+  },
+  "restored_spark_totals": {
+    "silver": 21984,
+    "gold_bi": 21984,
+    "gold_ml": 21984
+  },
+  "iceberg_backup_files_verified": 286,
+  "postgres_crash_and_fresh_database_restore_equal": {
+    "predictions": 1009,
+    "prediction_hash": "d0bd92fae8b07ff6113fe78a17b20adaf6666f4927f4fd8a04abc230a07515f8",
+    "recovery_probe": [
+      [
+        1,
+        "committed-must-survive"
+      ]
+    ]
+  },
+  "original_datasets_and_checkpoint_fingerprints_preserved": true,
+  "registered_dags": 15,
+  "import_errors": 0,
+  "tests": {
+    "tests": 90,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "passed": 88
+  },
+  "pipeline_models_trained": 0,
+  "full_month_ingested": false,
+  "committed_or_pushed": false,
+  "full_month_readiness": "Ready for controlled sequential ETL validation in a fresh warehouse; full-month runtime/memory and production reliability remain unverified",
+  "limits": [
+    "Only bounded January/February trip inputs were ingested",
+    "Correction versions are controlled fixtures, not official republished archives",
+    "Backups were taken with writers quiesced and restored on the same host/logical paths",
+    "No host-wide power-loss, disaster-site restore or full Airflow metadata restore was performed",
+    "Docker memory remains 3.673 GiB; stop fixture services or increase budget before full-month execution",
+    "Source revisions are operator-declared; official archives do not provide this project revision sequence"
+  ]
+}

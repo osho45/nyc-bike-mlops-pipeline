@@ -1,0 +1,141 @@
+{
+  "status": "preparation_complete_no_model_execution",
+  "observed_stations": 2471,
+  "eligible_stations": 1898,
+  "unsupported_stations": 573,
+  "development_source_rows": 38820660,
+  "eligible_raw_rows": {
+    "train": 16672032,
+    "validation": 16626480
+  },
+  "eligible_feature_rows": {
+    "train": 16353168,
+    "validation": 16626480
+  },
+  "row_volume_basis": "all eligible stations have complete 8784/8760-hour calendars; 168 training warmup hours each; saved annual integrity gates required before use",
+  "expected_guard_checks": 9490,
+  "capacity": {
+    "train_rows": 16353168,
+    "validation_rows": 16626480,
+    "float32_train_matrix_bytes": 915777408,
+    "float32_train_and_validation_features_labels_bytes": 1978778880,
+    "estimated_one_train_dataframe_bytes": 2240384016,
+    "dataframe_bytes_per_row_assumption": 137,
+    "not_included": "native bins, gradients, raw buffers, pandas copies, model, interpreter and OS cache; not a measured training peak"
+  },
+  "benchmarks": [
+    {
+      "station_id": "3019.02",
+      "source_rows": 17544,
+      "feature_rows": 17376,
+      "load_sort_seconds": 0.02706525000394322,
+      "stream_features_and_write_seconds": 0.951438998003141,
+      "feature_parity_passed": true,
+      "max_input_rows": 4096,
+      "max_raw_carry_rows": 168
+    },
+    {
+      "station_id": "5579.04",
+      "source_rows": 17544,
+      "feature_rows": 17376,
+      "load_sort_seconds": 0.03619370599335525,
+      "stream_features_and_write_seconds": 0.9261199650063645,
+      "feature_parity_passed": true,
+      "max_input_rows": 4096,
+      "max_raw_carry_rows": 168
+    },
+    {
+      "station_id": "7979.17",
+      "source_rows": 17544,
+      "feature_rows": 17376,
+      "load_sort_seconds": 0.035687636001966894,
+      "stream_features_and_write_seconds": 0.9161552180012222,
+      "feature_parity_passed": true,
+      "max_input_rows": 4096,
+      "max_raw_carry_rows": 168
+    },
+    {
+      "station_id": "4792.03",
+      "source_rows": 17544,
+      "feature_rows": 17376,
+      "load_sort_seconds": 0.037913694002781995,
+      "stream_features_and_write_seconds": 0.9298331720056012,
+      "feature_parity_passed": true,
+      "max_input_rows": 4096,
+      "max_raw_carry_rows": 168
+    },
+    {
+      "station_id": "5436.11",
+      "source_rows": 17544,
+      "feature_rows": 17376,
+      "load_sort_seconds": 0.03645272200810723,
+      "stream_features_and_write_seconds": 1.067337005995796,
+      "feature_parity_passed": true,
+      "max_input_rows": 4096,
+      "max_raw_carry_rows": 168
+    },
+    {
+      "station_id": "6450.05",
+      "source_rows": 17544,
+      "feature_rows": 17376,
+      "load_sort_seconds": 0.03298317198641598,
+      "stream_features_and_write_seconds": 1.0375816579908133,
+      "feature_parity_passed": true,
+      "max_input_rows": 4096,
+      "max_raw_carry_rows": 168
+    }
+  ],
+  "eligibility_seconds": 5.667132070011576,
+  "stream_feature_rows_per_second": 17887.38232252911,
+  "linear_feature_processing_reference_seconds": 1843.7380833785962,
+  "feature_reference_caveat": "six warm-cache station files, external bucket sort/global raw sharding excluded; not a full-network runtime measurement",
+  "recorded_validation_reduction_seconds": 0.7471686760109151,
+  "recorded_validation_reduction_rows": 420480,
+  "streamed_metrics_match_saved": true,
+  "old_48_station_fit_seconds": 1.7599688169866567,
+  "linear_training_time_reference_seconds": 69.59210030501404,
+  "training_reference_caveat": "arithmetic extrapolation only; native dataset memory, histogram construction, IO and nonlinear scaling unmeasured; no training performed",
+  "constant_action_calibrators_in_48_training_states": 15,
+  "bounded_feature_parity_passed": true,
+  "memmap_probe_rows": 8616,
+  "full_network_matrix_written": false,
+  "model_training_calls": 0,
+  "model_predict_calls": 0,
+  "read_2026_outcomes": false,
+  "elapsed_seconds": 23.908120098989457,
+  "peak_cgroup_bytes": 95801344,
+  "cgroup_limit_bytes": 2147483648,
+  "process_peak_rss_bytes": 165167104,
+  "cgroup_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "development_inputs_unchanged": true,
+  "eligibility_exclusions": {
+    "basis": "cached 2024/2025 station-month aggregates only",
+    "nonexclusive_failure_counts": {
+      "missing_months": 573,
+      "below_8000_annual_hours": 463,
+      "below_50_annual_positive_hours": 243,
+      "below_500_season_hours": 399,
+      "below_10_season_positive_hours": 401
+    },
+    "counts_overlap": true
+  },
+  "annual_gate_evidence": {
+    "2024": {
+      "verified": true,
+      "gold_ml_rows": 19567940,
+      "gap_oracle_matches": true,
+      "duplicate_station_hours": 0,
+      "invalid_feature_values": 0,
+      "population_profile_hours_reconcile": true
+    },
+    "2025": {
+      "verified": true,
+      "gold_ml_rows": 19252720,
+      "gap_oracle_matches": true,
+      "duplicate_station_hours": 0,
+      "invalid_feature_values": 0,
+      "population_profile_hours_reconcile": true
+    }
+  },
+  "estimates_are_not_full_network_training_measurements": true
+}

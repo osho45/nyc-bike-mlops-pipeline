@@ -1,0 +1,241 @@
+{
+  "status": "stopped_validation_guards",
+  "deployment_performed": false,
+  "test_previously_inspected": true,
+  "test_used_for_selection": false,
+  "coverage": {
+    "observed_stations": 2471,
+    "eligible_stations": 1898,
+    "selected_stations": 48,
+    "requested_maximum": 48,
+    "strata": 12,
+    "per_stratum": 4,
+    "selection_uses_test": false,
+    "reduction_reason": "Equal allocation across 3 demand bands x 4 training-seasonality strata; at most 50 stations",
+    "eligible_training_mean_range": [
+      0.05225409836065574,
+      18.605646630236794
+    ],
+    "selected_training_mean_range": [
+      0.05225409836065574,
+      16.011042805100182
+    ],
+    "selected_zero_fraction_range": [
+      0.06944444444444442,
+      0.9598132969034608
+    ]
+  },
+  "rows": {
+    "train": 413568,
+    "validation": 420480
+  },
+  "validation": {
+    "lightgbm_poisson": {
+      "rows": 420480,
+      "actual_rides": 1093876.0,
+      "mae": 1.3394718369012701,
+      "rmse": 2.502124723556197,
+      "wape": 0.5148857073198846,
+      "mean_operational_penalty": 2.1297802511415527,
+      "total_operational_penalty": 895530.0,
+      "decision_accuracy": 0.8350956050228311,
+      "zero_demand_rows": 214098,
+      "zero_demand_high_action_rate": 0.018799801959850163,
+      "zero_demand_mean_penalty": 0.4419471456996329,
+      "confusion_actual_rows_action_columns": [
+        [
+          9150,
+          7716,
+          20
+        ],
+        [
+          2057,
+          305811,
+          21218
+        ],
+        [
+          1,
+          38327,
+          36180
+        ]
+      ]
+    },
+    "last_hour": {
+      "rows": 420480,
+      "actual_rides": 1093876.0,
+      "mae": 1.5631088280060883,
+      "rmse": 3.2753838354315654,
+      "wape": 0.6008505534448146,
+      "mean_operational_penalty": 2.6316352739726026,
+      "total_operational_penalty": 1106550.0,
+      "decision_accuracy": 0.789794996194825,
+      "zero_demand_rows": 214098,
+      "zero_demand_high_action_rate": 0.0760025782585545,
+      "zero_demand_mean_penalty": 0.9521807770273426,
+      "confusion_actual_rows_action_columns": [
+        [
+          11028,
+          5787,
+          71
+        ],
+        [
+          5796,
+          284960,
+          38330
+        ],
+        [
+          65,
+          38338,
+          36105
+        ]
+      ]
+    },
+    "previous_day": {
+      "rows": 420480,
+      "actual_rides": 1093876.0,
+      "mae": 1.6706216704718417,
+      "rmse": 3.610389189926721,
+      "wape": 0.6421779068194201,
+      "mean_operational_penalty": 2.7280132229832574,
+      "total_operational_penalty": 1147075.0,
+      "decision_accuracy": 0.7829100076103501,
+      "zero_demand_rows": 214098,
+      "zero_demand_high_action_rate": 0.07730104905230314,
+      "zero_demand_mean_penalty": 0.9731991891563676,
+      "confusion_actual_rows_action_columns": [
+        [
+          10864,
+          5765,
+          257
+        ],
+        [
+          5754,
+          283686,
+          39646
+        ],
+        [
+          241,
+          39619,
+          34648
+        ]
+      ]
+    },
+    "previous_week": {
+      "rows": 420480,
+      "actual_rides": 1093876.0,
+      "mae": 1.6153824200913243,
+      "rmse": 3.4698589369912374,
+      "wape": 0.6209442386522787,
+      "mean_operational_penalty": 2.6748240106544903,
+      "total_operational_penalty": 1124710.0,
+      "decision_accuracy": 0.7875523211567732,
+      "zero_demand_rows": 214098,
+      "zero_demand_high_action_rate": 0.07656774000691272,
+      "zero_demand_mean_penalty": 0.973712972563966,
+      "confusion_actual_rows_action_columns": [
+        [
+          10787,
+          5675,
+          424
+        ],
+        [
+          5538,
+          284794,
+          38754
+        ],
+        [
+          319,
+          38620,
+          35569
+        ]
+      ]
+    }
+  },
+  "guard_count": 240,
+  "validation_guard_failures": 4,
+  "fit_seconds": 1.7599688169866567,
+  "calibration_seconds": 0.7894060149992583,
+  "reused_holdout_evaluated": false,
+  "input_hashes_unchanged": true,
+  "elapsed_seconds": 82.82099913200364,
+  "peak_cgroup_bytes": 429281280,
+  "cgroup_limit_bytes": 2147483648,
+  "process_peak_rss_bytes": 528949248,
+  "cgroup_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "validation_failed_checks": [
+    {
+      "station_id": "4440.02",
+      "season": "fall",
+      "dimension": "season",
+      "hours": 2185,
+      "positive_hours": 454,
+      "zero_fraction": 0.7922196796338673,
+      "week_blocks": 13,
+      "policy_penalty": 1.6384439359267735,
+      "baseline_penalty": 1.6933638443935928,
+      "mean_delta": -0.05491990846681922,
+      "cluster_standard_error": 0.06219403682553755,
+      "upper_one_sided_bound": 0.05592774940293183,
+      "tolerance": 0.05,
+      "support_sufficient": true,
+      "identical_to_baseline": false,
+      "passes": false
+    },
+    {
+      "station_id": "4689.03",
+      "season": "fall",
+      "dimension": "season",
+      "hours": 2185,
+      "positive_hours": 1765,
+      "zero_fraction": 0.19221967963386727,
+      "week_blocks": 13,
+      "policy_penalty": 3.720823798627002,
+      "baseline_penalty": 3.7528604118993134,
+      "mean_delta": -0.032036613272311214,
+      "cluster_standard_error": 0.16677290686433202,
+      "upper_one_sided_bound": 0.26520066325145064,
+      "tolerance": 0.07505720823798627,
+      "support_sufficient": true,
+      "identical_to_baseline": false,
+      "passes": false
+    },
+    {
+      "station_id": "4945.06",
+      "season": "fall",
+      "dimension": "season",
+      "hours": 2185,
+      "positive_hours": 1218,
+      "zero_fraction": 0.4425629290617849,
+      "week_blocks": 13,
+      "policy_penalty": 4.146453089244852,
+      "baseline_penalty": 4.016018306636155,
+      "mean_delta": 0.13043478260869565,
+      "cluster_standard_error": 0.1710172974031233,
+      "upper_one_sided_bound": 0.4352367835710609,
+      "tolerance": 0.08032036613272311,
+      "support_sufficient": true,
+      "identical_to_baseline": false,
+      "passes": false
+    },
+    {
+      "station_id": "4945.06",
+      "season": "summer",
+      "dimension": "season",
+      "hours": 2208,
+      "positive_hours": 1198,
+      "zero_fraction": 0.45742753623188404,
+      "week_blocks": 14,
+      "policy_penalty": 4.0353260869565215,
+      "baseline_penalty": 4.076086956521739,
+      "mean_delta": -0.04076086956521739,
+      "cluster_standard_error": 0.1459172417859317,
+      "upper_one_sided_bound": 0.21764884696378023,
+      "tolerance": 0.08152173913043478,
+      "support_sufficient": true,
+      "identical_to_baseline": false,
+      "passes": false
+    }
+  ],
+  "validation_annual_checks": 48,
+  "validation_season_checks": 192
+}

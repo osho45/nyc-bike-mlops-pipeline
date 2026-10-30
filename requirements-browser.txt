@@ -1,0 +1,2 @@
+# Optional real-browser validation; not required by production images.
+playwright==1.55.0

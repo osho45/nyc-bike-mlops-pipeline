@@ -1,0 +1,23 @@
+﻿CREATE TABLE IF NOT EXISTS station_hourly_demand_predictions (
+    station_id TEXT NOT NULL,
+    prediction_hour_ts TIMESTAMPTZ NOT NULL,
+    scored_at_ts TIMESTAMPTZ,
+    model_name TEXT,
+    model_version TEXT,
+    predicted_class INTEGER,
+    predicted_label TEXT,
+    prob_class_0 DOUBLE PRECISION,
+    prob_class_1 DOUBLE PRECISION,
+    prob_class_2 DOUBLE PRECISION,
+    baseline_predicted_class INTEGER,
+    mlflow_run_id TEXT,
+    feature_window_end_ts TIMESTAMPTZ,
+    threshold_q25 DOUBLE PRECISION,
+    threshold_q75 DOUBLE PRECISION,
+    penalty_version TEXT,
+    actual_class INTEGER,
+    actual_ride_count INTEGER,
+    model_penalty DOUBLE PRECISION,
+    baseline_penalty DOUBLE PRECISION,
+    PRIMARY KEY (station_id,prediction_hour_ts)
+);

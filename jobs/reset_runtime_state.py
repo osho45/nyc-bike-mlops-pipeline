@@ -14,13 +14,14 @@ logging.basicConfig(
 logger = logging.getLogger("reset_runtime_state")
 
 
-def reset_environment(config_path: str | None = None) -> None:
+def reset_environment(config_path: str | None = None, confirm: bool = False) -> None:
+    if not confirm:raise ValueError("Destructive reset disabled unless explicitly confirmed")
     """Drops the Iceberg table completely from disk and clears the PostgreSQL cache table."""
     cfg = load_config(config_path)
 
     # 1. Resolve Target Table Identifiers
-    catalog = cfg.get("catalog", {}).get("spark_catalog_name", "nyc")
-    predictions_table = f"{catalog}.predictions.hourly_demand_predictions"
+    catalog = cfg.get("catalog", {}).get("spark_catalog_name", "citibike")
+    predictions_table = f"{catalog}.predictions.station_hourly_demand_predictions"
 
     logger.info("Starting absolute state and table file purge across the platform...")
 
@@ -51,13 +52,8 @@ def reset_environment(config_path: str | None = None) -> None:
 
     # 3. Purge PostgreSQL Operational Cache Table
     logger.info("Connecting to operational network service cache layer via Psycopg2...")
-    pg_conn_string = (
-        "host=operational_cache_postgres "
-        "dbname=operational_cache "
-        "user=cache_user "
-        "password=cache_password "
-        "port=5432"
-    )
+    from jobs.persistence import postgres_dsn
+    pg_conn_string = postgres_dsn()
 
     try:
         connection = psycopg2.connect(pg_conn_string)
@@ -65,9 +61,9 @@ def reset_environment(config_path: str | None = None) -> None:
 
         # We DROP the table entirely here as well to match the absolute reset intent
         logger.info(
-            "🧹 Executing structural DROP TABLE on PostgreSQL: hourly_demand_predictions..."
+            "🧹 Executing structural DROP TABLE on PostgreSQL: station_hourly_demand_predictions..."
         )
-        cursor.execute("DROP TABLE IF EXISTS hourly_demand_predictions;")
+        cursor.execute("DROP TABLE IF EXISTS station_hourly_demand_predictions;")
 
         connection.commit()
         logger.info("🟢 PostgreSQL operational cache table safely destroyed.")
@@ -96,7 +92,7 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        reset_environment(config_path=args.config)
+        reset_environment(config_path=args.config, confirm=False)
     except Exception:
         sys.exit(1)
 
